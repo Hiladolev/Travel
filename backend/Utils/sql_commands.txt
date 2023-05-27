@@ -1,0 +1,54 @@
+create vacations table
+=========================
+CREATE TABLE IF NOT EXISTS travel.vacations (
+  vacationCode INT NOT NULL AUTO_INCREMENT,
+  destination VARCHAR(256) NOT NULL,
+  description VARCHAR(256) NOT NULL,
+  startDate VARCHAR(45) NOT NULL,
+  endDate VARCHAR(45) NOT NULL,
+  price INT NOT NULL,
+  imageFile VARCHAR(45) NOT NULL,
+  PRIMARY KEY (vacationCode),
+  UNIQUE INDEX vacationCode_UNIQUE (vacationCode ASC) VISIBLE);
+
+
+create users table
+=========================
+CREATE TABLE IF NOT EXISTS travel.users (
+  userCode INT NOT NULL AUTO_INCREMENT,
+  firstName VARCHAR(45) NOT NULL,
+  lastName VARCHAR(45) NOT NULL,
+  email VARCHAR(256) NOT NULL,
+  password VARCHAR(256) NOT NULL,
+  role VARCHAR(45) NOT NULL,
+  PRIMARY KEY (userCode),
+  UNIQUE INDEX userCode_UNIQUE (userCode ASC) VISIBLE);
+
+insert new data into vacations table
+======================================
+INSERT INTO travel.vacations
+(destination, description, startDate, endDate, price, imageFile) VALUES ('london', 'a place you can go all of the year', '12/5/23', '26/5/23', '3000', 'k');
+
+delete data 
+========================
+DELETE FROM travel.vacations WHERE vacationCode=1
+
+joining two tables - example from songs
+===========================
+SELECT songs.* , category.name as categoryName
+FROM songs JOIN category
+ON songs.category = category.id
+
+
+for updating specific coloum data
+===================================
+UPDATE travel.vacations SET  price = 2555 WHERE (vacationCode = 3 )
+
+update a whole vacation
+======================
+UPDATE travel.vacations  SET destination = bla, description = bla, startDate = bla, endDate = bla, price = 2556, imageFile = bla WHERE (vacationCode = 3)
+
+fixing mysql upgrade error (need to be run in workbench)
+============================================================
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345678';
+flush privileges;
