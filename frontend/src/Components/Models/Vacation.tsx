@@ -4,7 +4,7 @@ class Vacation {
   public startDate: Date;
   public endDate: Date;
   public price: number;
-  public image: string;
+  public image: File;
   public id?: number;
 
   constructor(
@@ -13,7 +13,7 @@ class Vacation {
     startDate: Date,
     endDate: Date,
     price: number,
-    image: string,
+    image: File,
     id?: number
   ) {
     this.destination = destination;

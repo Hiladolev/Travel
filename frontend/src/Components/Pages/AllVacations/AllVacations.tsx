@@ -12,7 +12,7 @@ function AllVacations(): JSX.Element {
   const [vacationsPerPage, setVacationsPerPage] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [refresh, setRefresh] = useState(false);
-  // const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState<Record<number, number>>({});
   // const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -38,13 +38,21 @@ function AllVacations(): JSX.Element {
   // Change page ---------currentVacations(array)
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const handleLikesClick = (id: number) => {
+    setLikes((prevLikes) => ({
+      ...prevLikes,
+      [id]: (prevLikes[id] || 0) + 1,
+    }));
+  };
+
   return (
     <div className="AllVacations">
       <Box sx={{ width: "100%" }}>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {currentVacations.map((item) => (
             <SingleVac
-              // value={likes}
+              likes={likes[item.id] || 0}
+              value={likes[item.id] || 0}
               key={item.id}
               destination={item.destination}
               description={item.description}
@@ -52,7 +60,8 @@ function AllVacations(): JSX.Element {
               endDate={item.endDate}
               price={item.price}
               image={item.image}
-              // onClick={() => setLikes(likes + 1)}
+              onClick={() => handleLikesClick(item.id)}
+              id={item.id}
             />
           ))}
         </Grid>

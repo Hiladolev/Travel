@@ -7,14 +7,16 @@ import Grid from "@mui/material/Grid";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 interface vacProps {
-  // value: number;
+  id: number;
+  likes: number;
+  value: number;
   destination: string;
   description: string;
   startDate: Date;
   endDate: Date;
   price: number;
-  image: string;
-  // onClick: () => void;
+  image: File;
+  onClick: (id: number) => void;
 }
 
 const formatDate = (date: Date): string => {
@@ -23,10 +25,15 @@ const formatDate = (date: Date): string => {
   return `${myNewDate[2]}/${myNewDate[1]}/${myNewDate[0]}`;
 };
 
+const likes: Record<number, number> = {}; // Object to store like counts
+
 function SingleVac(props: vacProps): JSX.Element {
-  // const likesHandler = () => {
-  //   props.onClick();
-  // };
+  const likesHandler = () => {
+    props.onClick(props.id);
+  };
+
+  const cardLikes = likes[props.id] || 0;
+
   return (
     <Grid item xs={3}>
       <Card
@@ -43,15 +50,15 @@ function SingleVac(props: vacProps): JSX.Element {
             left: 10,
             background: "white",
           }}
-          // onClick={likesHandler}
+          onClick={likesHandler}
         >
-          {/* {props.value} */}
+          {props.value}
           <FavoriteIcon />
         </Button>
         <CardMedia
           component="img"
           height="190"
-          src={props.image}
+          // src={props.image}
           alt={props.destination}
         />
 

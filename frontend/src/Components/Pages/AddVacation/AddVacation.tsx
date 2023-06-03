@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { travel } from "../../Redux/TravelApp";
 import axios from "axios";
 import { addVacationAction } from "../../Redux/VacationReducer";
+import FormData from "form-data";
 
 function AddVacation(): JSX.Element {
   const navigate = useNavigate();
@@ -16,10 +17,17 @@ function AddVacation(): JSX.Element {
   } = useForm<Vacation>();
 
   const addNewVacation = (newVacation: Vacation) => {
-    travel.dispatch(addVacationAction(newVacation));
-    axios
-      .post("http://localhost:4000/api/v1/images/addVacation", newVacation)
-      .then((response) => navigate("/"));
+    console.log(newVacation);
+    const vac = new FormData();
+    vac.append("destination", newVacation.destination);
+    vac.append("description", newVacation.description);
+    vac.append("startDate", newVacation.startDate.toString());
+    vac.append("endDate", newVacation.endDate.toString());
+    vac.append("price", newVacation.price.toString());
+    vac.append("image", newVacation.image);
+    // travel.dispatch(addVacationAction(newVacation));
+    axios.post("http://localhost:4000/api/v1/images/addVacation", vac);
+    // .then((response) => navigate("/"));
   };
 
   return (
@@ -62,16 +70,16 @@ function AddVacation(): JSX.Element {
           <div style={{ color: "red" }}>Limit Price is $10,000</div>
         )}
         <br /> <br />
-        {/* <Button variant="contained" component="label" {...register("image")}>
+        <Button variant="contained" component="label" {...register("image")}>
           Cover Image
-          <input hidden accept="image/*" multiple type="file" />
-        </Button> */}
-        <TextField
+          <input hidden accept="image/*" type="file" name="image" />
+        </Button>
+        {/* <TextField
           label="Image"
           variant="outlined"
           required
           {...register("image")}
-        />
+        /> */}
         <br />
         <br />
         <Button type="submit">Add Vacation</Button>
