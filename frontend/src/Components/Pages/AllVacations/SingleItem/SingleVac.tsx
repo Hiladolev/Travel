@@ -15,7 +15,7 @@ interface vacProps {
   startDate: Date;
   endDate: Date;
   price: number;
-  image: File;
+  image: string;
   onClick: (id: number) => void;
 }
 
@@ -58,7 +58,7 @@ function SingleVac(props: vacProps): JSX.Element {
         <CardMedia
           component="img"
           height="190"
-          // src={props.image}
+          src={props.image}
           alt={props.destination}
         />
 

@@ -8,17 +8,15 @@ import storage from "../Utils/storage";
 
 const router = express.Router();
 const upload = multer({ storage: storage });
-// router.post()
+
 router.post(
   "/addVacation",
   upload.single("image"),
   async (request: Request, response: Response) => {
     console.log(request.file);
-    const { image, ...newVacation } = request.body;
-    // console.log("new vacation is:", newVacation);
+    const newVacation = { ...request.body, image: request.file?.filename };
     const result = await vacationLogic.addVacation(newVacation);
-    response.send("image s");
-    // response.status(201).json(result);
+    response.status(201).json(result);
   }
 );
 

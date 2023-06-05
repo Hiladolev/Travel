@@ -17,18 +17,17 @@ function AddVacation(): JSX.Element {
   } = useForm<Vacation>();
 
   const addNewVacation = (newVacation: Vacation) => {
-    console.log(newVacation);
     const vac = new FormData();
     vac.append("destination", newVacation.destination);
     vac.append("description", newVacation.description);
     vac.append("startDate", newVacation.startDate.toString());
     vac.append("endDate", newVacation.endDate.toString());
     vac.append("price", newVacation.price.toString());
-    vac.append("image", newVacation.image);
-    travel.dispatch(addVacationAction(newVacation));
+    vac.append("image", (newVacation.image as unknown as FileList).item(0));
     axios
       .post("http://localhost:4000/api/v1/images/addVacation", vac)
       .then((response) => navigate("/"));
+    travel.dispatch(addVacationAction(newVacation));
   };
 
   return (
