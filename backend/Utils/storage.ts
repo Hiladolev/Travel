@@ -2,11 +2,10 @@ import multer from "multer";
 import path from "path";
 
 const storage = multer.diskStorage({
-  destination: "./images",
-  // destination(req: any, file: any, callback: any) {
-  //   console.log("req", req, file);
-  //   callback(null, "images");
-  // },
+  destination(req: any, file: any, callback: any) {
+    console.log("req", req, file);
+    callback(null, "images");
+  },
   filename: async (req: any, file: any, callback: any) => {
     console.log("file", file);
     const vacationId = req.params.id;

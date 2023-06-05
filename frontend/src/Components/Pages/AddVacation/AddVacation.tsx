@@ -25,9 +25,10 @@ function AddVacation(): JSX.Element {
     vac.append("endDate", newVacation.endDate.toString());
     vac.append("price", newVacation.price.toString());
     vac.append("image", newVacation.image);
-    // travel.dispatch(addVacationAction(newVacation));
-    axios.post("http://localhost:4000/api/v1/images/addVacation", vac);
-    // .then((response) => navigate("/"));
+    travel.dispatch(addVacationAction(newVacation));
+    axios
+      .post("http://localhost:4000/api/v1/images/addVacation", vac)
+      .then((response) => navigate("/"));
   };
 
   return (
@@ -74,12 +75,6 @@ function AddVacation(): JSX.Element {
           Cover Image
           <input hidden accept="image/*" type="file" name="image" />
         </Button>
-        {/* <TextField
-          label="Image"
-          variant="outlined"
-          required
-          {...register("image")}
-        /> */}
         <br />
         <br />
         <Button type="submit">Add Vacation</Button>
