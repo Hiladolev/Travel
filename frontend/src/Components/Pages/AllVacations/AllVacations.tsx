@@ -19,7 +19,7 @@ function AllVacations(): JSX.Element {
     if (travel.getState().vacations.allVacations.length < 1) {
       console.log("getting data from backend....");
       axios
-        .get("http://localhost:4000/api/v1/images/allVacations")
+        .get("http://localhost:4000/api/v1/vacations/allVacations")
         .then((response) => {
           travel.dispatch(downloadVacationsAction(response.data));
 

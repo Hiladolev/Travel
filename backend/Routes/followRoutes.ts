@@ -1,11 +1,11 @@
 import express, { NextFunction, Request, Response } from "express";
-import followerLogic from "../Logic/followerMYSQL"
+import followerLogic from "../Logic/followerMYSQL";
 
 const followersRouter = express.Router();
 
-// followersRouter.post("/like",
-// async (request:Request, response: Response, next: NextFunction)=> {
-// const like = +request.body;
-// const result = await followerLogic.addLike(like);
-
-// })
+// followersRouter.post(
+//     "/addLike",
+//     async (request: Request, response: Response, next: NextFunction) => {
+//         const like =
+//     }
+// )

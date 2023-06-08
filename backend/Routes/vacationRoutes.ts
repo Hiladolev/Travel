@@ -12,8 +12,8 @@ const upload = multer({ storage: storage });
 router.post(
   "/addVacation",
   upload.single("image"),
-  async (request: Request, response: Response) => {
-    console.log(request.file);
+  async (request: Request, response: Response, next: NextFunction) => {
+    console.log("request.file", request.file);
     const newVacation = { ...request.body, image: request.file?.filename };
     const result = await vacationLogic.addVacation(newVacation);
     response.status(201).json(result);
@@ -49,14 +49,6 @@ router.put(
   "/edit",
   async (request: Request, response: Response, next: NextFunction) => {
     response.status(202).json(await vacationLogic.updateVacation(request.body));
-  }
-);
-
-router.post(
-  "/:vacationId/upload",
-  upload.single("image"),
-  (request: Request, response: Response, next: NextFunction) => {
-    response.send("image uploaded");
   }
 );
 

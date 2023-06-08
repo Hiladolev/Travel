@@ -24,10 +24,10 @@ function AddVacation(): JSX.Element {
     vac.append("endDate", newVacation.endDate.toString());
     vac.append("price", newVacation.price.toString());
     vac.append("image", (newVacation.image as unknown as FileList).item(0));
+    // travel.dispatch(addVacationAction(newVacation));
     axios
-      .post("http://localhost:4000/api/v1/images/addVacation", vac)
+      .post("http://localhost:4000/api/v1/vacations/addVacation", vac)
       .then((response) => navigate("/"));
-    travel.dispatch(addVacationAction(newVacation));
   };
 
   return (

@@ -6,6 +6,7 @@ import Page404 from "../../Pages/Page404/Page404";
 import Edit from "../../Pages/Edit/Edit";
 import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Register/Register";
+import Home from "../../Pages/Home/Home";
 
 function MainRoute(): JSX.Element {
   return (
@@ -13,10 +14,9 @@ function MainRoute(): JSX.Element {
       <Routes>
         <Route path="/add" element={<Add />} />
         <Route path="/edit" element={<Edit />} />
-        <Route path="/" element={<AllVacations />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="/" element={<Home />} /> */}
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>

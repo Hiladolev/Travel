@@ -19,7 +19,7 @@ function Edit(): JSX.Element {
   const editNewVacation = (newVacation: Vacation) => {
     travel.dispatch(updateVacationAction(newVacation));
     axios
-      .post("http://localhost:4000/api/v1/images/edit", newVacation)
+      .post("http://localhost:4000/api/v1/vacations/edit", newVacation)
       .then((response) => navigate("/"));
   };
 

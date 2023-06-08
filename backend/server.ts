@@ -32,7 +32,7 @@ server.use("/images", express.static("images"));
 server.use(bodyParser.json());
 
 //how to use the routes
-server.use("/api/v1/images", vacationRouter);
+server.use("/api/v1/vacations", vacationRouter);
 server.use("/api/v1/users", userRouter);
 
 //create our tables + FK if they not exists

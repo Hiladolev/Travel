@@ -58,18 +58,25 @@ function SingleVac(props: vacProps): JSX.Element {
         <CardMedia
           component="img"
           height="190"
-          src={props.image}
+          src={`http://localhost:4000/images/${props.image}`}
           alt={props.destination}
         />
-
         <CardContent>
-          <Typography variant="h4">{props.destination}</Typography>
+          <Typography variant="h5">{props.destination}</Typography>
           <Typography variant="body2" color="text.secondary">
             {formatDate(props.startDate)} - {formatDate(props.endDate)} <br />
             {props.description}
           </Typography>
         </CardContent>
-        <Button color="primary" variant="contained">
+        <Button
+          style={{
+            position: "absolute",
+            bottom: 10,
+            left: 10,
+          }}
+          color="primary"
+          variant="contained"
+        >
           ${props.price}
         </Button>
       </Card>
