@@ -1,5 +1,5 @@
+import "./Admin.css";
 import { useEffect, useState } from "react";
-import "./AllVacations.css";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Pagination from "../../Models/Pagination";
@@ -9,29 +9,19 @@ import { downloadVacationsAction } from "../../Redux/VacationReducer";
 import Vacation from "../../Models/Vacation";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
-import SingleVac from "./SingleItem/SingleVac";
+import SingleVacAdmin from "./SingleVacAdmin/SingleVacAdmin";
 import { sortBy } from "lodash";
+import { useNavigate } from "react-router-dom";
 
-function AllVacations(): JSX.Element {
-  const [refresh, setRefresh] = useState(false);
-  useEffect(() => {
-    if (travel.getState().vacations.allVacations.length < 1) {
-      console.log("getting data from backend....");
-      axios
-        .get("http://localhost:4000/api/v1/vacations/allVacations")
-        .then((response) => {
-          travel.dispatch(downloadVacationsAction(response.data));
-          setRefresh(!refresh);
-        });
-    }
-  }, []);
+function Admin(): JSX.Element {
   const allVacations = travel.getState().vacations.allVacations;
   const sorted = sortBy(allVacations, "startDate");
   const [vacationsPerPage, setVacationsPerPage] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [refresh, setRefresh] = useState(false);
   const [likes, setLikes] = useState<Record<number, number>>({});
   const [vacationsArray, setVacationsArray] = useState<Vacation[]>(sorted);
+  const navigate = useNavigate();
 
   const futureVacationsFilter = sorted.filter((vacation: Vacation) => {
     const stringToDate = new Date(vacation.startDate);
@@ -53,81 +43,36 @@ function AllVacations(): JSX.Element {
     indexOfFirstVacation,
     indexOfLastVacation
   );
-  const handleFutureVacations = () => {
-    setVacationsArray(futureVacationsFilter);
-  };
-  const handleActiveVacations = () => {
-    setVacationsArray(activeVacationsFilter);
-  };
   const handleAllVacations = () => {
     setVacationsArray(sorted);
   };
-  // switch(vacationsArray){
-  //   case 1:
-  // return futureVacationsFilter;
-  //     break;
-  //   case activeVacations:
-  //     return totalVacations;
-  //     break;
-  //   case default:
-  // totalVacations;
-  // }
+
+  useEffect(() => {
+    if (travel.getState().vacations.allVacations.length < 1) {
+      console.log("getting data from backend....");
+      axios
+        .get("http://localhost:4000/api/v1/vacations/allVacations")
+        .then((response) => {
+          travel.dispatch(downloadVacationsAction(response.data));
+
+          setRefresh(!refresh);
+        });
+    }
+  }, []);
 
   // Change page ---------currentVacations(array)
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const handleLikesClick = (id: number) => {
-    setLikes((prevLikes) => ({
-      ...prevLikes,
-      [id]: (prevLikes[id] || 0) + 1,
-    }));
+  const editVacation = (id: number) => {
+    navigate(`/edit/${id}`);
   };
 
   return (
-    <div className="AllVacations">
+    <div className="Admin">
       <Box sx={{ width: "100%" }}>
-        <ButtonGroup>
-          <Button
-            size="small"
-            style={{
-              position: "absolute",
-              top: 430,
-              left: 10,
-              background: "white",
-            }}
-            onClick={handleFutureVacations}
-          >
-            Future Vacations
-          </Button>
-          <Button
-            size="small"
-            style={{
-              position: "absolute",
-              top: 430,
-              left: 180,
-              background: "white",
-            }}
-            onClick={handleActiveVacations}
-          >
-            Active
-          </Button>
-          <Button
-            size="small"
-            style={{
-              position: "absolute",
-              top: 430,
-              left: 260,
-              background: "white",
-            }}
-            onClick={handleAllVacations}
-          >
-            All Vacations
-          </Button>
-        </ButtonGroup>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {currentVacations.map((item) => (
-            <SingleVac
-              likes={likes[item.id] || 0}
+            <SingleVacAdmin
               value={likes[item.id] || 0}
               key={item.id}
               destination={item.destination}
@@ -136,8 +81,8 @@ function AllVacations(): JSX.Element {
               endDate={item.endDate}
               price={item.price}
               image={item.image}
-              onClick={() => handleLikesClick(item.id)}
               id={item.id}
+              edit={() => editVacation(item.id)}
             />
           ))}
         </Grid>
@@ -151,4 +96,4 @@ function AllVacations(): JSX.Element {
   );
 }
 
-export default AllVacations;
+export default Admin;

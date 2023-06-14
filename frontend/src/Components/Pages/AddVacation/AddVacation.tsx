@@ -1,15 +1,41 @@
 import Vacation from "../../Models/Vacation";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { travel } from "../../Redux/TravelApp";
 import axios from "axios";
 import { addVacationAction } from "../../Redux/VacationReducer";
 import FormData from "form-data";
+import { useEffect, useState } from "react";
 
 function AddVacation(): JSX.Element {
+  const [selectedFile, setSelectedFile] = useState();
+  const [preview, setPreview] = useState<undefined | string>();
+
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+
+  const onSelectFile = (e: any) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile(e.target.files[0]);
+  };
   const {
     register,
     handleSubmit,
@@ -32,7 +58,10 @@ function AddVacation(): JSX.Element {
 
   return (
     <div className="Add">
-      <h2>Add New Vacation</h2>
+      <Typography variant="h4" gutterBottom>
+        Add Vacation
+      </Typography>
+
       <form onSubmit={handleSubmit(addNewVacation)}>
         <TextField
           label="Destination"
@@ -72,9 +101,19 @@ function AddVacation(): JSX.Element {
         <br /> <br />
         <Button variant="contained" component="label" {...register("image")}>
           Cover Image
-          <input hidden accept="image/*" type="file" name="image" />
+          <input
+            hidden
+            accept="image/*"
+            type="file"
+            name="image"
+            onChange={onSelectFile}
+          />
         </Button>
-        <br />
+        {selectedFile && (
+          <span>
+            <img src={preview} width={200} />
+          </span>
+        )}
         <br />
         <Button type="submit">Add Vacation</Button>
       </form>

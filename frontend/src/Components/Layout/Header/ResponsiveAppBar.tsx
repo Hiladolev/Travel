@@ -12,10 +12,13 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LuggageIcon from "@mui/icons-material/Luggage";
+import { useNavigate } from "react-router-dom";
 
-const pages = ["Add Vacation", "edit"];
+const pages = ["Add Vacation", "edit", "future Vacations"];
+const logout = "Logout";
 
 function ResponsiveAppBar() {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -30,12 +33,20 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  // const handleAddPage = () => {
+  //   navigate("/add");
+  // };
+  // const handleEditPage = () => {
+  //   navigate("/edit");
+  // };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogoutClicked = () => {
+    localStorage.removeItem("account");
+    navigate("/guest");
   };
 
   return (
@@ -61,7 +72,7 @@ function ResponsiveAppBar() {
             Paradise Seekers
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -96,9 +107,9 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
-          <LuggageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
+          </Box> */}
+          {/* <LuggageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -115,17 +126,20 @@ function ResponsiveAppBar() {
             }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              onClick={() => navigate("/add")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {pages[0]}
+            </Button>
+            <Button
+              onClick={() => navigate("/edit")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {pages[1]}
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -149,7 +163,13 @@ function ResponsiveAppBar() {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-            ></Menu>
+            >
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center" onClick={handleLogoutClicked}>
+                  {logout}
+                </Typography>
+              </MenuItem>
+            </Menu>
           </Box>
         </Toolbar>
       </Container>

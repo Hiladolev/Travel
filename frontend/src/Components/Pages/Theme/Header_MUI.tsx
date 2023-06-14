@@ -23,15 +23,6 @@ function Header_MUI(): JSX.Element {
             Escape to a world of breathtaking beauty and unforgettable
             adventures with our exclusive vacation experiences.{" "}
           </Typography>
-          {/* <Typography
-            variant="h5"
-            align="center"
-            color="text.secondary"
-            paragraph
-          >
-            Escape to a world of breathtaking beauty and unforgettable
-            adventures with our exclusive vacation experiences.
-          </Typography> */}
         </Container>
       </Box>
     </div>

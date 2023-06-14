@@ -55,20 +55,22 @@ const createUsersTable = () => {
   const response = dal_mysql.execute(SQLcommand);
 };
 
-const checkIfEmailExist = async (email: string) => {
+const checkIfEmailExist = async (email: string): Promise<boolean> => {
   const SQLcommand = `
-    SELECT COUNT(email)
+    SELECT COUNT(*) AS count
     FROM travel.users
-    WHERE email = ${email}
+    WHERE email = '${email}'
     `;
-  return await dal_mysql.execute(SQLcommand);
+  const result = await dal_mysql.execute(SQLcommand);
+  return result[0].count > 0;
 };
 
-const getUserByEmailNPassword = async (user: User) => {
+const getUserByEmailNPassword = async (user: User): Promise<string> => {
   const SQLcommand = `
     SELECT * FROM users WHERE email = '${user.email}' AND password = '${user.password}'
     `;
-  return await dal_mysql.execute(SQLcommand);
+  const result = await dal_mysql.execute(SQLcommand);
+  return result[0] || null;
 };
 export default {
   createUsersTable,

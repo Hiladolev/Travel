@@ -1,7 +1,6 @@
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
-// import fileUpload from "express-fileUpload";
 import vacationLogic from "./Logic/vacationLogicMYSQL";
 import ErrorHandler from "./MiddleWare/route-not-found";
 import config from "./Utils/Config";
@@ -11,6 +10,7 @@ import userLogic from "./Logic/userLogicMYSQL";
 import followerLogic from "./Logic/followerMYSQL";
 import multer from "multer";
 import storage from "./Utils/storage";
+import followersRouter from "./Routes/followRoutes";
 
 //create server
 const server = express();
@@ -34,6 +34,7 @@ server.use(bodyParser.json());
 //how to use the routes
 server.use("/api/v1/vacations", vacationRouter);
 server.use("/api/v1/users", userRouter);
+server.use("/api/v1/followers", followersRouter);
 
 //create our tables + FK if they not exists
 console.log("check if tables exists...");

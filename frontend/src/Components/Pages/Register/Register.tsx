@@ -6,22 +6,11 @@ import "./Register.css";
 import { useEffect, useState } from "react";
 import { travel } from "../../Redux/TravelApp";
 import axios from "axios";
-import { addUserAction, downloadUsersAction } from "../../Redux/UserReducer";
+import { addUserAction, userLoginAction } from "../../Redux/UserReducer";
 
 function Register(): JSX.Element {
   const navigate = useNavigate();
   const [emailAlreadyExist, setEmailAlreadyExist] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (travel.getState().users.allUsers.length < 1) {
-      console.log("getting data from backend....");
-      axios
-        .post("http://localhost:4000/api/v1/users/allUsers")
-        .then((response) => {
-          travel.dispatch(downloadUsersAction(response.data));
-        });
-    }
-  }, []);
 
   const [email, setEmail] = useState({
     value: "",
@@ -52,17 +41,31 @@ function Register(): JSX.Element {
   } = useForm<Account>();
 
   const addNewUser = async (newAccount: Account) => {
-    const emailExistInDB = travel
-      .getState()
-      .users.allUsers.filter((item) => item.email === newAccount.email);
-    if (emailExistInDB.length > 0) {
-      setEmailAlreadyExist(true);
-    } else {
-      setEmailAlreadyExist(false);
-      travel.dispatch(addUserAction(newAccount));
-      axios
-        .post("http://localhost:4000/api/v1/users/register", newAccount)
-        .then((response) => navigate("/"));
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/users/checkIfEmailExist",
+        { email: newAccount.email }
+      );
+      if (response.data) {
+        setEmailAlreadyExist(true);
+      } else {
+        setEmailAlreadyExist(false);
+        await axios
+          .post("http://localhost:4000/api/v1/users/register", newAccount)
+          .then((response) => {
+            travel.dispatch(
+              userLoginAction(
+                newAccount.firstName,
+                newAccount.lastName,
+                "user",
+                response.data.insertId
+              )
+            );
+          });
+        navigate("/vacations");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

@@ -7,23 +7,23 @@ import Account from "../../Models/Account";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { travel } from "../../Redux/TravelApp";
-import { downloadUsersAction } from "../../Redux/UserReducer";
+// import { downloadUsersAction } from "../../Redux/UserReducer";
 
 function Login(): JSX.Element {
   const navigate = useNavigate();
   const [emailNotExist, setEmailNotExist] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
 
-  useEffect(() => {
-    if (travel.getState().users.allUsers.length < 1) {
-      console.log("getting data from backend....");
-      axios
-        .post("http://localhost:4000/api/v1/users/allUsers")
-        .then((response) => {
-          travel.dispatch(downloadUsersAction(response.data));
-        });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (travel.getState().users.allUsers.length < 1) {
+  //     console.log("getting data from backend....");
+  //     axios
+  //       .post("http://localhost:4000/api/v1/users/allUsers")
+  //       .then((response) => {
+  //         travel.dispatch(downloadUsersAction(response.data));
+  //       });
+  //   }
+  // }, []);
 
   const [email, setEmail] = useState({
     value: "",
@@ -59,6 +59,7 @@ function Login(): JSX.Element {
         setEmailNotExist(false);
         if (item.password === existingAccount.password) {
           setWrongPassword(false);
+          localStorage.setItem("account", JSON.stringify(existingAccount));
           axios
             .post("http://localhost:4000/api/v1/users/login", existingAccount)
             .then((response) => navigate("/"));
