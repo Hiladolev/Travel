@@ -55,4 +55,11 @@ followersRouter.get(
   }
 );
 
+followersRouter.get(
+  "/allFollowers",
+  async (request: Request, response: Response, next: NextFunction) => {
+    response.status(200).json(await followerLogic.getAllFollowers());
+  }
+);
+
 export default followersRouter;

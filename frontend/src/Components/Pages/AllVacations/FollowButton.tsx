@@ -6,31 +6,24 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface FollowProps {
-  value: number;
+  // value: number;
   vacationId: number;
 }
+
 function FollowButton(props: FollowProps): JSX.Element {
   const [selected, setSelected] = useState<boolean>(false);
-  const [follow, setFollow] = useState<boolean | undefined>(undefined);
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
-  const userId: number = currentUser.id;
-
-  const followedVacation = () => {
-    axios
-      .get(
-        `http://localhost:4000/api/v1/followers/followedOrNot/${userId}/${props.vacationId}`
-      )
-      .then((response) => {
-        return setFollow(response.data);
-      });
-  };
+  const [followersVal, setFollowersVal] = useState<number>(0);
+  const followers = useSelector(
+    (state: RootState) => state.followers.allFollowers
+  );
   useEffect(() => {
-    followedVacation();
-    if (follow) {
-      setSelected(true);
-    }
+    const count = followers.filter(
+      (follower) => follower.vacationId === props.vacationId
+    ).length;
+    setFollowersVal(count);
   }, []);
   return (
     <ToggleButton
@@ -49,7 +42,7 @@ function FollowButton(props: FollowProps): JSX.Element {
       }}
     >
       <FavoriteIcon />
-      {props.value}
+      {followersVal}
     </ToggleButton>
   );
 }

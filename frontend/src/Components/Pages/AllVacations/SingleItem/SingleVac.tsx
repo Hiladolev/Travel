@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 
 interface vacProps {
   id: number;
-  value: number;
+  // value: number;
   destination: string;
   description: string;
   startDate: Date;
@@ -29,23 +29,22 @@ const formatDate = (date: Date): string => {
 };
 
 function SingleVac(props: vacProps): JSX.Element {
-  const [followersVal, setFollowersVal] = useState<number>(0);
-  const fetchFollowers = () => {
-    axios
-      .get(
-        `http://localhost:4000/api/v1/followers/getFollowersByVacationId/${props.id}`
-      )
-      .then((response) => setFollowersVal(response.data));
-  };
+  // const fetchFollowers = () => {
+  //   axios
+  //     .get(
+  //       `http://localhost:4000/api/v1/followers/getFollowersByVacationId/${props.id}`
+  //     )
+  //     .then((response) => setFollowersVal(response.data));
+  // };
 
-  useEffect(() => {
-    if (travel.getState().followers.allFollowers.length < 1) {
-      fetchFollowers();
-    }
-    // const followers = useSelector(
-    //   (state: RootState) => state.followers.allFollowers
-    // );
-  }, []);
+  // useEffect(() => {
+  //   if (travel.getState().followers.allFollowers.length < 1) {
+  //     fetchFollowers();
+  //   }
+  //   // const followers = useSelector(
+  //   //   (state: RootState) => state.followers.allFollowers
+  //   // );
+  // }, []);
 
   return (
     <Grid item xs={3}>
@@ -68,7 +67,7 @@ function SingleVac(props: vacProps): JSX.Element {
           {props.value}
           <FavoriteIcon />
         </Button> */}
-        <FollowButton vacationId={props.id} value={followersVal} />
+        <FollowButton vacationId={props.id} />
         <CardMedia
           component="img"
           height="190"

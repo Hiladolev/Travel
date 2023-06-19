@@ -12,9 +12,12 @@ import { sortBy } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { downloadVacationsAction } from "../../Redux/VacationReducer";
 import axios from "axios";
+import { downloadFollowers } from "../../Redux/FollowerReducer";
+import Follower from "../../Models/Follower";
 
 function AllVacations(): JSX.Element {
   const dispatch = useDispatch();
+  const [followersByVac, setFollowersByVac] = useState<number>(0);
   const fetchVacations = () => {
     console.log("getting vacations from backend....");
     axios
@@ -26,14 +29,39 @@ function AllVacations(): JSX.Element {
         console.error("Error fetching data: ", error);
       });
   };
+  const getFollowers = () => {
+    axios
+      .get("http://localhost:4000/api/v1/followers/allFollowers")
+      .then((response) => {
+        dispatch(downloadFollowers(response.data));
+      });
+  };
   useEffect(() => {
     if (travel.getState().vacations.allVacations.length < 1) {
       fetchVacations();
     }
   }, []);
+  useEffect(() => {
+    if (travel.getState().followers.allFollowers.length < 1) {
+      getFollowers();
+    }
+  }, []);
+
   const allVacations: Vacation[] = useSelector(
     (state: RootState) => state.vacations.allVacations
   );
+  const allFollowers: Follower[] = useSelector(
+    (state: RootState) => state.followers.allFollowers
+  );
+
+  // const vacationFollowers = (vacationId: number) => {
+  //   const result = allFollowers.filter(
+  //     (follower) => follower.vacationId === vacationId
+  //   ).length;
+  // };
+  // useEffect(() => {
+  //   vacationFollowers();
+  // }, []);
   const sorted = sortBy(allVacations, "startDate");
   const vacationsPerPage: number = 10;
   const [currentPage, setCurrentPage] = useState(1);
@@ -119,7 +147,6 @@ function AllVacations(): JSX.Element {
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {currentVacations.map((item) => (
             <SingleVac
-              value={0}
               key={item.id}
               destination={item.destination}
               description={item.description}

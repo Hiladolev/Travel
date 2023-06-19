@@ -60,6 +60,12 @@ const isVacationFollowedByUserId = async (
   return followed[0].count > 0;
 };
 
+const getAllFollowers = async () => {
+  const SQLcommand = `
+    SELECT * FROM travel.followers
+    `;
+  return await dal_mysql.execute(SQLcommand);
+};
 export default {
   createFollowersTable,
   addLike,
@@ -67,4 +73,5 @@ export default {
   followersByVacationId,
   followersByUserId,
   isVacationFollowedByUserId,
+  getAllFollowers,
 };
