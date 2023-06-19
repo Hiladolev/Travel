@@ -17,7 +17,9 @@ import Follower from "../../Models/Follower";
 
 function AllVacations(): JSX.Element {
   const dispatch = useDispatch();
-  const [followersByVac, setFollowersByVac] = useState<number>(0);
+  const currentUser = useSelector(
+    (state: RootState) => state.users.currentUser
+  );
   const fetchVacations = () => {
     console.log("getting vacations from backend....");
     axios
@@ -54,14 +56,6 @@ function AllVacations(): JSX.Element {
     (state: RootState) => state.followers.allFollowers
   );
 
-  // const vacationFollowers = (vacationId: number) => {
-  //   const result = allFollowers.filter(
-  //     (follower) => follower.vacationId === vacationId
-  //   ).length;
-  // };
-  // useEffect(() => {
-  //   vacationFollowers();
-  // }, []);
   const sorted = sortBy(allVacations, "startDate");
   const vacationsPerPage: number = 10;
   const [currentPage, setCurrentPage] = useState(1);
@@ -81,6 +75,14 @@ function AllVacations(): JSX.Element {
     const formatEndDate = moment(endDate, "DD/MM/YYYY");
     return moment().isBetween(formatStartDate, formatEndDate);
   });
+
+  const currentUserFollow = allFollowers.filter(
+    (follower) => follower.userId === currentUser.id
+  );
+  const followedVacations = currentUserFollow.map((item) => {
+    return sorted.find((vacation) => vacation.id === item.vacationId);
+  });
+
   // Get current vacations=>Pagination
   const indexOfLastVacation = currentPage * vacationsPerPage;
   const indexOfFirstVacation = indexOfLastVacation - vacationsPerPage;
@@ -96,6 +98,9 @@ function AllVacations(): JSX.Element {
   };
   const handleAllVacations = () => {
     setVacationsArray(sorted);
+  };
+  const handleFollowedVacations = () => {
+    setVacationsArray(followedVacations);
   };
 
   // Change page ---------currentVacations(array)
@@ -142,6 +147,18 @@ function AllVacations(): JSX.Element {
             onClick={handleAllVacations}
           >
             All Vacations
+          </Button>
+          <Button
+            size="small"
+            style={{
+              position: "absolute",
+              top: 430,
+              left: 400,
+              background: "white",
+            }}
+            onClick={handleFollowedVacations}
+          >
+            Followed
           </Button>
         </ButtonGroup>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

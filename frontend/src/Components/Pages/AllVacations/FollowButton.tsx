@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface FollowProps {
-  // value: number;
   vacationId: number;
 }
 
@@ -24,6 +23,16 @@ function FollowButton(props: FollowProps): JSX.Element {
       (follower) => follower.vacationId === props.vacationId
     ).length;
     setFollowersVal(count);
+
+    const currentUserFollow = followers.filter(
+      (follower) => follower.userId === currentUser.id
+    );
+    const followedByCurrentUser = currentUserFollow.find(
+      (follow) => follow.vacationId === props.vacationId
+    );
+    if (followedByCurrentUser) {
+      setSelected(true);
+    }
   }, []);
   return (
     <ToggleButton
