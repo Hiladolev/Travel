@@ -22,15 +22,15 @@ const createFollowersTable = () => {
   const response = dal_mysql.execute(SQLcommand);
 };
 
-const addLike = async (userId: number, vacationId: number) => {
+const addFollow = async (userId: number, vacationId: number) => {
   const SQLcommand = `
     INSERT INTO travel.followers (userId, vacationId) VALUES (${userId},${vacationId});
     `;
-  const response: OkPacket = await dal_mysql.execute(SQLcommand);
-  return response.insertId;
+  const result: OkPacket = await dal_mysql.execute(SQLcommand);
+  return result.insertId;
 };
 
-const unLike = (vacationId: number, userId: number) => {
+const unFollow = (vacationId: number, userId: number) => {
   const SQLcommand = `
     DELETE FROM travel.followers WHERE vacationId = ${vacationId} AND userId=${userId}`;
   dal_mysql.execute(SQLcommand);
@@ -68,8 +68,8 @@ const getAllFollowers = async () => {
 };
 export default {
   createFollowersTable,
-  addLike,
-  unLike,
+  addFollow,
+  unFollow,
   followersByVacationId,
   followersByUserId,
   isVacationFollowedByUserId,

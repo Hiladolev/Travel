@@ -4,21 +4,21 @@ import followerLogic from "../Logic/followerMYSQL";
 const followersRouter = express.Router();
 
 followersRouter.post(
-  "/addLike/:vacationId/:userId",
+  "/addFollow/:vacationId/:userId",
   async (request: Request, response: Response, next: NextFunction) => {
     const vacationId = +request.params.vacationId;
     const userId = +request.params.userId;
-    const result = await followerLogic.addLike(userId, vacationId);
-    response.status(200).json(result);
+    const followId = await followerLogic.addFollow(userId, vacationId);
+    response.status(200).json(followId);
   }
 );
 followersRouter.delete(
-  "/unLike/:vacationId/:userId",
+  "/unFollow/:vacationId/:userId",
   async (request: Request, response: Response, next: NextFunction) => {
     const vacationId = +request.params.vacationId;
     const userId = +request.params.userId;
-    const result = followerLogic.unLike(userId, vacationId);
-    response.status(204).json(result);
+    followerLogic.unFollow(userId, vacationId);
+    response.status(204);
   }
 );
 followersRouter.get(

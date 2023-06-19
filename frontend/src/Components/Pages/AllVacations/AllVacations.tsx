@@ -106,8 +106,6 @@ function AllVacations(): JSX.Element {
   // Change page ---------currentVacations(array)
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  // const handleLikesClick = (id: number) => {};
-
   return (
     <div className="AllVacations">
       <Box sx={{ width: "100%" }}>
