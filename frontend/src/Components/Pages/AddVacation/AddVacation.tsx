@@ -2,17 +2,29 @@ import Vacation from "../../Models/Vacation";
 import { Button, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { travel } from "../../Redux/TravelApp";
+import { RootState } from "../../Redux/TravelApp";
 import axios from "axios";
 import { addVacationAction } from "../../Redux/VacationReducer";
 import FormData from "form-data";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
 
 function AddVacation(): JSX.Element {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const allVacations = useSelector(
+    (state: RootState) => state.vacations.allVacations
+  );
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState<undefined | string>();
+  const today: string = moment().format("YYYY-MM-DD");
+  const [minStartDate, setMinStartDate] = useState<string>(today);
 
-  const navigate = useNavigate();
+  const onChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = moment(event.target.value).format("YYYY-MM-DD");
+    setMinStartDate(selectedDate);
+  };
 
   useEffect(() => {
     if (!selectedFile) {
@@ -50,10 +62,17 @@ function AddVacation(): JSX.Element {
     vac.append("endDate", newVacation.endDate.toString());
     vac.append("price", newVacation.price.toString());
     vac.append("image", (newVacation.image as unknown as FileList).item(0));
-    // travel.dispatch(addVacationAction(newVacation));
     axios
       .post("http://localhost:4000/api/v1/vacations/addVacation", vac)
-      .then((response) => navigate("/"));
+      .then((response) => {
+        const addedVacation = response.data;
+        const changedVac = {
+          ...addedVacation,
+          price: parseInt(addedVacation.price),
+        };
+        dispatch(addVacationAction(changedVac));
+        navigate("/admin");
+      });
   };
 
   return (
@@ -64,6 +83,9 @@ function AddVacation(): JSX.Element {
 
       <form onSubmit={handleSubmit(addNewVacation)}>
         <TextField
+          sx={{
+            width: 300,
+          }}
           label="Destination"
           variant="outlined"
           required
@@ -71,6 +93,9 @@ function AddVacation(): JSX.Element {
         />
         <br /> <br />
         <TextField
+          sx={{
+            width: 300,
+          }}
           id="outlined-multiline-static"
           multiline
           rows={2}
@@ -82,13 +107,17 @@ function AddVacation(): JSX.Element {
         <input
           required
           type="date"
-          min="2017-04-20"
+          min={today}
           {...register("startDate")}
+          onChange={onChangeStartDate}
         />
         <br /> <br />
-        <input type="date" {...register("endDate")} />
+        <input type="date" {...register("endDate")} min={minStartDate} />
         <br /> <br />
         <TextField
+          sx={{
+            width: 300,
+          }}
           label="Price"
           type="number"
           placeholder="$"
@@ -99,7 +128,7 @@ function AddVacation(): JSX.Element {
           <div style={{ color: "red" }}>Limit Price is $10,000</div>
         )}
         <br /> <br />
-        <Button variant="contained" component="label" {...register("image")}>
+        <Button component="label" {...register("image")}>
           Cover Image
           <input
             hidden
@@ -114,8 +143,10 @@ function AddVacation(): JSX.Element {
             <img src={preview} width={200} />
           </span>
         )}
-        <br />
-        <Button type="submit">Add Vacation</Button>
+        <br /> <br />
+        <Button type="submit" variant="contained">
+          Add Vacation
+        </Button>
       </form>
     </div>
   );

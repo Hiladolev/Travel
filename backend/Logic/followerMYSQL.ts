@@ -36,17 +36,28 @@ const unLike = (vacationId: number, userId: number) => {
   dal_mysql.execute(SQLcommand);
   return true;
 };
-const followersByVacationId = (vacationId: number) => {
+const followersByVacationId = async (vacationId: number) => {
   const SQLcommand = `
-    SELECT * travel.followers WHERE vacationId = ${vacationId}`;
-  dal_mysql.execute(SQLcommand);
-  return true;
+  SELECT COUNT(*) AS count
+  FROM travel.followers
+  WHERE vacationId = ${vacationId}`;
+  const followers = await dal_mysql.execute(SQLcommand);
+  return followers[0].count;
 };
-const followersByUserId = (userId: number) => {
+const followersByUserId = async (userId: number) => {
   const SQLcommand = `
-    SELECT * travel.followers WHERE userId = ${userId}`;
-  dal_mysql.execute(SQLcommand);
-  return true;
+    SELECT * FROM travel.followers WHERE userId = ${userId}`;
+  return await dal_mysql.execute(SQLcommand);
+};
+const isVacationFollowedByUserId = async (
+  vacationId: number,
+  userId: number
+): Promise<boolean> => {
+  const SQLcommand = `SELECT COUNT(*) AS count
+  FROM travel.followers
+  WHERE vacationId = ${vacationId} AND userId=${userId}`;
+  const followed = await dal_mysql.execute(SQLcommand);
+  return followed[0].count > 0;
 };
 
 export default {
@@ -55,4 +66,5 @@ export default {
   unLike,
   followersByVacationId,
   followersByUserId,
+  isVacationFollowedByUserId,
 };

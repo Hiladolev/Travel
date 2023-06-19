@@ -11,13 +11,14 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
 import Reports from "../../Pages/Reports/Reports";
 import Admin from "../../Pages/Admin/Admin";
+import { useEffect } from "react";
 
 function MainRoute(): JSX.Element {
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
   const status = currentUser.role;
-
+  console.log(currentUser);
   // const AdminPermission = () => {
   //   if (status === "admin") {
   //     return <Reports />;

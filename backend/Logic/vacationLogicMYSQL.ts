@@ -11,15 +11,25 @@ const addVacation = async (newVacation: Vacation) => {
   return result.insertId;
 };
 
-const updateVacation = async (vacation: Vacation) => {
+const updateVacationWithImage = async (vacation: Vacation) => {
   const SQLcommand = `
     UPDATE
     travel.vacations
     SET destination = '${vacation.destination}', description = '${vacation.description}', startDate = '${vacation.startDate}', endDate = '${vacation.endDate}', price = ${vacation.price}, image = '${vacation.image}'
     WHERE (id = ${vacation.id})  
     `;
-  await dal_mysql.execute(SQLcommand);
-  return true;
+  const result: OkPacket = await dal_mysql.execute(SQLcommand);
+  return result.insertId;
+};
+const updateVacation = async (vacation: Vacation) => {
+  const SQLcommand = `
+    UPDATE
+    travel.vacations
+    SET destination = '${vacation.destination}', description = '${vacation.description}', startDate = '${vacation.startDate}', endDate = '${vacation.endDate}', price = ${vacation.price}
+    WHERE (id = ${vacation.id})  
+    `;
+  const result: OkPacket = await dal_mysql.execute(SQLcommand);
+  return result.insertId;
 };
 
 const deleteVacation = (id: number) => {
@@ -65,4 +75,5 @@ export default {
   deleteVacation,
   updateVacation,
   addVacation,
+  updateVacationWithImage,
 };

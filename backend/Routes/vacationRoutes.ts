@@ -13,10 +13,9 @@ router.post(
   "/addVacation",
   upload.single("image"),
   async (request: Request, response: Response, next: NextFunction) => {
-    console.log("request.file", request.file);
     const newVacation = { ...request.body, image: request.file?.filename };
-    const result = await vacationLogic.addVacation(newVacation);
-    response.status(201).json(result);
+    const vacationId = await vacationLogic.addVacation(newVacation);
+    response.status(201).json({ id: vacationId, ...newVacation });
   }
 );
 
@@ -47,8 +46,26 @@ router.get(
 
 router.put(
   "/edit",
+  upload.single("image"),
   async (request: Request, response: Response, next: NextFunction) => {
-    response.status(202).json(await vacationLogic.updateVacation(request.body));
+    const updatedVacation = { ...request.body, image: request.file?.filename };
+    const lastVersionVacation = {
+      ...updatedVacation,
+      price: parseInt(updatedVacation.price),
+      id: parseInt(updatedVacation.id),
+    };
+    console.log(lastVersionVacation);
+    if (lastVersionVacation.image === undefined) {
+      const vacationId = await vacationLogic.updateVacation(
+        lastVersionVacation
+      );
+      response.status(202).json({ id: vacationId, ...lastVersionVacation });
+    } else {
+      const vacationId = await vacationLogic.updateVacationWithImage(
+        lastVersionVacation
+      );
+      response.status(202).json({ id: vacationId, ...lastVersionVacation });
+    }
   }
 );
 

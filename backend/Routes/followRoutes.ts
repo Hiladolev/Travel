@@ -31,12 +31,27 @@ followersRouter.get(
       );
   }
 );
+
 followersRouter.get(
   "/followersByUserId/:userId",
   async (request: Request, response: Response, next: NextFunction) => {
     response
       .status(200)
       .json(await followerLogic.followersByUserId(+request.params.userId));
+  }
+);
+
+followersRouter.get(
+  "/followedOrNot/:userId/:vacationId",
+  async (request: Request, response: Response, next: NextFunction) => {
+    response
+      .status(200)
+      .json(
+        await followerLogic.isVacationFollowedByUserId(
+          +request.params.vacationId,
+          +request.params.userId
+        )
+      );
   }
 );
 

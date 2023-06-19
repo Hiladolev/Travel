@@ -1,12 +1,8 @@
-import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -14,19 +10,20 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { travel } from "../../Redux/TravelApp";
+import { RootState, travel } from "../../Redux/TravelApp";
 import { useForm } from "react-hook-form";
 import Account from "../../Models/Account";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { adminLoginAction, userLoginAction } from "../../Redux/UserReducer";
+import { useDispatch, useSelector } from "react-redux";
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
   const [emailNotExist, setEmailNotExist] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState({
     value: "",
@@ -71,26 +68,27 @@ export default function SignIn() {
         );
         if (userMatched.data) {
           setWrongPassword(false);
-          const admin = existingAccount.email === "hiladolev1@gmail.com";
+          const userInfo = userMatched.data;
+          const admin = userInfo.email === "hiladolev1@gmail.com";
           if (admin) {
-            travel.dispatch(
+            dispatch(
               adminLoginAction(
-                existingAccount.firstName,
-                existingAccount.lastName,
-                existingAccount.role
+                userInfo.firstName,
+                userInfo.lastName,
+                userInfo.role
               )
             );
           } else {
-            travel.dispatch(
+            dispatch(
               userLoginAction(
-                existingAccount.firstName,
-                existingAccount.lastName,
-                existingAccount.role,
-                existingAccount.id
+                userInfo.firstName,
+                userInfo.lastName,
+                userInfo.role,
+                userInfo.id
               )
             );
           }
-          navigate("/");
+          navigate("/vacations");
         } else {
           setWrongPassword(true);
         }
@@ -179,7 +177,4 @@ export default function SignIn() {
       </Container>
     </ThemeProvider>
   );
-}
-function adminLogin(): any {
-  throw new Error("Function not implemented.");
 }

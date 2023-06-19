@@ -3,42 +3,49 @@ import "./AllVacations.css";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Pagination from "../../Models/Pagination";
-import axios from "axios";
-import { travel } from "../../Redux/TravelApp";
-import { downloadVacationsAction } from "../../Redux/VacationReducer";
+import { RootState, travel } from "../../Redux/TravelApp";
 import Vacation from "../../Models/Vacation";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
 import SingleVac from "./SingleItem/SingleVac";
 import { sortBy } from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+import { downloadVacationsAction } from "../../Redux/VacationReducer";
+import axios from "axios";
 
 function AllVacations(): JSX.Element {
-  const [refresh, setRefresh] = useState(false);
+  const dispatch = useDispatch();
+  const fetchVacations = () => {
+    console.log("getting vacations from backend....");
+    axios
+      .get("http://localhost:4000/api/v1/vacations/allVacations")
+      .then((response) => {
+        dispatch(downloadVacationsAction(response.data));
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  };
   useEffect(() => {
     if (travel.getState().vacations.allVacations.length < 1) {
-      console.log("getting data from backend....");
-      axios
-        .get("http://localhost:4000/api/v1/vacations/allVacations")
-        .then((response) => {
-          travel.dispatch(downloadVacationsAction(response.data));
-          setRefresh(!refresh);
-        });
+      fetchVacations();
     }
   }, []);
-  const allVacations = travel.getState().vacations.allVacations;
+  const allVacations: Vacation[] = useSelector(
+    (state: RootState) => state.vacations.allVacations
+  );
   const sorted = sortBy(allVacations, "startDate");
-  const [vacationsPerPage, setVacationsPerPage] = useState<number>(10);
+  const vacationsPerPage: number = 10;
   const [currentPage, setCurrentPage] = useState(1);
-
-  const [likes, setLikes] = useState<Record<number, number>>({});
   const [vacationsArray, setVacationsArray] = useState<Vacation[]>(sorted);
 
+  //Future Vacations
   const futureVacationsFilter = sorted.filter((vacation: Vacation) => {
     const stringToDate = new Date(vacation.startDate);
     const formatDate = moment(stringToDate, "DD/MM/YYYY");
     return formatDate.isAfter(moment());
   });
-
+  //Active Vacations
   const activeVacationsFilter = sorted.filter((vacation: Vacation) => {
     const startDate = new Date(vacation.startDate);
     const endDate = new Date(vacation.endDate);
@@ -46,7 +53,7 @@ function AllVacations(): JSX.Element {
     const formatEndDate = moment(endDate, "DD/MM/YYYY");
     return moment().isBetween(formatStartDate, formatEndDate);
   });
-  // Get current vacations
+  // Get current vacations=>Pagination
   const indexOfLastVacation = currentPage * vacationsPerPage;
   const indexOfFirstVacation = indexOfLastVacation - vacationsPerPage;
   const currentVacations = vacationsArray.slice(
@@ -62,26 +69,11 @@ function AllVacations(): JSX.Element {
   const handleAllVacations = () => {
     setVacationsArray(sorted);
   };
-  // switch(vacationsArray){
-  //   case 1:
-  // return futureVacationsFilter;
-  //     break;
-  //   case activeVacations:
-  //     return totalVacations;
-  //     break;
-  //   case default:
-  // totalVacations;
-  // }
 
   // Change page ---------currentVacations(array)
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const handleLikesClick = (id: number) => {
-    setLikes((prevLikes) => ({
-      ...prevLikes,
-      [id]: (prevLikes[id] || 0) + 1,
-    }));
-  };
+  // const handleLikesClick = (id: number) => {};
 
   return (
     <div className="AllVacations">
@@ -127,8 +119,7 @@ function AllVacations(): JSX.Element {
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {currentVacations.map((item) => (
             <SingleVac
-              likes={likes[item.id] || 0}
-              value={likes[item.id] || 0}
+              value={0}
               key={item.id}
               destination={item.destination}
               description={item.description}
@@ -136,7 +127,6 @@ function AllVacations(): JSX.Element {
               endDate={item.endDate}
               price={item.price}
               image={item.image}
-              onClick={() => handleLikesClick(item.id)}
               id={item.id}
             />
           ))}

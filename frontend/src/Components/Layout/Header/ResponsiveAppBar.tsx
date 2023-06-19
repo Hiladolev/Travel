@@ -14,7 +14,15 @@ import MenuItem from "@mui/material/MenuItem";
 import LuggageIcon from "@mui/icons-material/Luggage";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Add Vacation", "edit", "future Vacations"];
+const pages = [
+  "Add",
+  "Edit",
+  "Admin",
+  "Vacations",
+  "guest",
+  "Sign In",
+  "Register",
+];
 const logout = "Logout";
 
 function ResponsiveAppBar() {
@@ -45,8 +53,7 @@ function ResponsiveAppBar() {
   };
 
   const handleLogoutClicked = () => {
-    localStorage.removeItem("account");
-    navigate("/guest");
+    navigate("/login");
   };
 
   return (
@@ -139,6 +146,36 @@ function ResponsiveAppBar() {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               {pages[1]}
+            </Button>
+            <Button
+              onClick={() => navigate("/admin")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {pages[2]}
+            </Button>
+            <Button
+              onClick={() => navigate("/vacations")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {pages[3]}
+            </Button>
+            <Button
+              onClick={() => navigate("/guest")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {pages[4]}
+            </Button>
+            <Button
+              onClick={() => navigate("/login")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {pages[5]}
+            </Button>
+            <Button
+              onClick={() => navigate("/register")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {pages[6]}
             </Button>
           </Box>
 

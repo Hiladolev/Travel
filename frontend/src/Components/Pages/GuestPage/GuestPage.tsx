@@ -9,7 +9,6 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   minHeight: "100vh",
-  // background: 'url("your-background-image-url") no-repeat fixed',
   backgroundSize: "cover",
 }));
 

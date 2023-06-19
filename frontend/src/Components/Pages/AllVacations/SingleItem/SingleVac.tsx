@@ -4,11 +4,15 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button, CardHeader } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+
+import FollowButton from "../FollowButton";
+import { useEffect, useState } from "react";
+import { RootState, travel } from "../../../Redux/TravelApp";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 interface vacProps {
   id: number;
-  likes: number;
   value: number;
   destination: string;
   description: string;
@@ -16,7 +20,6 @@ interface vacProps {
   endDate: Date;
   price: number;
   image: string;
-  onClick: (id: number) => void;
 }
 
 const formatDate = (date: Date): string => {
@@ -25,14 +28,24 @@ const formatDate = (date: Date): string => {
   return `${myNewDate[2]}/${myNewDate[1]}/${myNewDate[0]}`;
 };
 
-const likes: Record<number, number> = {}; // Object to store like counts
-
 function SingleVac(props: vacProps): JSX.Element {
-  const likesHandler = () => {
-    props.onClick(props.id);
+  const [followersVal, setFollowersVal] = useState<number>(0);
+  const fetchFollowers = () => {
+    axios
+      .get(
+        `http://localhost:4000/api/v1/followers/getFollowersByVacationId/${props.id}`
+      )
+      .then((response) => setFollowersVal(response.data));
   };
 
-  const cardLikes = likes[props.id] || 0;
+  useEffect(() => {
+    if (travel.getState().followers.allFollowers.length < 1) {
+      fetchFollowers();
+    }
+    // const followers = useSelector(
+    //   (state: RootState) => state.followers.allFollowers
+    // );
+  }, []);
 
   return (
     <Grid item xs={3}>
@@ -42,7 +55,7 @@ function SingleVac(props: vacProps): JSX.Element {
         sx={{ width: 300, height: 400, maxHeight: 400, maxWidth: 300 }}
       >
         <CardHeader />
-        <Button
+        {/* <Button
           size="small"
           style={{
             position: "absolute",
@@ -50,11 +63,12 @@ function SingleVac(props: vacProps): JSX.Element {
             left: 10,
             background: "white",
           }}
-          onClick={likesHandler}
+          onClick={followHandler}
         >
           {props.value}
           <FavoriteIcon />
-        </Button>
+        </Button> */}
+        <FollowButton vacationId={props.id} value={followersVal} />
         <CardMedia
           component="img"
           height="190"

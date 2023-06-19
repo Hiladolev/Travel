@@ -6,12 +6,10 @@ import Typography from "@mui/material/Typography";
 import { Button, ButtonGroup, CardHeader } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import AlertDialog from "../AlertDialog";
 
-import FavoriteIcon from "@mui/icons-material/Favorite";
 interface vacProps {
   id: number;
-  value: number;
   destination: string;
   description: string;
   startDate: Date;
@@ -30,6 +28,7 @@ function SingleVac(props: vacProps): JSX.Element {
   const editVacation = () => {
     props.edit(props.id);
   };
+
   return (
     <Grid item xs={3}>
       <Card
@@ -39,7 +38,6 @@ function SingleVac(props: vacProps): JSX.Element {
       >
         <CardHeader />
         <ButtonGroup>
-          {" "}
           <Button
             size="small"
             style={{
@@ -52,21 +50,9 @@ function SingleVac(props: vacProps): JSX.Element {
           >
             Edit
             <EditIcon />
-          </Button>{" "}
-          <Button
-            size="small"
-            style={{
-              position: "absolute",
-              top: 35,
-              left: 90,
-              background: "white",
-            }}
-          >
-            Delete
-            <DeleteOutlineIcon />
           </Button>
+          <AlertDialog id={props.id} />
         </ButtonGroup>
-
         <CardMedia
           component="img"
           height="190"
