@@ -17,8 +17,7 @@ function MainRoute(): JSX.Element {
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
-  const status = currentUser.role;
-  console.log(currentUser);
+  const status = currentUser?.role;
   // const AdminPermission = () => {
   //   if (status === "admin") {
   //     return <Reports />;

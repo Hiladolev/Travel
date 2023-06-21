@@ -77,7 +77,7 @@ export function VacationReducer(
       });
       break;
     case VacationActionType.downloadVacations:
-      newState.allVacations = action.payload;
+      newState.allVacations = [...action.payload];
       break;
   }
 

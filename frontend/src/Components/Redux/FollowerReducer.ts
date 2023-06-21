@@ -36,8 +36,9 @@ export function FollowerReducer(
       break;
     case FollowerActionType.unFollow:
       newState.allFollowers = [...newState.allFollowers].filter(
-        (follower) => follower.followerId
+        (follower) => follower.followerId !== action.payload
       );
+      console.log(newState.allFollowers);
       break;
     case FollowerActionType.downloadFollowers:
       newState.allFollowers = action.payload;

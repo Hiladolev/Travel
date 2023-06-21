@@ -30,10 +30,10 @@ const addFollow = async (userId: number, vacationId: number) => {
   return result.insertId;
 };
 
-const unFollow = (vacationId: number, userId: number) => {
+const unFollow = async (userId: number, vacationId: number) => {
   const SQLcommand = `
     DELETE FROM travel.followers WHERE vacationId = ${vacationId} AND userId=${userId}`;
-  dal_mysql.execute(SQLcommand);
+  await dal_mysql.execute(SQLcommand);
   return true;
 };
 const followersByVacationId = async (vacationId: number) => {

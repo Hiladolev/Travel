@@ -17,8 +17,8 @@ followersRouter.delete(
   async (request: Request, response: Response, next: NextFunction) => {
     const vacationId = +request.params.vacationId;
     const userId = +request.params.userId;
-    followerLogic.unFollow(userId, vacationId);
-    response.status(204);
+    await followerLogic.unFollow(userId, vacationId);
+    response.status(204).json();
   }
 );
 followersRouter.get(
