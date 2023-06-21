@@ -10,50 +10,70 @@ import {
 } from "recharts";
 import { RootState } from "../../Redux/TravelApp";
 import Vacation from "../../Models/Vacation";
+import { CSVLink } from "react-csv";
+import { Button } from "@mui/material";
 
 interface BarItem {
-  followersCount: number;
+  followers: number;
   destination: string;
 }
 
 export default function TinyBarChart() {
-  const followers = useSelector(
+  const allFollowers = useSelector(
     (state: RootState) => state.followers.allFollowers
   );
   const vacations: Vacation[] = useSelector(
     (state: RootState) => state.vacations.allVacations
   );
   const getFollowersCountByVacationId = (vacationId: number): number => {
-    const sum = followers.filter(
+    const sum = allFollowers.filter(
       (follower) => follower.vacationId === vacationId
     ).length;
     return sum;
   };
+
+  const headers = [
+    { label: "Destination", key: "destination" },
+    { label: "Followers", key: "followers" },
+  ];
   const data: BarItem[] = vacations.map((vacation) => {
     return {
-      followersCount: getFollowersCountByVacationId(vacation.id),
+      followers: getFollowersCountByVacationId(vacation.id),
       destination: vacation.destination,
     };
   });
 
   return (
-    <BarChart
-      width={1250}
-      height={600}
-      data={data}
-      margin={{
-        top: 10,
-        right: 0,
-        left: 100,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="destination" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="followersCount" fill="#8884d8" />
-    </BarChart>
+    <div style={{ width: "100%" }}>
+      <BarChart
+        width={1250}
+        height={600}
+        data={data}
+        margin={{
+          top: 10,
+          right: 0,
+          left: 250,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="destination" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="followers" fill="#8884d8" />
+      </BarChart>
+
+      <Button variant="contained">
+        <CSVLink
+          data={data}
+          style={{ color: "white" }}
+          filename={"Vacation Followers.csv"}
+          headers={headers}
+        >
+          Download Chart
+        </CSVLink>
+      </Button>
+    </div>
   );
 }
