@@ -11,7 +11,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
 import Reports from "../../Pages/Reports/Reports";
 import Admin from "../../Pages/Admin/Admin";
-import { useEffect } from "react";
+import Example from "../../Pages/Reports/TinyBarChart";
+import { ResponsiveContainer } from "recharts/types/component/ResponsiveContainer";
+import TinyBarChart from "../../Pages/Reports/TinyBarChart";
 
 function MainRoute(): JSX.Element {
   const currentUser = useSelector(
@@ -40,9 +42,9 @@ function MainRoute(): JSX.Element {
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/guest" element={<GuestPage />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/chart" element={<TinyBarChart />} />
         <Route path="/admin" element={<Admin />} />
-        {/* <Route path="/" element={<UserPermission />} /> */}
-
         <Route path="/vacations" element={<VacationsPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Page404 />} />
