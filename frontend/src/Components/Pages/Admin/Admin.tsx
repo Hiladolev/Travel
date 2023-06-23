@@ -8,8 +8,19 @@ import SingleVacAdmin from "./SingleVacAdmin/SingleVacAdmin";
 import { sortBy } from "lodash";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import MainFeaturedPost from "../Theme/MainFeaturedPost";
 
 function Admin(): JSX.Element {
+  const mainFeaturedPost = {
+    title: "Paradise Seekers",
+    description:
+      "Escape to a world of breathtaking beauty and unforgettable adventures with our exclusive vacation experiences.",
+    image: "https://source.unsplash.com/random?wallpapers",
+    imageText: "main image description",
+    linkText: "Continue reading…",
+  };
+  const defaultTheme = createTheme();
   const allVacations = useSelector(
     (state: RootState) => state.vacations.allVacations
   );
@@ -34,7 +45,10 @@ function Admin(): JSX.Element {
   };
 
   return (
-    <div className="Admin">
+    // <div className="Admin">
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
+      <MainFeaturedPost post={mainFeaturedPost} />
       <Box sx={{ width: "100%" }}>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {currentVacations.map((item) => (
@@ -57,7 +71,8 @@ function Admin(): JSX.Element {
         totalVacations={allVacations.length}
         paginate={paginate}
       />
-    </div>
+      {/* // </div> */}
+    </ThemeProvider>
   );
 }
 

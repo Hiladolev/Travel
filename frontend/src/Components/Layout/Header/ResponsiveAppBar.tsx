@@ -102,42 +102,48 @@ function ResponsiveAppBar() {
             </Box>
           )}
           {currentUser && (
-            <Box sx={{ flexGrow: 0 }}>
+            <>
+              {" "}
               <div>
                 Welcome Back,
-                {`${currentUser.firstName} ${currentUser.lastName} `}
+                {`${currentUser.firstName} ${currentUser.lastName}  `}
               </div>
-              <Tooltip title="Logout">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt={currentUser && firstLetter}
-                    src="/static/images/avatar/2.jpg"
-                  />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={handleLogoutClicked}>
-                    {logout}
-                  </Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Logout">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt={currentUser && firstLetter}
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography
+                      textAlign="center"
+                      onClick={handleLogoutClicked}
+                    >
+                      {logout}
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </>
           )}
         </Toolbar>
       </Container>
