@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import "./Edit.css";
+
 import { useForm } from "react-hook-form";
 import { RootState, travel } from "../../Redux/TravelApp";
 import { updateVacationAction } from "../../Redux/VacationReducer";

@@ -7,7 +7,7 @@ import { RootState } from "../../Redux/TravelApp";
 import SingleVacAdmin from "./SingleVacAdmin/SingleVacAdmin";
 import { sortBy } from "lodash";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function Admin(): JSX.Element {
   const allVacations = useSelector(

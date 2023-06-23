@@ -13,6 +13,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LuggageIcon from "@mui/icons-material/Luggage";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../Redux/TravelApp";
+import { useSelector } from "react-redux";
 
 const pages = [
   "Add",
@@ -26,6 +28,10 @@ const pages = [
 const logout = "Logout";
 
 function ResponsiveAppBar() {
+  const currentUser = useSelector(
+    (state: RootState) => state.users.currentUser
+  );
+  const firstLetter = currentUser?.firstName[0];
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -178,11 +184,14 @@ function ResponsiveAppBar() {
               {pages[6]}
             </Button>
           </Box>
-
+          {currentUser && <div>Welcome Back,{currentUser.firstName}</div>}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Logout">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt={currentUser && firstLetter}
+                  src="/static/images/avatar/2.jpg"
+                />
               </IconButton>
             </Tooltip>
             <Menu
