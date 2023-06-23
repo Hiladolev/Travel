@@ -7,6 +7,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { deleteVacationAction } from "../../Redux/VacationReducer";
 import { useState } from "react";
+import { Fab } from "@mui/material";
 
 export interface AlertProps {
   id: number;
@@ -31,7 +32,7 @@ export default function AlertDialog(props: AlertProps) {
   };
   return (
     <>
-      <Button
+      {/* <Button
         variant="outlined"
         onClick={handleClickOpen}
         size="small"
@@ -44,7 +45,19 @@ export default function AlertDialog(props: AlertProps) {
       >
         Delete
         <DeleteOutlineIcon />
-      </Button>
+      </Button> */}
+      <Fab
+        variant="extended"
+        size="small"
+        style={{
+          position: "absolute",
+          top: 8,
+          left: 50,
+        }}
+        onClick={handleClickOpen}
+      >
+        <DeleteOutlineIcon />
+      </Fab>
       <Dialog
         open={open}
         onClose={handleClose}

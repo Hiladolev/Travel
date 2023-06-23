@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, ButtonGroup, CardHeader } from "@mui/material";
+import { Box, Button, ButtonGroup, CardHeader, Fab } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import EditIcon from "@mui/icons-material/Edit";
 import AlertDialog from "../AlertDialog";
@@ -34,9 +34,9 @@ function SingleVac(props: vacProps): JSX.Element {
       <Card
         variant="outlined"
         className="card"
-        sx={{ width: 300, height: 400, maxHeight: 400, maxWidth: 300 }}
+        sx={{ width: 300, height: 370, maxHeight: 370, maxWidth: 300 }}
       >
-        <ButtonGroup>
+        {/* <ButtonGroup>
           <Button
             size="small"
             style={{
@@ -51,7 +51,22 @@ function SingleVac(props: vacProps): JSX.Element {
             <EditIcon />
           </Button>
           <AlertDialog id={props.id} />
-        </ButtonGroup>
+        </ButtonGroup> */}
+        <Box>
+          <Fab
+            variant="extended"
+            size="small"
+            style={{
+              position: "absolute",
+              top: 8,
+              left: 4,
+            }}
+            onClick={editVacation}
+          >
+            <EditIcon />
+          </Fab>
+          <AlertDialog id={props.id} />
+        </Box>
         <CardMedia
           component="img"
           height="190"
@@ -62,18 +77,22 @@ function SingleVac(props: vacProps): JSX.Element {
           <Typography variant="h5">{props.destination}</Typography>
           <Typography variant="body2" color="text.secondary">
             {formatDate(props.startDate)} - {formatDate(props.endDate)} <br />
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: "3",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
             {props.description}
           </Typography>
         </CardContent>
-        <Button
-          style={{
-            position: "absolute",
-            bottom: 10,
-            left: 10,
-          }}
-          color="primary"
-          variant="contained"
-        >
+        <Button color="primary" variant="contained">
           ${props.price}
         </Button>
       </Card>
