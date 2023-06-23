@@ -15,22 +15,29 @@ import LuggageIcon from "@mui/icons-material/Luggage";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../Redux/TravelApp";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { userLogoutAction } from "../../Redux/UserReducer";
 
-const pages = [
-  "Add",
-  "Edit",
-  "Admin",
-  "Vacations",
-  "guest",
-  "Sign In",
-  "Register",
-];
+const pages = ["Add", "Reports"];
 const logout = "Logout";
 
 function ResponsiveAppBar() {
+  const dispatch = useDispatch();
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
+  const status = currentUser?.role;
+  let homePage = "";
+  switch (status) {
+    case "admin":
+      homePage = "/adminVacations";
+      break;
+    case "user":
+      homePage = "/vacations";
+      break;
+    default:
+      homePage = "/login";
+  }
   const firstLetter = currentUser?.firstName[0];
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -47,18 +54,12 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  // const handleAddPage = () => {
-  //   navigate("/add");
-  // };
-  // const handleEditPage = () => {
-  //   navigate("/edit");
-  // };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
   const handleLogoutClicked = () => {
+    dispatch(userLogoutAction());
     navigate("/login");
   };
 
@@ -71,7 +72,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href={homePage}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -84,139 +85,60 @@ function ResponsiveAppBar() {
           >
             Paradise Seekers
           </Typography>
-
-          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+          {status === "admin" && (
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Button
+                onClick={() => navigate("/add")}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {pages[0]}
+              </Button>
+              <Button
+                onClick={() => navigate("/reports")}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {pages[1]}
+              </Button>
+            </Box>
+          )}
+          {currentUser && (
+            <Box sx={{ flexGrow: 0 }}>
+              <div>
+                Welcome Back,
+                {`${currentUser.firstName} ${currentUser.lastName} `}
+              </div>
+              <Tooltip title="Logout">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt={currentUser && firstLetter}
+                    src="/static/images/avatar/2.jpg"
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" onClick={handleLogoutClicked}>
+                    {logout}
+                  </Typography>
                 </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
-          {/* <LuggageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
-          {/* <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography> */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              onClick={() => navigate("/add")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              {pages[0]}
-            </Button>
-            <Button
-              onClick={() => navigate("/edit")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              {pages[1]}
-            </Button>
-            <Button
-              onClick={() => navigate("/admin")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              {pages[2]}
-            </Button>
-            <Button
-              onClick={() => navigate("/vacations")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              {pages[3]}
-            </Button>
-            <Button
-              onClick={() => navigate("/guest")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              {pages[4]}
-            </Button>
-            <Button
-              onClick={() => navigate("/login")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              {pages[5]}
-            </Button>
-            <Button
-              onClick={() => navigate("/register")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              {pages[6]}
-            </Button>
-          </Box>
-          {currentUser && <div>Welcome Back,{currentUser.firstName}</div>}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Logout">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt={currentUser && firstLetter}
-                  src="/static/images/avatar/2.jpg"
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center" onClick={handleLogoutClicked}>
-                  {logout}
-                </Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

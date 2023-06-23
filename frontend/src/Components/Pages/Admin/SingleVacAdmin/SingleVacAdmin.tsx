@@ -36,7 +36,6 @@ function SingleVac(props: vacProps): JSX.Element {
         className="card"
         sx={{ width: 300, height: 400, maxHeight: 400, maxWidth: 300 }}
       >
-        <CardHeader />
         <ButtonGroup>
           <Button
             size="small"

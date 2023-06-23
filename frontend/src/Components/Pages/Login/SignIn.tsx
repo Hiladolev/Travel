@@ -78,6 +78,7 @@ export default function SignIn() {
                 userInfo.role
               )
             );
+            navigate("/adminVacations");
           } else {
             dispatch(
               userLoginAction(
@@ -87,8 +88,8 @@ export default function SignIn() {
                 userInfo.id
               )
             );
+            navigate("/vacations");
           }
-          navigate("/vacations");
         } else {
           setWrongPassword(true);
         }

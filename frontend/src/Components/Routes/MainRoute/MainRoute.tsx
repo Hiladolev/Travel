@@ -23,7 +23,7 @@ function MainRoute(): JSX.Element {
             <Route path="/add" element={<Add />} />
             <Route path="/edit/:id" element={<Edit />} />
             <Route path="/reports" element={<TinyBarChart />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/adminVacations" element={<Admin />} />
           </>
         )}
 
