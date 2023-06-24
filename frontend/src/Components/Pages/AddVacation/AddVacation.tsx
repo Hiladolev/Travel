@@ -71,7 +71,7 @@ function AddVacation(): JSX.Element {
           price: parseInt(addedVacation.price),
         };
         dispatch(addVacationAction(changedVac));
-        navigate("/adminVacations");
+        navigate("/");
       });
   };
 

@@ -110,7 +110,7 @@ function Edit(): JSX.Element {
           id: parseInt(params.id),
         };
         dispatch(updateVacationAction(changedVac));
-        navigate("/adminVacations");
+        navigate("/");
       });
   };
 

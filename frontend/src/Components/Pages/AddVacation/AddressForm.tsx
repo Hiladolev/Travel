@@ -12,7 +12,7 @@ export default function AddressForm() {
         Shipping address
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={8} sm={4}>
+        <Grid item xs={12} sm={6}>
           <TextField
             required
             id="firstName"

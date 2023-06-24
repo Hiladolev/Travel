@@ -16,9 +16,10 @@ function Admin(): JSX.Element {
     title: "Paradise Seekers",
     description:
       "Escape to a world of breathtaking beauty and unforgettable adventures with our exclusive vacation experiences.",
-    image: "https://source.unsplash.com/random?wallpapers",
+    image:
+      "https://cdn.pixabay.com/photo/2018/03/15/10/40/panoramic-3227796_1280.jpg",
     imageText: "main image description",
-    linkText: "Continue reading…",
+    linkText: "For more adventures...",
   };
   const defaultTheme = createTheme();
   const allVacations = useSelector(

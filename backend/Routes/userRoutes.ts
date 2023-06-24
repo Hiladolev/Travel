@@ -7,8 +7,8 @@ userRouter.post(
   "/login",
   async (request: Request, response: Response, next: NextFunction) => {
     const existingUser = request.body;
-    const result = await userLogic.getUserByEmailNPassword(existingUser);
-    response.status(200).json(result);
+    const userInfo = await userLogic.getUserByEmailNPassword(existingUser);
+    response.status(200).json(userInfo);
   }
 );
 

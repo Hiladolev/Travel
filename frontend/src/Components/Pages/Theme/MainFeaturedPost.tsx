@@ -69,7 +69,7 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
             <Typography variant="h5" color="inherit" paragraph>
               {post.description}
             </Typography>
-            <Link variant="subtitle1" href="#">
+            <Link variant="subtitle1" href="https://github.com/Hiladolev">
               {post.linkText}
             </Link>
           </Box>

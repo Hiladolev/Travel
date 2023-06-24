@@ -30,10 +30,10 @@ function ResponsiveAppBar() {
   let homePage = "";
   switch (status) {
     case "admin":
-      homePage = "/adminVacations";
+      homePage = "/";
       break;
     case "user":
-      homePage = "/vacations";
+      homePage = "/";
       break;
     default:
       homePage = "/login";

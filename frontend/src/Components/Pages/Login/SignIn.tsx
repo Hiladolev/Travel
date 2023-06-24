@@ -16,10 +16,13 @@ import Account from "../../Models/Account";
 import { useEffect, useState } from "react";
 import { adminLoginAction, userLoginAction } from "../../Redux/UserReducer";
 import { useDispatch, useSelector } from "react-redux";
+import User from "../../Models/Account";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const users = useSelector((state: RootState) => state.users.allUsers);
+
   const navigate = useNavigate();
   const [emailNotExist, setEmailNotExist] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
@@ -69,7 +72,7 @@ export default function SignIn() {
         if (userMatched.data) {
           setWrongPassword(false);
           const userInfo = userMatched.data;
-          const admin = userInfo.email === "hiladolev1@gmail.com";
+          const admin: boolean = userInfo.role === "admin";
           if (admin) {
             dispatch(
               adminLoginAction(
@@ -78,7 +81,7 @@ export default function SignIn() {
                 userInfo.role
               )
             );
-            navigate("/adminVacations");
+            navigate("/");
           } else {
             dispatch(
               userLoginAction(
@@ -88,7 +91,7 @@ export default function SignIn() {
                 userInfo.id
               )
             );
-            navigate("/vacations");
+            navigate("/");
           }
         } else {
           setWrongPassword(true);

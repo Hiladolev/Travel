@@ -66,7 +66,7 @@ function Register(): JSX.Element {
               )
             );
           });
-        navigate("/vacations");
+        navigate("/");
       }
     } catch (err) {
       console.log(err);
