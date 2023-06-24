@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
 import Admin from "../../Pages/Admin/Admin";
 import TinyBarChart from "../../Pages/Reports/TinyBarChart";
-import AddressForm from "../../Pages/AddVacation/AddressForm";
 
 function MainRoute(): JSX.Element {
   const currentUser = useSelector(
@@ -25,7 +24,6 @@ function MainRoute(): JSX.Element {
             <Route path="/edit/:id" element={<Edit />} />
             <Route path="/reports" element={<TinyBarChart />} />
             <Route path="/" element={<Admin />} />
-            <Route path="/form" element={<AddressForm />} />
           </>
         )}
 

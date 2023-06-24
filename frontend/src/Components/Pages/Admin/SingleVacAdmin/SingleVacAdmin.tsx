@@ -36,22 +36,6 @@ function SingleVac(props: vacProps): JSX.Element {
         className="card"
         sx={{ width: 300, height: 370, maxHeight: 370, maxWidth: 300 }}
       >
-        {/* <ButtonGroup>
-          <Button
-            size="small"
-            style={{
-              position: "absolute",
-              top: 35,
-              left: 3,
-              background: "white",
-            }}
-            onClick={editVacation}
-          >
-            Edit
-            <EditIcon />
-          </Button>
-          <AlertDialog id={props.id} />
-        </ButtonGroup> */}
         <Box>
           <Fab
             variant="extended"

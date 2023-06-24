@@ -28,9 +28,8 @@ function SingleVac(props: vacProps): JSX.Element {
       <Card
         variant="outlined"
         className="card"
-        sx={{ width: 300, height: 400, maxHeight: 400, maxWidth: 300 }}
+        sx={{ width: 300, height: 370, maxHeight: 370, maxWidth: 300 }}
       >
-        <CardHeader />
         <FollowButton vacationId={props.id} />
         <CardMedia
           component="img"
@@ -42,6 +41,18 @@ function SingleVac(props: vacProps): JSX.Element {
           <Typography variant="h5">{props.destination}</Typography>
           <Typography variant="body2" color="text.secondary">
             {formatDate(props.startDate)} - {formatDate(props.endDate)} <br />
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: "3",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
             {props.description}
           </Typography>
         </CardContent>

@@ -1,17 +1,19 @@
-import "./Admin.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Pagination from "../../Models/Pagination";
-import { RootState } from "../../Redux/TravelApp";
+import { RootState, travel } from "../../Redux/TravelApp";
 import SingleVacAdmin from "./SingleVacAdmin/SingleVacAdmin";
 import { sortBy } from "lodash";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import MainFeaturedPost from "../Theme/MainFeaturedPost";
+import axios from "axios";
+import { downloadVacationsAction } from "../../Redux/VacationReducer";
 
 function Admin(): JSX.Element {
+  const dispatch = useDispatch();
   const mainFeaturedPost = {
     title: "Paradise Seekers",
     description:
@@ -22,6 +24,23 @@ function Admin(): JSX.Element {
     linkText: "For more adventures...",
   };
   const defaultTheme = createTheme();
+
+  const fetchVacations = () => {
+    console.log("getting vacations from backend....");
+    axios
+      .get("http://localhost:4000/api/v1/vacations/allVacations")
+      .then((response) => {
+        dispatch(downloadVacationsAction(response.data));
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  };
+  useEffect(() => {
+    if (travel.getState().vacations.allVacations.length < 1) {
+      fetchVacations();
+    }
+  }, []);
   const allVacations = useSelector(
     (state: RootState) => state.vacations.allVacations
   );
@@ -46,7 +65,6 @@ function Admin(): JSX.Element {
   };
 
   return (
-    // <div className="Admin">
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <MainFeaturedPost post={mainFeaturedPost} />

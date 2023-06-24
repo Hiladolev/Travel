@@ -112,11 +112,11 @@ function AllVacations(): JSX.Element {
         <ButtonGroup>
           <Button
             size="small"
+            variant="contained"
             style={{
               position: "absolute",
-              top: 430,
+              top: 350,
               left: 10,
-              background: "white",
             }}
             onClick={handleFutureVacations}
           >
@@ -124,11 +124,11 @@ function AllVacations(): JSX.Element {
           </Button>
           <Button
             size="small"
+            variant="contained"
             style={{
               position: "absolute",
-              top: 430,
+              top: 350,
               left: 180,
-              background: "white",
             }}
             onClick={handleActiveVacations}
           >
@@ -136,11 +136,11 @@ function AllVacations(): JSX.Element {
           </Button>
           <Button
             size="small"
+            variant="contained"
             style={{
               position: "absolute",
-              top: 430,
+              top: 350,
               left: 260,
-              background: "white",
             }}
             onClick={handleAllVacations}
           >
@@ -148,11 +148,11 @@ function AllVacations(): JSX.Element {
           </Button>
           <Button
             size="small"
+            variant="contained"
             style={{
               position: "absolute",
-              top: 430,
+              top: 350,
               left: 400,
-              background: "white",
             }}
             onClick={handleFollowedVacations}
           >

@@ -62,8 +62,8 @@ function FollowButton(props: FollowProps): JSX.Element {
       size="small"
       style={{
         position: "absolute",
-        top: 35,
-        left: 10,
+        top: 8,
+        left: 7,
         background: "white",
       }}
       color="primary"
