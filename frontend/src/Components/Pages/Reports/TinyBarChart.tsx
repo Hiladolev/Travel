@@ -46,13 +46,13 @@ export default function TinyBarChart() {
   return (
     <div style={{ width: "100%" }}>
       <BarChart
-        width={1250}
+        width={1400}
         height={600}
         data={data}
         margin={{
           top: 10,
           right: 0,
-          left: 250,
+          left: 80,
           bottom: 5,
         }}
       >

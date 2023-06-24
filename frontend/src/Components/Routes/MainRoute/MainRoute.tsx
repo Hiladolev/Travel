@@ -23,11 +23,10 @@ function MainRoute(): JSX.Element {
             <Route path="/add" element={<Add />} />
             <Route path="/edit/:id" element={<Edit />} />
             <Route path="/reports" element={<TinyBarChart />} />
-            <Route path="/" element={<Admin />} />
           </>
         )}
 
-        {status === "user" && <Route path="/" element={<VacationsPage />} />}
+        {status && <Route path="/" element={<VacationsPage />} />}
 
         <Route path="/login" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
