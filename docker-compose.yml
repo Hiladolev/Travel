@@ -25,7 +25,7 @@ services:
      
 
     #On crash - restart container, unless manually stopped:
-    restart: unless-stopped
+    # restart: unless-stopped
 
     #Database volumes:
     volumes:
@@ -69,31 +69,31 @@ services:
       - travel-database-service
 #---------------------------------------------------------------
 
-# # NorthWind frontend service
-#   northwind-frontend-service:
-#     #Image name to create  from dockerfile:
-#     image: mindalizeev/northwind-frontend-image:1.0
+# NorthWind frontend service
+  travel-frontend-service:
+    #Image name to create  from dockerfile:
+    image: hiladolev/travel-frontend-image:1.0
 
-#     #Build the image (if not exists) from specified Dockerfile location:
-#     build: ./Frontend
+    #Build the image (if not exists) from specified Dockerfile location:
+    build: ./frontend
 
-#     #Container name:
-#     container_name: northwind-frontend-container
+    #Container name:
+    container_name: travel-frontend-container
 
-#     #Port binding (host:container):
-#     ports:
-#       - 3000:3000
+    #Port binding (host:container):
+    ports:
+      - 3000:3000
 
-#     #On crash - restart container, unless manually stopped:
-#     restart: unless-stopped
+    #On crash - restart container, unless manually stopped:
+    # restart: unless-stopped
 
-#     #Host volume for mounting Frontend development files to Frontend container
-#     volumes:
-#       - ./Frontend:/app
+    #Host volume for mounting Frontend development files to Frontend container
+    # volumes:
+    #   - ./Frontend:/app
 
-#     #On which service we are depending on (start/stopping order):
-#     depends_on:
-#       - northwind-backend-service
+    #On which service we are depending on (start/stopping order):
+    depends_on:
+      - travel-backend-service
 
 #---------------------------------------------------------------
 

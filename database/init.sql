@@ -27,3 +27,11 @@ CREATE TABLE IF NOT EXISTS followers (
     CONSTRAINT FK_userId FOREIGN KEY (userId) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FK_vacationId FOREIGN KEY (vacationId) REFERENCES vacations(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+INSERT INTO travel.users (firstName, lastName, email, password, role)
+VALUES(
+        'hila',
+        'dolev',
+        'hiladolev1@gmail.com',
+        '12345678',
+        'admin'
+    )
