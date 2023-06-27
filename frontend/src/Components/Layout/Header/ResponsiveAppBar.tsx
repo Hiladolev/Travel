@@ -104,7 +104,7 @@ function ResponsiveAppBar() {
           {currentUser && (
             <>
               {" "}
-              <div>
+              <div style={{ marginLeft: "auto" }}>
                 Welcome Back,
                 {`${currentUser.firstName} ${currentUser.lastName}  `}
               </div>
