@@ -108,7 +108,7 @@ function ResponsiveAppBar() {
                 Welcome Back,
                 {`${currentUser.firstName} ${currentUser.lastName}  `}
               </div>
-              <Box sx={{ flexGrow: 0 }}>
+              <Box sx={{ flexGrow: 0, marginLeft: "10px" }}>
                 <Tooltip title="Logout">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
