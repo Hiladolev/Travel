@@ -1,5 +1,9 @@
 CREATE DATABASE IF NOT EXISTS `travel`;
 USE `travel`;
+/*!50503 SET NAMES utf8 */
+;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
 CREATE TABLE IF NOT EXISTS `vacations` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `destination` VARCHAR(256) NOT NULL,
@@ -9,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `vacations` (
     `price` INT NOT NULL,
     `image` VARCHAR(256) NOT NULL,
     PRIMARY KEY (`id`)
-);
+) ENGINE = InnoDB AUTO_INCREMENT = 155 DEFAULT CHARSET = utf8mb4;
 CREATE TABLE IF NOT EXISTS `users` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `firstName` VARCHAR(45) NOT NULL,
@@ -36,6 +40,8 @@ VALUES(
         '12345678',
         'admin'
     );
+/*!40000 ALTER TABLE `vacations` DISABLE KEYS */
+;
 INSERT INTO `vacations`
 VALUES(
         1,
@@ -76,7 +82,7 @@ VALUES(
     (
         5,
         'New York',
-        'Featuring Danny Meyer''s restaurant and Maialino Restaurant, The Redbury New York is located in the NoMad neighbourhood in New York, 280 metres from Madison Square Park. Free WiFi access is available.',
+        'Featuring Danny Meyer\'s restaurant and Maialino Restaurant, The Redbury New York is located in the NoMad neighbourhood in New York, 280 metres from Madison Square Park. Free WiFi access is available.',
         '2023-06-26',
         '2023-07-01',
         1058,
@@ -145,3 +151,5 @@ VALUES(
         851,
         '1687531541834_409727043.jpg'
     );
+/*!40000 ALTER TABLE `vacations` ENABLE KEYS */
+;
