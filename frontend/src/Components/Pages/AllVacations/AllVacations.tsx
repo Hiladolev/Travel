@@ -16,12 +16,33 @@ import { downloadFollowers } from "../../Redux/FollowerReducer";
 import Follower from "../../Models/Follower";
 import { useNavigate } from "react-router-dom";
 
+enum ActiveFilterType {
+  all = "all",
+  future = "future",
+  active = "active",
+  followed = "followed",
+}
+
 function AllVacations(): JSX.Element {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
+  const allVacations: Vacation[] = useSelector(
+    (state: RootState) => state.vacations.allVacations
+  );
+  const allFollowers: Follower[] = useSelector(
+    (state: RootState) => state.followers.allFollowers
+  );
+  const sorted = sortBy(allVacations, "startDate");
+  const vacationsPerPage: number = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [vacationsArray, setVacationsArray] = useState<Vacation[]>(sorted);
+  const [activeFilter, setActiveFilter] = useState<ActiveFilterType>(
+    ActiveFilterType.all
+  );
+
   const fetchVacations = () => {
     console.log("getting vacations from backend....");
     axios
@@ -41,27 +62,31 @@ function AllVacations(): JSX.Element {
       });
   };
   useEffect(() => {
-    if (travel.getState().vacations.allVacations.length < 1) {
+    if (allVacations.length < 1) {
       fetchVacations();
     }
   }, []);
   useEffect(() => {
-    if (travel.getState().followers.allFollowers.length < 1) {
+    if (allFollowers.length < 1) {
       getFollowers();
     }
   }, []);
-
-  const allVacations: Vacation[] = useSelector(
-    (state: RootState) => state.vacations.allVacations
-  );
-  const allFollowers: Follower[] = useSelector(
-    (state: RootState) => state.followers.allFollowers
-  );
-
-  const sorted = sortBy(allVacations, "startDate");
-  const vacationsPerPage: number = 10;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [vacationsArray, setVacationsArray] = useState<Vacation[]>(sorted);
+  useEffect(() => {
+    // setVacationsArray(sorted);
+    switch (activeFilter) {
+      case ActiveFilterType.all:
+        setVacationsArray(sorted);
+        break;
+      case ActiveFilterType.future:
+        setVacationsArray(futureVacationsFilter);
+        break;
+      case ActiveFilterType.active:
+        setVacationsArray(activeVacationsFilter);
+        break;
+      case ActiveFilterType.followed:
+        setVacationsArray(followedVacations);
+    }
+  }, [allVacations.length, activeFilter]);
 
   //Future Vacations
   const futureVacationsFilter = sorted.filter((vacation: Vacation) => {
@@ -93,16 +118,16 @@ function AllVacations(): JSX.Element {
     indexOfLastVacation
   );
   const handleFutureVacations = () => {
-    setVacationsArray(futureVacationsFilter);
+    setActiveFilter(ActiveFilterType.future);
   };
   const handleActiveVacations = () => {
-    setVacationsArray(activeVacationsFilter);
+    setActiveFilter(ActiveFilterType.active);
   };
   const handleAllVacations = () => {
-    setVacationsArray(sorted);
+    setActiveFilter(ActiveFilterType.all);
   };
   const handleFollowedVacations = () => {
-    setVacationsArray(followedVacations);
+    setActiveFilter(ActiveFilterType.followed);
   };
 
   // Change page ---------currentVacations(array)
