@@ -139,56 +139,58 @@ function AllVacations(): JSX.Element {
   return (
     <div className="AllVacations">
       <Box sx={{ width: "100%" }}>
-        <ButtonGroup>
-          <Button
-            size="small"
-            variant="contained"
-            style={{
-              position: "absolute",
-              top: 350,
-              left: 10,
-            }}
-            onClick={handleFutureVacations}
-          >
-            Future Vacations
-          </Button>
-          <Button
-            size="small"
-            variant="contained"
-            style={{
-              position: "absolute",
-              top: 350,
-              left: 180,
-            }}
-            onClick={handleActiveVacations}
-          >
-            Active
-          </Button>
-          <Button
-            size="small"
-            variant="contained"
-            style={{
-              position: "absolute",
-              top: 350,
-              left: 260,
-            }}
-            onClick={handleAllVacations}
-          >
-            All Vacations
-          </Button>
-          <Button
-            size="small"
-            variant="contained"
-            style={{
-              position: "absolute",
-              top: 350,
-              left: 400,
-            }}
-            onClick={handleFollowedVacations}
-          >
-            Followed
-          </Button>
-        </ButtonGroup>
+        {currentUser.role === "user" && (
+          <ButtonGroup>
+            <Button
+              size="small"
+              variant="contained"
+              style={{
+                position: "absolute",
+                top: 350,
+                left: 10,
+              }}
+              onClick={handleFutureVacations}
+            >
+              Future Vacations
+            </Button>
+            <Button
+              size="small"
+              variant="contained"
+              style={{
+                position: "absolute",
+                top: 350,
+                left: 180,
+              }}
+              onClick={handleActiveVacations}
+            >
+              Active
+            </Button>
+            <Button
+              size="small"
+              variant="contained"
+              style={{
+                position: "absolute",
+                top: 350,
+                left: 260,
+              }}
+              onClick={handleAllVacations}
+            >
+              All Vacations
+            </Button>
+            <Button
+              size="small"
+              variant="contained"
+              style={{
+                position: "absolute",
+                top: 350,
+                left: 400,
+              }}
+              onClick={handleFollowedVacations}
+            >
+              Followed
+            </Button>
+          </ButtonGroup>
+        )}
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {currentVacations.map((item) => (
             <SingleVac
