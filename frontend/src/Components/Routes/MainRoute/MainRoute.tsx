@@ -7,8 +7,8 @@ import VacationsPage from "../../Pages/VacationsPage/VacationsPage";
 import SignIn from "../../Pages/Login/SignIn";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
-import Admin from "../../Pages/Admin/Admin";
 import TinyBarChart from "../../Pages/Reports/TinyBarChart";
+import SignUp from "../../Pages/Register/SignUp";
 
 function MainRoute(): JSX.Element {
   const currentUser = useSelector(
