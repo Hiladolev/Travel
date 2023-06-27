@@ -25,7 +25,9 @@ export default function AlertDialog(props: AlertProps) {
   };
   const handleDeleteAction = (vacationId: number) => {
     axios
-      .delete(`http://localhost:4000/api/v1/vacations/delete/${vacationId}`)
+      .delete(
+        `${process.env.REACT_APP_API_URL}/api/v1/vacations/delete/${vacationId}`
+      )
       .then((response) => response.data);
     dispatch(deleteVacationAction(vacationId));
     setOpen(false);

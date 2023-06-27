@@ -25,7 +25,7 @@ function AllVacations(): JSX.Element {
   const fetchVacations = () => {
     console.log("getting vacations from backend....");
     axios
-      .get("http://localhost:4000/api/v1/vacations/allVacations")
+      .get(`${process.env.REACT_APP_API_URL}/api/v1/vacations/allVacations`)
       .then((response) => {
         dispatch(downloadVacationsAction(response.data));
       })
@@ -35,7 +35,7 @@ function AllVacations(): JSX.Element {
   };
   const getFollowers = () => {
     axios
-      .get("http://localhost:4000/api/v1/followers/allFollowers")
+      .get(`${process.env.REACT_APP_API_URL}/api/v1/followers/allFollowers`)
       .then((response) => {
         dispatch(downloadFollowers(response.data));
       });

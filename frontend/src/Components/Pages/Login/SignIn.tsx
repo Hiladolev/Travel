@@ -60,13 +60,13 @@ export default function SignIn() {
     try {
       //check if email exist in the system
       const emailResponse = await axios.post(
-        "http://localhost:4000/api/v1/users/checkIfEmailExist",
+        `${process.env.REACT_APP_API_URL}/api/v1/users/checkIfEmailExist`,
         { email: existingAccount.email }
       );
       if (emailResponse.data) {
         setEmailNotExist(false);
         const userMatched = await axios.post(
-          "http://localhost:4000/api/v1/users/login",
+          `${process.env.REACT_APP_API_URL}/api/v1/users/login`,
           existingAccount
         );
         if (userMatched.data) {

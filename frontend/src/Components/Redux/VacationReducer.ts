@@ -8,7 +8,7 @@ export class VacationsState {
 
   // constructor() {
   //   axios
-  //     .get("http://localhost:4000/api/v1/vacations/allVacations")
+  //     .get(`${process.env.REACT_APP_API_URL}/api/v1/vacations/allVacations`)
   //     .then((response) => {
   //       travel.dispatch(downloadVacationsAction(response.data));
   //     });

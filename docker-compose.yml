@@ -47,11 +47,11 @@ services:
 
     #Port binding (host:container):
     ports:
-      - 4000:4000
+      - 8080:8080
 
     #Environment variables needed by this service:
     environment:
-      PORT: 4000
+      PORT: 8080
       MYSQL_HOST:  travel-database-service #Above database service name is the host name
       MYSQL_DATABASE: travel
       MYSQL_USER: root
@@ -82,7 +82,11 @@ services:
 
     #Port binding (host:container):
     ports:
-      - 3000:3000
+      - 80:80
+
+    environment:
+      PORT: 80
+      REACT_APP_API_URL: http://localhost:8080
 
     #On crash - restart container, unless manually stopped:
     # restart: unless-stopped

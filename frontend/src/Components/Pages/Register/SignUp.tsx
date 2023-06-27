@@ -64,7 +64,7 @@ function SignUp(): JSX.Element {
   const addNewUser = async (newAccount: Account) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/users/checkIfEmailExist",
+        `${process.env.REACT_APP_API_URL}/api/v1/users/checkIfEmailExist`,
         { email: newAccount.email }
       );
       if (response.data) {
@@ -72,7 +72,10 @@ function SignUp(): JSX.Element {
       } else {
         setEmailAlreadyExist(false);
         await axios
-          .post("http://localhost:4000/api/v1/users/register", newAccount)
+          .post(
+            `${process.env.REACT_APP_API_URL}/api/v1/users/register`,
+            newAccount
+          )
           .then((response) => {
             dispatch(
               userLoginAction(

@@ -12,6 +12,8 @@ COPY ./src ./src
 COPY ./public ./public
 COPY tsconfig.json ./
 
+ENV REACT_APP_API_URL=http://localhost:8080
+
 # Install node packages, install serve, build the app, and remove dependencies at the end
 RUN npm install \
     && npm install -g serve \
