@@ -21,4 +21,4 @@ COPY . /app
 
 EXPOSE 4000
 #Execute our "npm start" inside /app (workdir) when container starts:
-ENTRYPOINT npm start
+ENTRYPOINT npm run build

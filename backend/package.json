@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "nodemon -r dotenv/config --exec ts-node server.ts"
+    "start": "nodemon -r dotenv/config --exec ts-node server.ts",
+    "build": "ts-node server.ts"
   },
   "dependencies": {
     "@types/express-fileupload": "^1.4.1",

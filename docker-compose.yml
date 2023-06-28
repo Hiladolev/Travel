@@ -25,7 +25,7 @@ services:
      
 
     #On crash - restart container, unless manually stopped:
-    # restart: unless-stopped
+    restart: unless-stopped
 
     #Database volumes:
     volumes:
@@ -58,11 +58,11 @@ services:
       MYSQL_PASSWORD: 12345678
 
     #On crash - restart container, unless manually stopped:
-    # restart: unless-stopped
+    restart: unless-stopped
 
     #Host bolume for mounting backend development files to backend container
-    # volumes:
-    #   - ./backend:/app
+    volumes:
+      - ./backend:/app
 
     # On which service we are depending on (starting/stopping order):
     depends_on:
@@ -89,11 +89,11 @@ services:
       REACT_APP_API_URL: http://localhost:8080
 
     #On crash - restart container, unless manually stopped:
-    # restart: unless-stopped
+    restart: unless-stopped
 
     #Host volume for mounting Frontend development files to Frontend container
     # volumes:
-    #   - ./Frontend:/app
+      # - ./Frontend:/app
 
     #On which service we are depending on (start/stopping order):
     depends_on:
