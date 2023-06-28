@@ -1,11 +1,8 @@
-
 import { OkPacket } from "mysql";
 import dal_mysql from "../Utils/dal_mysql";
 
-
 const createFollowersTable = () => {
-    const SQLcommand = 
-    `
+  const SQLcommand = `
     CREATE TABLE IF NOT EXISTS followers (
         followerId INT NOT NULL AUTO_INCREMENT,
         userId INT NOT NULL,
@@ -21,30 +18,60 @@ const createFollowersTable = () => {
         ON UPDATE CASCADE
         );
         
-`
-    ;
-    const response = dal_mysql.execute(SQLcommand);
+`;
+  const response = dal_mysql.execute(SQLcommand);
 };
 
-const addLike = async (userId:number, vacationId:number) => {
-    const SQLcommand = `
+const addFollow = async (userId: number, vacationId: number) => {
+  const SQLcommand = `
     INSERT INTO travel.followers (userId, vacationId) VALUES (${userId},${vacationId});
-    `
-    const response: OkPacket = await dal_mysql.execute(SQLcommand);
-    return response.insertId;      
-}
+    `;
+  const result: OkPacket = await dal_mysql.execute(SQLcommand);
+  return result.insertId;
+};
 
-const unLike = (vacationId:number) => {
-    const SQLcommand = `
-    DELETE FROM travel.followers WHERE vacationId = ${vacationId}`;
-    dal_mysql.execute(SQLcommand);
-    return true;
-}
+const unFollow = async (userId: number, vacationId: number) => {
+  const SQLcommand = `
+    DELETE FROM travel.followers WHERE vacationId = ${vacationId} AND userId=${userId}`;
+  await dal_mysql.execute(SQLcommand);
+  return true;
+};
+const followersByVacationId = async (vacationId: number) => {
+  const SQLcommand = `
+  SELECT COUNT(*) AS count
+  FROM travel.followers
+  WHERE vacationId = ${vacationId}`;
+  const followers = await dal_mysql.execute(SQLcommand);
+  return followers[0].count;
+};
+const followersByUserId = async (userId: number) => {
+  const SQLcommand = `
+    SELECT * FROM travel.followers WHERE userId = ${userId}`;
+  return await dal_mysql.execute(SQLcommand);
+};
+const isVacationFollowedByUserId = async (
+  vacationId: number,
+  userId: number
+): Promise<boolean> => {
+  const SQLcommand = `SELECT COUNT(*) AS count
+  FROM travel.followers
+  WHERE vacationId = ${vacationId} AND userId=${userId}`;
+  const followed = await dal_mysql.execute(SQLcommand);
+  return followed[0].count > 0;
+};
 
-
-
+const getAllFollowers = async () => {
+  const SQLcommand = `
+    SELECT * FROM travel.followers
+    `;
+  return await dal_mysql.execute(SQLcommand);
+};
 export default {
-    createFollowersTable,
-    addLike,
-    unLike
+  createFollowersTable,
+  addFollow,
+  unFollow,
+  followersByVacationId,
+  followersByUserId,
+  isVacationFollowedByUserId,
+  getAllFollowers,
 };

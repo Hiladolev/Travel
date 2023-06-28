@@ -1,23 +1,39 @@
-import { Route, Routes } from "react-router-dom";
-import "./MainRoute.css";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Add from "../../Pages/AddVacation/AddVacation";
-import AllVacations from "../../Pages/AllVacations/AllVacations";
 import Page404 from "../../Pages/Page404/Page404";
 import Edit from "../../Pages/Edit/Edit";
-import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Register/Register";
+import VacationsPage from "../../Pages/VacationsPage/VacationsPage";
+import SignIn from "../../Pages/Login/SignIn";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/TravelApp";
+import TinyBarChart from "../../Pages/Reports/TinyBarChart";
+import SignUp from "../../Pages/Register/SignUp";
 
 function MainRoute(): JSX.Element {
+  const currentUser = useSelector(
+    (state: RootState) => state.users.currentUser
+  );
+  const status: string | undefined = currentUser?.role;
   return (
     <div className="MainRoute">
       <Routes>
-        <Route path="/add" element={<Add />} />
-        <Route path="/edit" element={<Edit />} />
-        <Route path="/" element={<AllVacations />} />
-        <Route path="/login" element={<Login />} />
+        {status === "admin" && (
+          <>
+            <Route path="/add" element={<Add />} />
+            <Route path="/edit/:id" element={<Edit />} />
+            <Route path="/reports" element={<TinyBarChart />} />
+          </>
+        )}
+
+        {status && <Route path="/" element={<VacationsPage />} />}
+
+        <Route path="/login" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="/" element={<Home />} /> */}
-        <Route path="*" element={<Page404 />} />
+        <Route
+          path="*"
+          element={!status ? <Navigate to="/login" replace /> : <Page404 />}
+        />
       </Routes>
     </div>
   );

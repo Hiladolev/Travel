@@ -3,31 +3,24 @@ import Account from "../../Models/Account";
 import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
-import { useEffect, useState } from "react";
-import { travel } from "../../Redux/TravelApp";
+import { useState } from "react";
+import { RootState } from "../../Redux/TravelApp";
 import axios from "axios";
-import { addUserAction, downloadUsersAction } from "../../Redux/UserReducer";
+import { userLoginAction } from "../../Redux/UserReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 function Register(): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const currentUser = useSelector(
+    (state: RootState) => state.users.currentUser
+  );
+  //Email Validation
   const [emailAlreadyExist, setEmailAlreadyExist] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (travel.getState().users.allUsers.length < 1) {
-      console.log("getting data from backend....");
-      axios
-        .post("http://localhost:4000/api/v1/users/allUsers")
-        .then((response) => {
-          travel.dispatch(downloadUsersAction(response.data));
-        });
-    }
-  }, []);
-
   const [email, setEmail] = useState({
     value: "",
     hasError: false,
   });
-
   const changeHandler = (e: any) => {
     const inputValue: any = e.target.value.trim().toLowerCase();
     let hasError = false;
@@ -44,7 +37,7 @@ function Register(): JSX.Element {
       hasError,
     }));
   };
-
+  //Use Form
   const {
     register,
     handleSubmit,
@@ -52,17 +45,34 @@ function Register(): JSX.Element {
   } = useForm<Account>();
 
   const addNewUser = async (newAccount: Account) => {
-    const emailExistInDB = travel
-      .getState()
-      .users.allUsers.filter((item) => item.email === newAccount.email);
-    if (emailExistInDB.length > 0) {
-      setEmailAlreadyExist(true);
-    } else {
-      setEmailAlreadyExist(false);
-      travel.dispatch(addUserAction(newAccount));
-      axios
-        .post("http://localhost:4000/api/v1/users/register", newAccount)
-        .then((response) => navigate("/"));
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/v1/users/checkIfEmailExist`,
+        { email: newAccount.email }
+      );
+      if (response.data) {
+        setEmailAlreadyExist(true);
+      } else {
+        setEmailAlreadyExist(false);
+        await axios
+          .post(
+            `${process.env.REACT_APP_API_URL}/api/v1/users/register`,
+            newAccount
+          )
+          .then((response) => {
+            dispatch(
+              userLoginAction(
+                newAccount.firstName,
+                newAccount.lastName,
+                "user",
+                response.data.insertId
+              )
+            );
+          });
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
