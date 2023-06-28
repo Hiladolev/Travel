@@ -65,7 +65,7 @@ function Edit(): JSX.Element {
     try {
       const vacationInfo = await axios
         .get(
-          `http://localhost:4000/api/v1/vacations/getVacationById/${params.id}`
+          `${process.env.REACT_APP_API_URL}/api/v1/vacations/getVacationById/${params.id}`
         )
         .then((response) => {
           return response.data[0];
@@ -75,7 +75,9 @@ function Edit(): JSX.Element {
         startDate: formatDate(vacationInfo.startDate),
         endDate: formatDate(vacationInfo.endDate),
       });
-      setPreview(`http://localhost:4000/images/${vacationInfo.image}`);
+      setPreview(
+        `${process.env.REACT_APP_API_URL}/images/${vacationInfo.image}`
+      );
     } catch (err) {
       console.log(err);
     }
@@ -98,7 +100,10 @@ function Edit(): JSX.Element {
     formControl.append("id", params.id.toString());
     formControl.append("image", selectedFile);
     axios
-      .put("http://localhost:4000/api/v1/vacations/edit", formControl)
+      .put(
+        `${process.env.REACT_APP_API_URL}/api/v1/vacations/edit`,
+        formControl
+      )
       .then((response) => {
         const finalVacation = response.data;
         if (!finalVacation.image) {

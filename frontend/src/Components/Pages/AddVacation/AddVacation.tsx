@@ -63,7 +63,10 @@ function AddVacation(): JSX.Element {
     vac.append("price", newVacation.price.toString());
     vac.append("image", (newVacation.image as unknown as FileList).item(0));
     axios
-      .post("http://localhost:4000/api/v1/vacations/addVacation", vac)
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/v1/vacations/addVacation`,
+        vac
+      )
       .then((response) => {
         const addedVacation = response.data;
         const changedVac = {

@@ -54,7 +54,7 @@ router.put(
       price: parseInt(updatedVacation.price),
       id: parseInt(updatedVacation.id),
     };
-    console.log(lastVersionVacation);
+
     if (lastVersionVacation.image === undefined) {
       const vacationId = await vacationLogic.updateVacation(
         lastVersionVacation

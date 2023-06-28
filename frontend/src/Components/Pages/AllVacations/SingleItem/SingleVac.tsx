@@ -64,7 +64,7 @@ function SingleVac(props: vacProps): JSX.Element {
         <CardMedia
           component="img"
           height="190"
-          src={`http://localhost:4000/images/${props.image}`}
+          src={`${process.env.REACT_APP_API_URL}/images/${props.image}`}
           alt={props.destination}
         />
         <CardContent>

@@ -31,7 +31,7 @@ function FollowButton(props: FollowProps): JSX.Element {
     if (!selected) {
       axios
         .post(
-          `http://localhost:4000/api/v1/followers/addFollow/${props.vacationId}/${currentUser.id}`
+          `${process.env.REACT_APP_API_URL}/api/v1/followers/addFollow/${props.vacationId}/${currentUser.id}`
         )
         .then((response) => {
           const followId = response.data;
@@ -45,7 +45,7 @@ function FollowButton(props: FollowProps): JSX.Element {
     } else {
       axios
         .delete(
-          `http://localhost:4000/api/v1/followers/unFollow/${props.vacationId}/${currentUser.id}`
+          `${process.env.REACT_APP_API_URL}/api/v1/followers/unFollow/${props.vacationId}/${currentUser.id}`
         )
         .then((response) => {
           const deleteFollowerId = followers.find(

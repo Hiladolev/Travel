@@ -1,25 +1,18 @@
 import User from "../Models/User";
 import dal_mysql from "../Utils/dal_mysql";
-import { OkPacket } from "mysql";
+import { OkPacket, escape } from "mysql";
 
 const addUser = async (newUser: User) => {
   const SQLcommand = `
     INSERT INTO travel.users
-(firstName, lastName, email, password, role) VALUES ('${newUser.firstName}', '${newUser.lastName}', '${newUser.email}', '${newUser.password}', 'user');
+(firstName, lastName, email, password, role) VALUES (${escape(
+    newUser.firstName
+  )}, ${escape(newUser.lastName)}, ${escape(newUser.email)}, ${escape(
+    newUser.password
+  )}, 'user');
 `;
   const response: OkPacket = await dal_mysql.execute(SQLcommand);
   return response.insertId;
-};
-
-const updateUser = async (user: User) => {
-  const SQLcommand = `
-    UPDATE
-    travel.users
-    SET firstName = '${user.firstName}', lastName = '${user.lastName}',email = '${user.email}',password = '${user.password}', role = '${user.role}' 
-    WHERE (id = ${user.id})   
-    `;
-  await dal_mysql.execute(SQLcommand);
-  return true;
 };
 
 const deleteUser = (id: number) => {
@@ -59,7 +52,7 @@ const checkIfEmailExist = async (email: string): Promise<boolean> => {
   const SQLcommand = `
     SELECT COUNT(*) AS count
     FROM travel.users
-    WHERE email = '${email}'
+    WHERE email = ${escape(email)}
     `;
   const result = await dal_mysql.execute(SQLcommand);
   return result[0].count > 0;
@@ -67,7 +60,9 @@ const checkIfEmailExist = async (email: string): Promise<boolean> => {
 
 const getUserByEmailNPassword = async (user: User): Promise<string> => {
   const SQLcommand = `
-    SELECT * FROM users WHERE email = '${user.email}' AND password = '${user.password}'
+    SELECT * FROM users WHERE email = ${escape(
+      user.email
+    )} AND password = ${escape(user.password)}
     `;
   const result = await dal_mysql.execute(SQLcommand);
   return result[0] || null;
@@ -77,7 +72,6 @@ export default {
   getAllUsers,
   getUserById,
   deleteUser,
-  updateUser,
   addUser,
   checkIfEmailExist,
   getUserByEmailNPassword,
