@@ -1,11 +1,16 @@
 import Vacation from "../Models/Vacation";
 import dal_mysql from "../Utils/dal_mysql";
-import { OkPacket } from "mysql";
+import { OkPacket, escape } from "mysql";
 
 const addVacation = async (newVacation: Vacation) => {
   const SQLcommand = `
     INSERT INTO travel.vacations
-(destination, description, startDate, endDate, price, image) VALUES ('${newVacation.destination}', '${newVacation.description}', '${newVacation.startDate}', '${newVacation.endDate}', ${newVacation.price}, '${newVacation.image}');
+(destination, description, startDate, endDate, price, image)
+VALUES (${escape(newVacation.destination)}, ${escape(
+    newVacation.description
+  )}, '${newVacation.startDate}', '${newVacation.endDate}', ${
+    newVacation.price
+  }, ${escape(newVacation.image)});
     `;
   const result: OkPacket = await dal_mysql.execute(SQLcommand);
   return result.insertId;
@@ -15,7 +20,11 @@ const updateVacationWithImage = async (vacation: Vacation) => {
   const SQLcommand = `
     UPDATE
     travel.vacations
-    SET destination = '${vacation.destination}', description = '${vacation.description}', startDate = '${vacation.startDate}', endDate = '${vacation.endDate}', price = ${vacation.price}, image = '${vacation.image}'
+    SET destination = ${escape(vacation.destination)}, description = ${escape(
+    vacation.description
+  )}, startDate = '${vacation.startDate}', endDate = '${
+    vacation.endDate
+  }', price = ${vacation.price}, image = ${escape(vacation.image)}
     WHERE (id = ${vacation.id})  
     `;
   const result: OkPacket = await dal_mysql.execute(SQLcommand);
@@ -25,7 +34,11 @@ const updateVacation = async (vacation: Vacation) => {
   const SQLcommand = `
     UPDATE
     travel.vacations
-    SET destination = '${vacation.destination}', description = '${vacation.description}', startDate = '${vacation.startDate}', endDate = '${vacation.endDate}', price = ${vacation.price}
+    SET destination = ${escape(vacation.destination)}, description = ${escape(
+    vacation.description
+  )}, startDate = '${vacation.startDate}', endDate = '${
+    vacation.endDate
+  }', price = ${vacation.price}
     WHERE (id = ${vacation.id})  
     `;
   const result: OkPacket = await dal_mysql.execute(SQLcommand);

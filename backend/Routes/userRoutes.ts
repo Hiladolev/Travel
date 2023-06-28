@@ -38,12 +38,6 @@ userRouter.delete(
   }
 );
 
-userRouter.put(
-  "/updateUser",
-  async (request: Request, response: Response, next: NextFunction) => {
-    response.status(202).json(await userLogic.updateUser(request.body));
-  }
-);
 userRouter.post(
   "/allUsers",
   async (request: Request, response: Response, next: NextFunction) => {
