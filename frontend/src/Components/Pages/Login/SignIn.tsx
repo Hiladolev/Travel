@@ -77,7 +77,6 @@ export default function SignIn() {
                 userInfo.role
               )
             );
-            navigate("/");
           } else {
             dispatch(
               userLoginAction(
@@ -87,7 +86,6 @@ export default function SignIn() {
                 userInfo.id
               )
             );
-            navigate("/");
           }
         } else {
           setWrongPassword(true);

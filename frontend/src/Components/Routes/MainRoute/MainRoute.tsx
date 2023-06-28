@@ -27,8 +27,15 @@ function MainRoute(): JSX.Element {
 
         {status && <Route path="/" element={<VacationsPage />} />}
 
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/register" element={<SignUp />} />
+        <Route
+          path="/login"
+          element={!status ? <SignIn /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/register"
+          element={!status ? <SignUp /> : <Navigate to="/" />}
+        />
+
         <Route
           path="*"
           element={!status ? <Navigate to="/login" replace /> : <Page404 />}
