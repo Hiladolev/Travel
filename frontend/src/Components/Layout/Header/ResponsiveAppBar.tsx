@@ -38,7 +38,8 @@ function ResponsiveAppBar() {
     default:
       homePage = "/login";
   }
-  const firstLetter = currentUser?.firstName[0];
+
+  const firstLetter = currentUser?.firstName[0].toUpperCase();
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null

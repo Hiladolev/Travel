@@ -10,19 +10,15 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { RootState, travel } from "../../Redux/TravelApp";
 import { useForm } from "react-hook-form";
 import Account from "../../Models/Account";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { adminLoginAction, userLoginAction } from "../../Redux/UserReducer";
-import { useDispatch, useSelector } from "react-redux";
-import User from "../../Models/Account";
+import { useDispatch } from "react-redux";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const users = useSelector((state: RootState) => state.users.allUsers);
-
   const navigate = useNavigate();
   const [emailNotExist, setEmailNotExist] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
@@ -173,7 +169,11 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Link onClick={() => navigate("/register")} variant="body2">
+            <Link
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/register")}
+              variant="body2"
+            >
               {"Don't have an account? Sign Up"}
             </Link>
           </Box>
