@@ -1,10 +1,7 @@
-import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,10 +10,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
-import { RootState } from "../../Redux/TravelApp";
 import axios from "axios";
 import { userLoginAction } from "../../Redux/UserReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import Account from "../../Models/Account";
 import { useNavigate } from "react-router-dom";
@@ -24,31 +20,30 @@ import { useNavigate } from "react-router-dom";
 function SignUp(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const emailValid = "Please enter a valid email";
-  const emailExist = "Already exist😢";
-  const currentUser = useSelector(
-    (state: RootState) => state.users.currentUser
-  );
   //Email Validation
-  const [emailAlreadyExist, setEmailAlreadyExist] = useState<boolean>(false);
   const [email, setEmail] = useState({
     value: "",
     hasError: false,
+    text: "",
   });
   const changeHandler = (e: any) => {
     const inputValue: any = e.target.value.trim().toLowerCase();
     let hasError = false;
+
+    let text = "";
     if (
       !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
         inputValue
       )
     ) {
       hasError = true;
+      text = "Please enter a valid email";
     }
     setEmail((currentValue) => ({
       ...currentValue,
       value: e.target.value,
       hasError,
+      text,
     }));
   };
   //Use Form
@@ -62,15 +57,16 @@ function SignUp(): JSX.Element {
   const defaultTheme = createTheme();
 
   const addNewUser = async (newAccount: Account) => {
+    console.log(newAccount);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/api/v1/users/checkIfEmailExist`,
         { email: newAccount.email }
       );
       if (response.data) {
-        setEmailAlreadyExist(true);
+        setEmail({ ...email, text: "Already exist😢" });
       } else {
-        setEmailAlreadyExist(false);
+        setEmail({ ...email, hasError: false, text: "" });
         await axios
           .post(
             `${process.env.REACT_APP_API_URL}/api/v1/users/register`,
@@ -142,30 +138,35 @@ function SignUp(): JSX.Element {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  label="Email Address"
                   required
+                  {...register("email")}
                   fullWidth
                   id="email"
-                  label="Email Address"
                   name="email"
                   autoComplete="email"
                   value={email.value}
                   onChange={changeHandler}
-                  //   error={text === ""}
-                  {...register("email")}
+                  helperText={email.hasError && email.text}
+                  error={email.hasError}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
+                  {...register("password", {
+                    minLength: 4,
+                  })}
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  {...register("password", {
-                    minLength: 4,
-                  })}
+                  helperText={
+                    errors.password && "please enter at least 4 characters"
+                  }
+                  error={errors.password && true}
                 />
               </Grid>
             </Grid>
@@ -177,13 +178,10 @@ function SignUp(): JSX.Element {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
+
+            <Link href="/login" variant="body2">
+              Already have an account? Sign in
+            </Link>
           </Box>
         </Box>
       </Container>
