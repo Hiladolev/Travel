@@ -1,4 +1,4 @@
-import { Box, Pagination } from "@mui/material";
+import { Box } from "@mui/material";
 
 interface vacationsProps {
   vacationsPerPage: number;

@@ -34,20 +34,6 @@ export default function AlertDialog(props: AlertProps) {
   };
   return (
     <>
-      {/* <Button
-        variant="outlined"
-        onClick={handleClickOpen}
-        size="small"
-        style={{
-          position: "absolute",
-          top: 35,
-          left: 70,
-          background: "white",
-        }}
-      >
-        Delete
-        <DeleteOutlineIcon />
-      </Button> */}
       <Fab
         variant="extended"
         size="small"

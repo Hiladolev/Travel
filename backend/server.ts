@@ -8,8 +8,6 @@ import vacationRouter from "./Routes/vacationRoutes";
 import userRouter from "./Routes/userRoutes";
 import userLogic from "./Logic/userLogicMYSQL";
 import followerLogic from "./Logic/followerMYSQL";
-import multer from "multer";
-import storage from "./Utils/storage";
 import followersRouter from "./Routes/followRoutes";
 
 //create server
@@ -22,11 +20,7 @@ server.use(cors());
 server.use(express.json());
 
 //where I save the vacations images
-const upload = multer({ storage: storage });
 server.use("/images", express.static("images"));
-
-//enable file uploading and create a path for the files if it's not exist
-// server.use(fileUpload({createParentPath: true}));
 
 //parse the body as json
 server.use(bodyParser.json());

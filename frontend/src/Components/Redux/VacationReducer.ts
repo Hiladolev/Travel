@@ -1,18 +1,7 @@
 import Vacation from "../Models/Vacation";
-
-import axios from "axios";
-import { travel } from "./TravelApp";
 //initial state
 export class VacationsState {
   public allVacations: Vacation[] = [];
-
-  // constructor() {
-  //   axios
-  //     .get(`${process.env.REACT_APP_API_URL}/api/v1/vacations/allVacations`)
-  //     .then((response) => {
-  //       travel.dispatch(downloadVacationsAction(response.data));
-  //     });
-  // }
 }
 
 //Actions type
@@ -69,7 +58,7 @@ export function VacationReducer(
       break;
     case VacationActionType.updateVacation:
       newState.allVacations = [...newState.allVacations].map((item) => {
-        if (item.id == action.payload.id) {
+        if (item.id === action.payload.id) {
           return action.payload;
         } else {
           return item;

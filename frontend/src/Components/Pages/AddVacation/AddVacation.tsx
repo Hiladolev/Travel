@@ -2,20 +2,16 @@ import Vacation from "../../Models/Vacation";
 import { Button, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../../Redux/TravelApp";
 import axios from "axios";
 import { addVacationAction } from "../../Redux/VacationReducer";
 import FormData from "form-data";
 import { ChangeEvent, useEffect, useState } from "react";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function AddVacation(): JSX.Element {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const allVacations = useSelector(
-    (state: RootState) => state.vacations.allVacations
-  );
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState<undefined | string>();
   const today: string = moment().format("YYYY-MM-DD");
@@ -143,7 +139,7 @@ function AddVacation(): JSX.Element {
         </Button>
         {selectedFile && (
           <span>
-            <img src={preview} width={200} />
+            <img src={preview} width={200} alt="vacation" />
           </span>
         )}
         <br /> <br />

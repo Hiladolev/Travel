@@ -1,13 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
-
 import { useForm } from "react-hook-form";
-import { RootState, travel } from "../../Redux/TravelApp";
 import { updateVacationAction } from "../../Redux/VacationReducer";
 import axios from "axios";
 import { Button, TextField } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 type updateVac = {
   destination: string;
@@ -20,9 +18,6 @@ type updateVac = {
 };
 function Edit(): JSX.Element {
   const dispatch = useDispatch();
-  const allVacations = useSelector(
-    (state: RootState) => state.vacations.allVacations
-  );
   const [selectedFile, setSelectedFile] = useState<File>();
   const [preview, setPreview] = useState<undefined | string>();
   const today: string = moment().format("YYYY-MM-DD");
@@ -33,29 +28,6 @@ function Edit(): JSX.Element {
   const onChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDate = moment(event.target.value).format("YYYY-MM-DD");
     setMinStartDate(selectedDate);
-  };
-  useEffect(() => {
-    getVacationById();
-  }, []);
-  useEffect(() => {
-    if (!selectedFile) {
-      return;
-    }
-
-    const objectUrl = URL.createObjectURL(selectedFile);
-    setPreview(objectUrl);
-
-    // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedFile]);
-
-  const onSelectFile = (e: any) => {
-    if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined);
-      return;
-    }
-    // I've kept this example simple by using the first image instead of multiple
-    setSelectedFile(e.target.files[0]);
   };
   const formatDate = (date: Date): string => {
     const formattedDate = new Date(date).toISOString().split("T")[0];
@@ -81,6 +53,30 @@ function Edit(): JSX.Element {
     } catch (err) {
       console.log(err);
     }
+  };
+  useEffect(() => {
+    getVacationById();
+    // eslint-disable-next-line
+  }, []);
+  useEffect(() => {
+    if (!selectedFile) {
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+
+  const onSelectFile = (e: any) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined);
+      return;
+    }
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile(e.target.files[0]);
   };
 
   const {
@@ -187,7 +183,7 @@ function Edit(): JSX.Element {
           />
         </Button>
         <span>
-          <img src={preview} width={200} />
+          <img src={preview} width={200} alt="vacation" />
         </span>
         <br />
         <br />
