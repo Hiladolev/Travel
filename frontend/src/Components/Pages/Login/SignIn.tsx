@@ -19,38 +19,56 @@ import { useDispatch } from "react-redux";
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const navigate = useNavigate();
-  const [emailNotExist, setEmailNotExist] = useState(false);
-  const [wrongPassword, setWrongPassword] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [password, setPassword] = useState({
+    value: "",
+    hasError: false,
+    text: "",
+  });
 
   const [email, setEmail] = useState({
     value: "",
     hasError: false,
+    text: "",
   });
 
   const changeHandler = (e: any) => {
     const inputValue = e.target.value.trim().toLowerCase();
     let hasError = false;
+    let text = "";
     if (
       !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
         inputValue
       )
     ) {
       hasError = true;
+      text = "Please enter a valid email";
     }
     setEmail((currentValue) => ({
       ...currentValue,
       value: e.target.value,
       hasError,
+      text,
     }));
   };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Account>();
+  const passwordChangeHandler = (e: any) => {
+    const inputValue = e.target.value;
+    let hasError = false;
+    let text = "";
+    if (inputValue.length < 4) {
+      hasError = true;
+      text = "please enter at least 4 characters";
+    }
+    setPassword((currentValue) => ({
+      ...currentValue,
+      value: e.target.value,
+      hasError,
+      text,
+    }));
+  };
+  const { register, handleSubmit } = useForm<Account>();
 
   const login = async (existingAccount: Account) => {
     try {
@@ -60,13 +78,13 @@ export default function SignIn() {
         { email: existingAccount.email }
       );
       if (emailResponse.data) {
-        setEmailNotExist(false);
         const userMatched = await axios.post(
           `${process.env.REACT_APP_API_URL}/api/v1/users/login`,
           existingAccount
         );
         if (userMatched.data) {
-          setWrongPassword(false);
+          setEmail({ ...email, hasError: false, text: "" });
+          setPassword({ ...password, hasError: false, text: "" });
           const userInfo = userMatched.data;
           const admin: boolean = userInfo.role === "admin";
           if (admin) {
@@ -90,10 +108,14 @@ export default function SignIn() {
             navigate("/");
           }
         } else {
-          setWrongPassword(true);
+          setPassword({
+            ...password,
+            hasError: true,
+            text: "Wrong password😢",
+          });
         }
       } else {
-        setEmailNotExist(true);
+        setEmail({ ...email, hasError: true, text: "Email doesn't exist😢" });
       }
     } catch (err) {
       console.log(err);
@@ -121,44 +143,35 @@ export default function SignIn() {
           <Box component="form" onSubmit={handleSubmit(login)} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
+              label="Email Address"
               required
+              {...register("email")}
               fullWidth
               id="email"
-              label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
-              {...register("email")}
               value={email.value}
               onChange={changeHandler}
+              helperText={email.hasError && email.text}
+              error={email.hasError}
             />
-            {email.hasError && (
-              <div style={{ color: "red" }}>Please enter a valid email</div>
-            )}
-            {emailNotExist && (
-              <div style={{ color: "red" }}>Please check your Email</div>
-            )}
             <TextField
               margin="normal"
               required
+              {...register("password", {
+                minLength: 4,
+              })}
               fullWidth
               name="password"
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
-              {...register("password", {
-                minLength: 4,
-              })}
-            />{" "}
-            {errors.password && (
-              <div style={{ color: "red" }}>
-                please enter at least 4 characters
-              </div>
-            )}
-            {wrongPassword && (
-              <div style={{ color: "red" }}>Wrong password</div>
-            )}
+              autoComplete="new-password"
+              value={password.value}
+              onChange={passwordChangeHandler}
+              helperText={password.hasError && password.text}
+              error={password.hasError}
+            />
             <br />
             <br />
             <Button
