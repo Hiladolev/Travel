@@ -1,5 +1,5 @@
 import MainRoute from "../../Routes/MainRoute/MainRoute";
-import Footer from "../Footer/Footer";
+import StickyFooter from "../Footer/StickyFooter";
 import Header from "../Header/Header";
 
 function MainLayout(): JSX.Element {
@@ -12,7 +12,7 @@ function MainLayout(): JSX.Element {
         <MainRoute />
       </main>
       <footer>
-        <Footer />
+        <StickyFooter />
       </footer>
     </div>
   );

@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 import AllVacations from "../AllVacations/AllVacations";
 import MainFeaturedPost from "../Theme/MainFeaturedPost";
 
@@ -16,7 +16,6 @@ const defaultTheme = createTheme();
 function VacationsPage(): JSX.Element {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
       <MainFeaturedPost post={mainFeaturedPost} />
       <AllVacations />
     </ThemeProvider>
