@@ -1,5 +1,5 @@
 import Vacation from "../../Models/Vacation";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Container, Paper, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -75,11 +75,10 @@ function AddVacation(): JSX.Element {
   };
 
   return (
-    <div className="Add">
-      <Typography variant="h4" gutterBottom>
+    <>
+      <Typography component="h1" variant="h5">
         Add Vacation
       </Typography>
-
       <form onSubmit={handleSubmit(addNewVacation)}>
         <TextField
           sx={{
@@ -103,15 +102,30 @@ function AddVacation(): JSX.Element {
           {...register("description")}
         />
         <br /> <br />
-        <input
+        <TextField
+          sx={{
+            width: 300,
+          }}
+          InputLabelProps={{ shrink: true }}
           required
+          label="Start Date"
           type="date"
           min={today}
           {...register("startDate")}
           onChange={onChangeStartDate}
         />
         <br /> <br />
-        <input type="date" {...register("endDate")} min={minStartDate} />
+        <TextField
+          sx={{
+            width: 300,
+          }}
+          InputLabelProps={{ shrink: true }}
+          required
+          label="End Date"
+          type="date"
+          min={minStartDate}
+          {...register("endDate")}
+        />
         <br /> <br />
         <TextField
           sx={{
@@ -121,7 +135,11 @@ function AddVacation(): JSX.Element {
           type="number"
           placeholder="$"
           required
-          {...register("price", { valueAsNumber: true, min: 0, max: 10000 })}
+          {...register("price", {
+            valueAsNumber: true,
+            min: 0,
+            max: 10000,
+          })}
         />
         {errors.price && (
           <div style={{ color: "red" }}>Limit Price is $10,000</div>
@@ -147,7 +165,7 @@ function AddVacation(): JSX.Element {
           Add Vacation
         </Button>
       </form>
-    </div>
+    </>
   );
 }
 export default AddVacation;
