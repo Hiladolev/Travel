@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LuggageIcon from "@mui/icons-material/Luggage";
@@ -16,6 +14,7 @@ import { RootState } from "../../Redux/TravelApp";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { userLogoutAction } from "../../Redux/UserReducer";
+import { useState } from "react";
 
 const pages = ["Add", "Reports"];
 const logout = "Logout";
@@ -40,9 +39,7 @@ function ResponsiveAppBar() {
 
   const firstLetter = currentUser?.firstName[0].toUpperCase();
   const navigate = useNavigate();
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
