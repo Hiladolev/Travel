@@ -1,6 +1,9 @@
 import { Typography, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import { keyframes } from "@emotion/react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/TravelApp";
+import { useNavigate } from "react-router-dom";
 
 // Animation keyframes
 const fadeIn = keyframes`
@@ -47,6 +50,15 @@ const Image = styled("img")`
   object-fit: cover;
 `;
 export default function Page404(): JSX.Element {
+  const navigate = useNavigate();
+  const currentUser = useSelector(
+    (state: RootState) => state.users.currentUser
+  );
+  const status = currentUser?.role;
+  let homePage = "/login";
+  if (status) {
+    homePage = "/";
+  }
   return (
     <Container>
       <OopsText variant="h1">Oops!Page Not Found</OopsText>
@@ -58,8 +70,12 @@ export default function Page404(): JSX.Element {
         />
       </ImageContainer>
       <br />
-      <Button variant="contained" color="primary" href="/">
-        Go Back to Home
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => navigate(homePage)}
+      >
+        Home page
       </Button>
     </Container>
   );
