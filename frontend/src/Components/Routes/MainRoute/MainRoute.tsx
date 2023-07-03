@@ -19,9 +19,9 @@ import { UserProtectedRoutes } from "../UserProtectedRoutes";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<MainLayout />}>
-      <Route path="/page404" element={<Page404 />} />
       <Route element={<UserProtectedRoutes />}>
         <Route path="/" element={<VacationsPage />} />
+        <Route path="*" element={<Page404 />} />
       </Route>
       <Route element={<AdminProtectedRoutes />}>
         <Route path="/add" element={<Add />} />
@@ -51,10 +51,6 @@ export const router = createBrowserRouter(
 );
 
 function MainRoute(): JSX.Element {
-  // const currentUser = useSelector(
-  //   (state: RootState) => state.users.currentUser
-  // );
-  // const status: string | undefined = currentUser?.role;
   return (
     <div className="MainRoute">
       {/* <Routes>
