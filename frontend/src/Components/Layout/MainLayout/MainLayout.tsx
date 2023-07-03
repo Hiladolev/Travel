@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import MainRoute from "../../Routes/MainRoute/MainRoute";
 import StickyFooter from "../Footer/StickyFooter";
 import Header from "../Header/Header";
 

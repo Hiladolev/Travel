@@ -49,30 +49,3 @@ export const router = createBrowserRouter(
     </Route>
   )
 );
-
-function MainRoute(): JSX.Element {
-  return (
-    <div className="MainRoute">
-      {/* <Routes>
-        {status === "admin" && (
-          <>
-            <Route path="/add" element={<Add />} />
-            <Route path="/edit/:id" element={<Edit />} />
-            <Route path="/reports" element={<TinyBarChart />} />
-          </>
-        )}
-
-        {status && <Route path="/" element={<VacationsPage />} />}
-
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route
-          path="*"
-          element={!status ? <Navigate to="/login" replace /> : <Page404 />}
-        />
-      </Routes> */}
-    </div>
-  );
-}
-
-export default MainRoute;
