@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,15 +6,15 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LuggageIcon from "@mui/icons-material/Luggage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../../Redux/TravelApp";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { userLogoutAction } from "../../Redux/UserReducer";
+import { useState } from "react";
 
 const pages = ["Add", "Reports"];
 const logout = "Logout";
@@ -40,9 +39,7 @@ function ResponsiveAppBar() {
 
   const firstLetter = currentUser?.firstName[0].toUpperCase();
   const navigate = useNavigate();
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -62,37 +59,51 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <LuggageIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href={homePage}
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Paradise Seekers
-          </Typography>
+          <Link to={homePage} replace>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              Paradise Seekers
+            </Typography>
+          </Link>
           {status === "admin" && (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Button
-                onClick={() => navigate("/add")}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {pages[0]}
-              </Button>
-              <Button
-                onClick={() => navigate("/reports")}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {pages[1]}
-              </Button>
+              <Link to={"/add"} replace>
+                <Typography
+                  variant="button"
+                  sx={{
+                    my: 3,
+                    color: "white",
+                    display: "block",
+                  }}
+                >
+                  {pages[0]}
+                </Typography>
+              </Link>
+
+              <Link to={"/reports"} replace>
+                <Typography
+                  variant="button"
+                  sx={{
+                    my: 3,
+                    color: "white",
+                    display: "block",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {pages[1]}
+                </Typography>
+              </Link>
             </Box>
           )}
           {currentUser && (
