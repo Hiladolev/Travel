@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import MainRoute from "../../Routes/MainRoute/MainRoute";
 import StickyFooter from "../Footer/StickyFooter";
 import Header from "../Header/Header";
@@ -9,7 +10,7 @@ function MainLayout(): JSX.Element {
         <Header />
       </header>
       <main>
-        <MainRoute />
+        <Outlet />
       </main>
       <footer>
         <StickyFooter />
