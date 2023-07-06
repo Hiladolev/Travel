@@ -13,11 +13,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../Redux/TravelApp";
 
-function LogoutTooltip(): JSX.Element {
+function UserMenu(): JSX.Element {
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
-  const status = currentUser?.role;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const firstLetter = currentUser?.firstName[0].toUpperCase();
@@ -74,4 +73,4 @@ function LogoutTooltip(): JSX.Element {
   );
 }
 
-export default LogoutTooltip;
+export default UserMenu;

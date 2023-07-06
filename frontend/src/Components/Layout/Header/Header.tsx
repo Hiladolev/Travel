@@ -1,23 +1,14 @@
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import LuggageIcon from "@mui/icons-material/Luggage";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RootState } from "../../Redux/TravelApp";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { userLogoutAction } from "../../Redux/UserReducer";
-import { useState } from "react";
 import "mdb-ui-kit/css/mdb.min.css";
 import AdminNavLinks from "./AdminNavLinks";
-import LogoutTooltip from "./LogoutTooltip";
+import UserMenu from "./UserMenu";
 
 function Header() {
   const currentUser = useSelector(
@@ -66,7 +57,7 @@ function Header() {
                 Welcome Back,
                 {`${currentUser.firstName} ${currentUser.lastName}  `}
               </div>
-              <LogoutTooltip />
+              <UserMenu />
             </>
           )}
         </Toolbar>
