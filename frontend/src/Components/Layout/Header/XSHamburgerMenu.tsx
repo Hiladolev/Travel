@@ -4,6 +4,7 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
+import LuggageIcon from "@mui/icons-material/Luggage";
 
 const adminPages = ["add", "reports"];
 const displaySettings = {
@@ -79,7 +80,7 @@ function XSHamburgerMenu(): JSX.Element {
           </Menu>
         </Box>
       )}
-
+      <LuggageIcon sx={{ display: displaySettings, mr: 1 }} />
       <Link to={homePage} replace>
         <Typography
           variant="h6"
