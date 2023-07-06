@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 interface NavLinkProps {
   path: string;
 }
+
 function SingleNavLink(props: NavLinkProps): JSX.Element {
   return (
     <Link to={`/${props.path}`} replace>

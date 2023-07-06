@@ -71,7 +71,9 @@ function XSHamburgerMenu(): JSX.Element {
         >
           {adminPages.map((page) => (
             <MenuItem key={page} onClick={handleCloseNavMenu}>
-              <Typography textAlign="center">{page}</Typography>
+              <Link to={`/${page}`} replace>
+                <Typography textAlign="center">{page}</Typography>
+              </Link>
             </MenuItem>
           ))}
         </Menu>
