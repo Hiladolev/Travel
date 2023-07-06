@@ -5,9 +5,7 @@ import Header from "../Header/Header";
 function MainLayout(): JSX.Element {
   return (
     <div className="MainLayout">
-      <header>
-        <Header />
-      </header>
+      <Header />
       <main>
         <Outlet />
       </main>
