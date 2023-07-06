@@ -7,12 +7,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
 
 const adminPages = ["add", "reports"];
-const displaySettings = {
-  display: {
-    xs: "flex",
-    md: "none",
-  },
-};
+// const displaySettings = {
+//   display: {
+//     xs: "flex",
+//     md: "none",
+//   },
+// };
 function XSHamburgerMenu(): JSX.Element {
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
@@ -73,7 +73,9 @@ function XSHamburgerMenu(): JSX.Element {
             {adminPages.map((page) => (
               <MenuItem key={page} onClick={handleCloseNavMenu}>
                 <Link to={`/${page}`} replace>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" color={"black"}>
+                    {page}
+                  </Typography>
                 </Link>
               </MenuItem>
             ))}
@@ -81,7 +83,7 @@ function XSHamburgerMenu(): JSX.Element {
         </Box>
       )}
 
-      <LuggageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+      {/* <LuggageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
       <Link to={homePage} replace>
         <Typography
           variant="h6"
