@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import StickyFooter from "../Footer/StickyFooter";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 function MainLayout(): JSX.Element {
@@ -12,7 +12,7 @@ function MainLayout(): JSX.Element {
         <Outlet />
       </main>
       <footer>
-        <StickyFooter />
+        <Footer />
       </footer>
     </div>
   );
