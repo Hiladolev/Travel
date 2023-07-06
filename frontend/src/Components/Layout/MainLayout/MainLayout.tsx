@@ -9,9 +9,9 @@ function MainLayout(): JSX.Element {
       <main>
         <Outlet />
       </main>
-      <footer>
-        <Footer />
-      </footer>
+      {/* <footer> */}
+      <Footer />
+      {/* </footer> */}
     </div>
   );
 }

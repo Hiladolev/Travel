@@ -11,13 +11,12 @@ export default function Footer() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-
       <Box
         component="footer"
         sx={{
           py: 3,
           px: 2,
-          mt: "auto",
+          // mt: "50px",
           bgcolor: "primary.main",
         }}
       >
