@@ -4,6 +4,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
 import LuggageIcon from "@mui/icons-material/Luggage";
 
+const displaySettings = {
+  xs: "none",
+  md: "flex",
+};
+
 function Logo(): JSX.Element {
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
@@ -22,14 +27,14 @@ function Logo(): JSX.Element {
   }
   return (
     <>
-      <LuggageIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+      <LuggageIcon sx={{ display: displaySettings, mr: 1 }} />
       <Link to={homePage} replace>
         <Typography
           variant="h6"
           noWrap
           sx={{
             mr: 2,
-            display: { xs: "none", md: "flex" },
+            display: displaySettings,
             fontFamily: "monospace",
             fontWeight: 700,
             letterSpacing: ".3rem",
