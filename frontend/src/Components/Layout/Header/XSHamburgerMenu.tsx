@@ -2,17 +2,14 @@ import { Box, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import LuggageIcon from "@mui/icons-material/Luggage";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
 
 const adminPages = ["add", "reports"];
-// const displaySettings = {
-//   display: {
-//     xs: "flex",
-//     md: "none",
-//   },
-// };
+const displaySettings = {
+  xs: "flex",
+  md: "none",
+};
 function XSHamburgerMenu(): JSX.Element {
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
@@ -41,7 +38,7 @@ function XSHamburgerMenu(): JSX.Element {
   return (
     <>
       {status === "admin" && (
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+        <Box sx={{ flexGrow: 1, display: displaySettings }}>
           <IconButton
             size="large"
             aria-label="account of current user"
@@ -83,14 +80,13 @@ function XSHamburgerMenu(): JSX.Element {
         </Box>
       )}
 
-      {/* <LuggageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
       <Link to={homePage} replace>
         <Typography
           variant="h6"
           noWrap
           sx={{
             mr: 2,
-            display: { xs: "flex", md: "none" },
+            display: displaySettings,
             flexGrow: 1,
             fontFamily: "monospace",
             fontWeight: 700,
