@@ -19,6 +19,8 @@ import { UserProtectedRoutes } from "../UserProtectedRoutes";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<MainLayout />}>
+      <Route path="/login" element={<SignIn />} />
+
       <Route element={<UserProtectedRoutes />}>
         <Route path="/" element={<VacationsPage />} />
         <Route path="*" element={<Page404 />} />
