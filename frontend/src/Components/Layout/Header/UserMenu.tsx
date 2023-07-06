@@ -40,10 +40,7 @@ function UserMenu(): JSX.Element {
       <Box sx={{ flexGrow: 0, marginLeft: "10px" }}>
         <Tooltip title="Logout">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar
-              alt={currentUser && firstLetter}
-              src="/static/images/avatar/2.jpg"
-            />
+            <Avatar alt={firstLetter} src="/static/images/avatar/2.jpg" />
           </IconButton>
         </Tooltip>
       </Box>
