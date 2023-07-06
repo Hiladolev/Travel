@@ -7,8 +7,8 @@ import "mdb-ui-kit/css/mdb.min.css";
 import AdminNavLinks from "./AdminNavLinks";
 import UserMenu from "./UserMenu";
 import Logo from "./Logo";
-import LuggageIcon from "@mui/icons-material/Luggage";
 import WelcomeMessage from "./WelcomeMessage";
+import XSHamburgerMenu from "./XSHamburgerMenu";
 
 function Header() {
   const currentUser = useSelector(
@@ -20,8 +20,8 @@ function Header() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <LuggageIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Logo />
+          <XSHamburgerMenu />
           {status === "admin" && <AdminNavLinks />}
           {currentUser && (
             <>

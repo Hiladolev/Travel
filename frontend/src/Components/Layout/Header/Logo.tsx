@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
+import LuggageIcon from "@mui/icons-material/Luggage";
 
 function Logo(): JSX.Element {
   const currentUser = useSelector(
@@ -20,23 +21,26 @@ function Logo(): JSX.Element {
       homePage = "/login";
   }
   return (
-    <Link to={homePage} replace>
-      <Typography
-        variant="h6"
-        noWrap
-        sx={{
-          mr: 2,
-          display: { xs: "none", md: "flex" },
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          color: "white",
-          textDecoration: "none",
-        }}
-      >
-        Paradise Seekers
-      </Typography>
-    </Link>
+    <>
+      <LuggageIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+      <Link to={homePage} replace>
+        <Typography
+          variant="h6"
+          noWrap
+          sx={{
+            mr: 2,
+            display: { xs: "none", md: "flex" },
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            color: "white",
+            textDecoration: "none",
+          }}
+        >
+          Paradise Seekers
+        </Typography>
+      </Link>
+    </>
   );
 }
 
