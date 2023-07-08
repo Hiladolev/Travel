@@ -26,11 +26,24 @@ function UploadImage({ register }: UploadImageProps): JSX.Element {
     setPreview(objectUrl);
   };
   return (
-    <>
+    <div
+      style={{
+        width: 240,
+        height: 160,
+        border: "1px solid black",
+        borderRadius: "10px",
+        marginTop: "11px",
+        marginLeft: "90px",
+      }}
+    >
       <Button
-        component="label"
+        style={{
+          position: "absolute",
+          backgroundColor: "rgba(79, 79, 79, 0.7)",
+        }}
+        variant="contained"
         {...register("image", { required: true })}
-        sx={{ mt: 3, mb: 2 }}
+        sx={{ mt: "55px", ml: "37px" }}
       >
         Cover Image
         <AddAPhotoIcon />
@@ -43,19 +56,16 @@ function UploadImage({ register }: UploadImageProps): JSX.Element {
         />
       </Button>
 
-      <Grid item xs={4}>
-        <img
-          src={preview}
-          width={240}
-          style={{
-            maxHeight: 160,
-            border: "1px solid black",
-            borderRadius: "10px",
-          }}
-          alt="vacation"
-        />
-      </Grid>
-    </>
+      <img
+        src={preview}
+        style={{
+          height: "100%",
+          width: "100%",
+          borderRadius: "10px",
+        }}
+        alt="vacation"
+      />
+    </div>
   );
 }
 
