@@ -29,7 +29,11 @@ function XSHamburgerMenu(): JSX.Element {
   return (
     <>
       {status === "admin" && (
-        <Box sx={{ flexGrow: 1, display: displaySettings }}>
+        <Box
+          sx={{
+            display: displaySettings,
+          }}
+        >
           <IconButton
             size="large"
             aria-label="account of current user"
