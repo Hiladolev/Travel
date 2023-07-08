@@ -132,8 +132,8 @@ function AddVacation(): JSX.Element {
                   required
                   label="Start Date"
                   type="date"
-                  min={today}
                   {...register("startDate")}
+                  inputProps={{ min: today }}
                   onChange={onChangeStartDate}
                 />
               </Grid>{" "}
@@ -141,10 +141,10 @@ function AddVacation(): JSX.Element {
                 <TextField
                   sx={{ width: 190 }}
                   InputLabelProps={{ shrink: true }}
+                  inputProps={{ min: minStartDate }}
                   required
                   label="End Date"
                   type="date"
-                  min={minStartDate}
                   {...register("endDate")}
                 />
               </Grid>{" "}
@@ -210,10 +210,19 @@ function AddVacation(): JSX.Element {
                 </Grid>
               )}
               <Button
+                sx={{ mt: 2 }}
+                fullWidth
+                type="reset"
+                variant="contained"
+                color="error"
+              >
+                Cancel
+              </Button>
+              <Button
+                sx={{ mt: 1 }}
+                fullWidth
                 type="submit"
                 variant="contained"
-                fullWidth
-                sx={{ mt: 3, mb: 2 }}
               >
                 Add Vacation
               </Button>
