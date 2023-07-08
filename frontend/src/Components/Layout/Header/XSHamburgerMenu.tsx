@@ -63,7 +63,11 @@ function XSHamburgerMenu(): JSX.Element {
             }}
           >
             {adminPages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
+              <MenuItem
+                style={{ textTransform: "capitalize" }}
+                key={page}
+                onClick={handleCloseNavMenu}
+              >
                 <Link to={`/${page}`} replace>
                   <Typography textAlign="center" color={"black"}>
                     {page}
