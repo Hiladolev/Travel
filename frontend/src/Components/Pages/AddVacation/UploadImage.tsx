@@ -2,20 +2,38 @@ import { Button, Grid } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { UseFormRegister } from "react-hook-form";
 import Vacation from "../../Models/Vacation";
+import { useEffect, useState } from "react";
 
 interface UploadImageProps {
   register: UseFormRegister<Vacation>;
-  onSelectFile: (e: any) => void;
-  selectedFile?: File;
-  preview: string;
 }
 
-function UploadImage({
-  register,
-  onSelectFile,
-  selectedFile,
-  preview,
-}: UploadImageProps): JSX.Element {
+function UploadImage({ register }: UploadImageProps): JSX.Element {
+  const [selectedFile, setSelectedFile] = useState();
+  const [preview, setPreview] = useState<undefined | string>();
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+
+  const onSelectFile = (e: any) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile(e.target.files[0]);
+  };
   return (
     <>
       <Button

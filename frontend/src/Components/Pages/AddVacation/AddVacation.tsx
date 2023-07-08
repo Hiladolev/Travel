@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { addVacationAction } from "../../Redux/VacationReducer";
 import FormData from "form-data";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import UploadImage from "./UploadImage";
@@ -23,37 +23,12 @@ import UploadImage from "./UploadImage";
 function AddVacation(): JSX.Element {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState<undefined | string>();
   const today: string = moment().format("YYYY-MM-DD");
   const [minStartDate, setMinStartDate] = useState<string>(today);
 
   const onChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDate = moment(event.target.value).format("YYYY-MM-DD");
     setMinStartDate(selectedDate);
-  };
-
-  useEffect(() => {
-    if (!selectedFile) {
-      setPreview(undefined);
-      return;
-    }
-
-    const objectUrl = URL.createObjectURL(selectedFile);
-    setPreview(objectUrl);
-
-    // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedFile]);
-
-  const onSelectFile = (e: any) => {
-    if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined);
-      return;
-    }
-
-    // I've kept this example simple by using the first image instead of multiple
-    setSelectedFile(e.target.files[0]);
   };
 
   const {
@@ -166,12 +141,7 @@ function AddVacation(): JSX.Element {
               {errors.price && (
                 <div style={{ color: "red" }}>Limit Price is $10,000</div>
               )}
-              <UploadImage
-                register={register}
-                onSelectFile={onSelectFile}
-                selectedFile={selectedFile}
-                preview={preview}
-              />
+              <UploadImage register={register} />
               <Button
                 sx={{ mt: 2 }}
                 fullWidth
