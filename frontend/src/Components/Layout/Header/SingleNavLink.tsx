@@ -12,6 +12,7 @@ function SingleNavLink(props: NavLinkProps): JSX.Element {
         variant="button"
         sx={{
           my: 3,
+          ml: 1,
           color: "white",
           display: "block",
         }}

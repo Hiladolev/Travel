@@ -7,8 +7,8 @@ function WelcomeMessage(): JSX.Element {
   );
   return (
     <div style={{ marginLeft: "auto" }}>
-      Welcome,
-      {` ${currentUser.firstName} ${currentUser.lastName}  `}
+      Welcome Back,
+      {`${currentUser.firstName} ${currentUser.lastName}  `}
     </div>
   );
 }

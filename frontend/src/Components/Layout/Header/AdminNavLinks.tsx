@@ -5,7 +5,7 @@ const adminPages = ["Add", "Reports"];
 
 function AdminNavLinks(): JSX.Element {
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, gap: 2 }}>
+    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
       {adminPages.map((page) => (
         <SingleNavLink key={page} path={page} />
       ))}

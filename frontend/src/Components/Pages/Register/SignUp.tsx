@@ -1,5 +1,6 @@
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
@@ -7,6 +8,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import axios from "axios";
 import { userLoginAction } from "../../Redux/UserReducer";
@@ -51,6 +53,9 @@ function SignUp(): JSX.Element {
     formState: { errors },
   } = useForm<Account>();
 
+  // TODO remove, this demo shouldn't need to reset the theme.
+  const defaultTheme = createTheme();
+
   const addNewUser = async (newAccount: Account) => {
     console.log(newAccount);
     try {
@@ -84,100 +89,103 @@ function SignUp(): JSX.Element {
     }
   };
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
         <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(addNewUser)}
-          sx={{ mt: 3 }}
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="given-name"
-                name="firstName"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                {...register("firstName")}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
-                {...register("lastName")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Email Address"
-                required
-                {...register("email")}
-                fullWidth
-                id="email"
-                name="email"
-                autoComplete="email"
-                value={email.value}
-                onChange={changeHandler}
-                helperText={email.hasError && email.text}
-                error={email.hasError}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                {...register("password", {
-                  minLength: 4,
-                })}
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                helperText={
-                  errors.password && "please enter at least 4 characters"
-                }
-                error={errors.password && true}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit(addNewUser)}
+            sx={{ mt: 3 }}
           >
-            Sign Up
-          </Button>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  {...register("firstName")}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                  {...register("lastName")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Email Address"
+                  required
+                  {...register("email")}
+                  fullWidth
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  value={email.value}
+                  onChange={changeHandler}
+                  helperText={email.hasError && email.text}
+                  error={email.hasError}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  {...register("password", {
+                    minLength: 4,
+                  })}
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  helperText={
+                    errors.password && "please enter at least 4 characters"
+                  }
+                  error={errors.password && true}
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
 
-          <Link href="/login" variant="body2">
-            Already have an account? Sign in
-          </Link>
+            <Link href="/login" variant="body2">
+              Already have an account? Sign in
+            </Link>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </ThemeProvider>
   );
 }
 export default SignUp;
