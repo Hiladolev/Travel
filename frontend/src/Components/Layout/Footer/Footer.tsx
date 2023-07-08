@@ -1,4 +1,3 @@
-import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -10,7 +9,6 @@ const defaultTheme = createTheme();
 export default function Footer() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
       <Box
         component="footer"
         sx={{
