@@ -4,7 +4,7 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
-import LuggageIcon from "@mui/icons-material/Luggage";
+import Logo from "./Logo";
 
 const adminPages = ["add", "reports"];
 const displaySettings = {
@@ -16,17 +16,7 @@ function XSHamburgerMenu(): JSX.Element {
     (state: RootState) => state.users.currentUser
   );
   const status = currentUser?.role;
-  let homePage = "";
-  switch (status) {
-    case "admin":
-      homePage = "/";
-      break;
-    case "user":
-      homePage = "/";
-      break;
-    default:
-      homePage = "/login";
-  }
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -39,7 +29,11 @@ function XSHamburgerMenu(): JSX.Element {
   return (
     <>
       {status === "admin" && (
-        <Box sx={{ flexGrow: 1, display: displaySettings }}>
+        <Box
+          sx={{
+            display: displaySettings,
+          }}
+        >
           <IconButton
             size="large"
             aria-label="account of current user"
@@ -69,7 +63,11 @@ function XSHamburgerMenu(): JSX.Element {
             }}
           >
             {adminPages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
+              <MenuItem
+                style={{ textTransform: "capitalize" }}
+                key={page}
+                onClick={handleCloseNavMenu}
+              >
                 <Link to={`/${page}`} replace>
                   <Typography textAlign="center" color={"black"}>
                     {page}
@@ -80,25 +78,7 @@ function XSHamburgerMenu(): JSX.Element {
           </Menu>
         </Box>
       )}
-      <LuggageIcon sx={{ display: displaySettings, mr: 1 }} />
-      <Link to={homePage} replace>
-        <Typography
-          variant="h6"
-          noWrap
-          sx={{
-            mr: 2,
-            display: displaySettings,
-            flexGrow: 1,
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
-            color: "white",
-            textDecoration: "none",
-          }}
-        >
-          Paradise Seekers
-        </Typography>
-      </Link>
+      <Logo xs={displaySettings.xs} md={displaySettings.md} />
     </>
   );
 }

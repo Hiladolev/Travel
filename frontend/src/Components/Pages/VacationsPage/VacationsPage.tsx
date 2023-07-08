@@ -1,4 +1,3 @@
-import { ThemeProvider, createTheme } from "@mui/material";
 import AllVacations from "../AllVacations/AllVacations";
 import MainFeaturedPost from "../Theme/MainFeaturedPost";
 
@@ -11,14 +10,13 @@ const mainFeaturedPost = {
   imageText: "main image description",
   linkText: "For more adventures...",
 };
-const defaultTheme = createTheme();
 
 function VacationsPage(): JSX.Element {
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <>
       <MainFeaturedPost post={mainFeaturedPost} />
       <AllVacations />
-    </ThemeProvider>
+    </>
   );
 }
 
