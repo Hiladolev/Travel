@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -15,8 +14,6 @@ import Account from "../../Models/Account";
 import { useState } from "react";
 import { adminLoginAction, userLoginAction } from "../../Redux/UserReducer";
 import { useDispatch } from "react-redux";
-
-const defaultTheme = createTheme();
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -123,75 +120,73 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit(login)} sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              label="Email Address"
-              required
-              {...register("email")}
-              fullWidth
-              id="email"
-              name="email"
-              autoComplete="email"
-              value={email.value}
-              onChange={changeHandler}
-              helperText={email.hasError && email.text}
-              error={email.hasError}
-            />
-            <TextField
-              margin="normal"
-              required
-              {...register("password", {
-                minLength: 4,
-              })}
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="new-password"
-              value={password.value}
-              onChange={passwordChangeHandler}
-              helperText={password.hasError && password.text}
-              error={password.hasError}
-            />
-            <br />
-            <br />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Link
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate("/register")}
-              variant="body2"
-            >
-              {"Don't have an account? Sign Up"}
-            </Link>
-          </Box>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit(login)} sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            label="Email Address"
+            required
+            {...register("email")}
+            fullWidth
+            id="email"
+            name="email"
+            autoComplete="email"
+            value={email.value}
+            onChange={changeHandler}
+            helperText={email.hasError && email.text}
+            error={email.hasError}
+          />
+          <TextField
+            margin="normal"
+            required
+            {...register("password", {
+              minLength: 4,
+            })}
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="new-password"
+            value={password.value}
+            onChange={passwordChangeHandler}
+            helperText={password.hasError && password.text}
+            error={password.hasError}
+          />
+          <br />
+          <br />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In
+          </Button>
+          <Link
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/register")}
+            variant="body2"
+          >
+            {"Don't have an account? Sign Up"}
+          </Link>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 }
