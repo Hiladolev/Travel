@@ -1,19 +1,25 @@
 import { Outlet } from "react-router-dom";
-import StickyFooter from "../Footer/StickyFooter";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import "./MainLayout.css";
 
 function MainLayout(): JSX.Element {
   return (
     <div className="MainLayout">
-      <header>
-        <Header />
-      </header>
-      <main>
-        <Outlet />
+      <Header />
+      <main
+        style={{
+          flexGrow: 1,
+          overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <main style={{ flexGrow: 1, paddingBottom: "14px" }}>
+          <Outlet />
+        </main>
+        <Footer />
       </main>
-      <footer>
-        <StickyFooter />
-      </footer>
     </div>
   );
 }
