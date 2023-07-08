@@ -15,7 +15,7 @@ function MainLayout(): JSX.Element {
           flexDirection: "column",
         }}
       >
-        <main style={{ flexGrow: 1 }}>
+        <main style={{ flexGrow: 1, paddingBottom: "14px" }}>
           <Outlet />
         </main>
         <Footer />
