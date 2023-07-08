@@ -18,7 +18,7 @@ import FormData from "form-data";
 import { ChangeEvent, useEffect, useState } from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import UploadImage from "./UploadImage";
 
 function AddVacation(): JSX.Element {
   const dispatch = useDispatch();
@@ -55,6 +55,7 @@ function AddVacation(): JSX.Element {
     // I've kept this example simple by using the first image instead of multiple
     setSelectedFile(e.target.files[0]);
   };
+
   const {
     register,
     handleSubmit,
@@ -165,50 +166,12 @@ function AddVacation(): JSX.Element {
               {errors.price && (
                 <div style={{ color: "red" }}>Limit Price is $10,000</div>
               )}
-              <Button
-                component="label"
-                {...register("image", { required: true })}
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Cover Image
-                <AddAPhotoIcon />
-                <input
-                  hidden
-                  accept="image/*"
-                  type="file"
-                  name="image"
-                  onChange={onSelectFile}
-                />
-              </Button>
-              {selectedFile ? (
-                <Grid item xs={4}>
-                  <img
-                    src={preview}
-                    width={240}
-                    style={{
-                      maxHeight: 160,
-                      border: "1px solid black",
-                      borderRadius: "10px",
-                    }}
-                    alt="vacation"
-                  />
-                </Grid>
-              ) : (
-                <Grid item xs={6}>
-                  <img
-                    src={
-                      "https://www.lifewire.com/thmb/TRGYpWa4KzxUt1Fkgr3FqjOd6VQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg"
-                    }
-                    width={240}
-                    style={{
-                      maxHeight: 160,
-                      border: "1px solid black",
-                      borderRadius: "10px",
-                    }}
-                    alt="upload sign"
-                  />
-                </Grid>
-              )}
+              <UploadImage
+                register={register}
+                onSelectFile={onSelectFile}
+                selectedFile={selectedFile}
+                preview={preview}
+              />
               <Button
                 sx={{ mt: 2 }}
                 fullWidth
