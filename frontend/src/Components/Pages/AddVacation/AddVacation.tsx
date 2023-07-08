@@ -142,23 +142,16 @@ function AddVacation(): JSX.Element {
                 <div style={{ color: "red" }}>Limit Price is $10,000</div>
               )}
               <UploadImage register={register} />
-              <Button
-                sx={{ mt: 2 }}
-                fullWidth
-                type="reset"
-                variant="contained"
-                color="error"
-              >
-                Cancel
-              </Button>
-              <Button
-                sx={{ mt: 1 }}
-                fullWidth
-                type="submit"
-                variant="contained"
-              >
-                Add Vacation
-              </Button>
+              <Grid item xs={12}>
+                <Button fullWidth type="submit" variant="contained">
+                  Add Vacation
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Button fullWidth type="reset" variant="outlined" color="error">
+                  Cancel
+                </Button>
+              </Grid>
             </Grid>
           </Box>
         </Box>
