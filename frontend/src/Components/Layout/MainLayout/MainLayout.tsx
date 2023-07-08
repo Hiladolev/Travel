@@ -11,12 +11,15 @@ function MainLayout(): JSX.Element {
         style={{
           flexGrow: 1,
           overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <Outlet />
+        <main style={{ flexGrow: 1 }}>
+          <Outlet />
+        </main>
+        <Footer />
       </main>
-
-      <Footer />
     </div>
   );
 }
