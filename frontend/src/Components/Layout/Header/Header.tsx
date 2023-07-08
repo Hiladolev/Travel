@@ -10,6 +10,11 @@ import Logo from "./Logo";
 import WelcomeMessage from "./WelcomeMessage";
 import XSHamburgerMenu from "./XSHamburgerMenu";
 
+const displaySettings = {
+  xs: "none",
+  md: "flex",
+};
+
 function Header() {
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
@@ -20,7 +25,7 @@ function Header() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Logo />
+          <Logo xs={displaySettings.xs} md={displaySettings.md} />
           <XSHamburgerMenu />
           {status === "admin" && <AdminNavLinks />}
           {currentUser && (
