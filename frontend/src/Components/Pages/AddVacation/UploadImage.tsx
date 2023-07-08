@@ -9,8 +9,8 @@ interface UploadImageProps {
 }
 
 function UploadImage({ register }: UploadImageProps): JSX.Element {
-  const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState<undefined | string>();
+  const [selectedFile, setSelectedFile] = useState<File>();
+  const [preview, setPreview] = useState<string>();
 
   useEffect(() => {
     if (!selectedFile) {
@@ -25,7 +25,7 @@ function UploadImage({ register }: UploadImageProps): JSX.Element {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
-  const onSelectFile = (e: any) => {
+  const onSelectFile = (e: any): void => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
       return;
