@@ -70,7 +70,6 @@ function UploadImage({
           onChange={onSelectFile}
         />
       </Button>
-
       <img
         src={preview}
         style={{
@@ -80,6 +79,15 @@ function UploadImage({
         }}
         alt="vacation"
       />
+      {errors.image && (
+        <p
+          style={{
+            color: "red",
+          }}
+        >
+          {errors.image.message}
+        </p>
+      )}
     </div>
   );
 }
