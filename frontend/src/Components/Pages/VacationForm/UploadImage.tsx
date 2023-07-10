@@ -1,17 +1,24 @@
 import { Button } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import Vacation from "../../Models/Vacation";
+import Vacation from "./VacationValues";
 import { useEffect, useState } from "react";
 
 interface UploadImageProps {
   register: UseFormRegister<Vacation>;
   errors: FieldErrors<Vacation>;
+  defaultValue?: string;
 }
 const defaultImage =
   "https://www.lifewire.com/thmb/TRGYpWa4KzxUt1Fkgr3FqjOd6VQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg";
-function UploadImage({ register, errors }: UploadImageProps): JSX.Element {
-  const [preview, setPreview] = useState<string>(defaultImage);
+function UploadImage({
+  register,
+  errors,
+  defaultValue,
+}: UploadImageProps): JSX.Element {
+  const [preview, setPreview] = useState<string>(
+    defaultValue ? defaultValue : defaultImage
+  );
 
   useEffect(() => {
     // free memory when ever this component is unmounted

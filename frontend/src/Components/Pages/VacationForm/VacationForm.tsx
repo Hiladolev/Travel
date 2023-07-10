@@ -1,24 +1,40 @@
 import { Box, Grid, TextField, Button } from "@mui/material";
 import UploadImage from "./UploadImage";
 import { useForm, useWatch } from "react-hook-form";
-import Vacation from "../../Models/Vacation";
-import moment from "moment";
+import Vacation from "./VacationValues";
 
 interface VacationFormProps {
   addNewVacation: any;
+  minStartDate: string;
+  defaultValues: {
+    destination: string;
+    description: string;
+    startDate?: string;
+    endDate?: string;
+    price?: number;
+    image?: string;
+  };
 }
 
-function VacationForm({ addNewVacation }: VacationFormProps): JSX.Element {
-  const today: string = moment().format("YYYY-MM-DD");
-
+function VacationForm({
+  addNewVacation,
+  defaultValues,
+  minStartDate,
+}: VacationFormProps): JSX.Element {
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<Vacation>();
+  } = useForm<Vacation>({
+    defaultValues,
+  });
 
-  const startMin = useWatch({ name: "startDate", control })?.toString();
+  const startMin = useWatch({
+    name: "startDate",
+    control,
+    defaultValue: minStartDate,
+  })?.toString();
 
   const requiredTemplate = {
     required: {
@@ -63,11 +79,11 @@ function VacationForm({ addNewVacation }: VacationFormProps): JSX.Element {
             type="date"
             {...register("startDate", {
               ...requiredTemplate,
-              min: { value: today, message: "Invalid date" },
+              min: { value: minStartDate, message: "Invalid date" },
             })}
             error={!!errors.startDate}
             helperText={errors.startDate?.message}
-            inputProps={{ min: today }}
+            inputProps={{ min: minStartDate }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -111,7 +127,11 @@ function VacationForm({ addNewVacation }: VacationFormProps): JSX.Element {
             helperText={errors.price?.message}
           />
         </Grid>
-        <UploadImage register={register} errors={errors} />
+        <UploadImage
+          register={register}
+          errors={errors}
+          defaultValue={defaultValues.image}
+        />
         <Grid item xs={12}>
           <Button fullWidth type="submit" variant="contained">
             Add Vacation

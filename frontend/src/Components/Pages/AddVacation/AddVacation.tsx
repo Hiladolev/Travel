@@ -6,6 +6,7 @@ import { addVacationAction } from "../../Redux/VacationReducer";
 import FormData from "form-data";
 import { useDispatch } from "react-redux";
 import VacationForm from "../VacationForm/VacationForm";
+import moment from "moment";
 
 function AddVacation(): JSX.Element {
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ function AddVacation(): JSX.Element {
       });
   };
 
+  const today: string = moment().format("YYYY-MM-DD");
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -46,7 +49,14 @@ function AddVacation(): JSX.Element {
         <Typography component="h1" variant="h5">
           Add Vacation
         </Typography>
-        <VacationForm addNewVacation={addNewVacation} />
+        <VacationForm
+          addNewVacation={addNewVacation}
+          minStartDate={today}
+          defaultValues={{
+            destination: "",
+            description: "",
+          }}
+        />
       </Box>
     </Container>
   );
