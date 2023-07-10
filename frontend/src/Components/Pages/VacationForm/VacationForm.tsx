@@ -6,13 +6,13 @@ import Vacation from "./VacationValues";
 interface VacationFormProps {
   addNewVacation: any;
   minStartDate: string;
-  defaultValues: {
+  defaultValues?: {
     destination: string;
     description: string;
-    startDate?: string;
-    endDate?: string;
-    price?: number;
-    image?: string;
+    startDate: string;
+    endDate: string;
+    price: number;
+    image: string;
   };
 }
 
@@ -130,7 +130,7 @@ function VacationForm({
         <UploadImage
           register={register}
           errors={errors}
-          defaultValue={defaultValues.image}
+          defaultValue={defaultValues?.image}
         />
         <Grid item xs={12}>
           <Button fullWidth type="submit" variant="contained">
