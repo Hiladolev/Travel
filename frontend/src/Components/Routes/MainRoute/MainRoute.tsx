@@ -40,7 +40,7 @@ export const router = createBrowserRouter(
             if (result.length === 0) {
               return redirect("/page404");
             }
-            return null;
+            return result[0];
           }}
         />
       </Route>

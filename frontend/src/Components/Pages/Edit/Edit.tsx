@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLoaderData } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { updateVacationAction } from "../../Redux/VacationReducer";
 import axios from "axios";
@@ -17,6 +17,7 @@ type updateVac = {
   id?: number;
 };
 function Edit(): JSX.Element {
+  const loaderData: any = useLoaderData();
   const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState<File>();
   const [preview, setPreview] = useState<undefined | string>();
@@ -34,25 +35,13 @@ function Edit(): JSX.Element {
     return formattedDate;
   };
   const getVacationById = async () => {
-    try {
-      const vacationInfo = await axios
-        .get(
-          `${process.env.REACT_APP_API_URL}/api/v1/vacations/getVacationById/${params.id}`
-        )
-        .then((response) => {
-          return response.data[0];
-        });
-      reset({
-        ...vacationInfo,
-        startDate: formatDate(vacationInfo.startDate),
-        endDate: formatDate(vacationInfo.endDate),
-      });
-      setPreview(
-        `${process.env.REACT_APP_API_URL}/images/${vacationInfo.image}`
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    const vacationInfo = loaderData;
+    reset({
+      ...vacationInfo,
+      startDate: formatDate(vacationInfo.startDate),
+      endDate: formatDate(vacationInfo.endDate),
+    });
+    setPreview(`${process.env.REACT_APP_API_URL}/images/${vacationInfo.image}`);
   };
   useEffect(() => {
     getVacationById();
