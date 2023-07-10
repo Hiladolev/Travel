@@ -16,7 +16,7 @@ type updateVac = {
   image?: string;
   id?: number;
 };
-function Edit(): JSX.Element {
+function EditVacation(): JSX.Element {
   const loaderData: any = useLoaderData();
   const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState<File>();
@@ -184,4 +184,4 @@ function Edit(): JSX.Element {
   );
 }
 
-export default Edit;
+export default EditVacation;

@@ -14,7 +14,7 @@ import { useState } from "react";
 import { adminLoginAction, userLoginAction } from "../../Redux/UserReducer";
 import { useDispatch } from "react-redux";
 
-export default function SignIn() {
+export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
