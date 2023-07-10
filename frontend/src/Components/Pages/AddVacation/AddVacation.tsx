@@ -148,7 +148,7 @@ function AddVacation(): JSX.Element {
                 </Button>
               </Grid>
               <Grid item xs={12}>
-                <Button fullWidth type="reset" variant="outlined" color="error">
+                <Button fullWidth type="reset" variant="outlined">
                   Cancel
                 </Button>
               </Grid>
