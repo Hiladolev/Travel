@@ -10,12 +10,11 @@ import {
   Typography,
   createTheme,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { addVacationAction } from "../../Redux/VacationReducer";
 import FormData from "form-data";
-import { ChangeEvent, useState } from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import UploadImage from "./UploadImage";
@@ -24,17 +23,12 @@ function AddVacation(): JSX.Element {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const today: string = moment().format("YYYY-MM-DD");
-  const [minStartDate, setMinStartDate] = useState<string>(today);
-
-  const onChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = moment(event.target.value).format("YYYY-MM-DD");
-    setMinStartDate(selectedDate);
-  };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<Vacation>();
 
   const defaultTheme = createTheme();
@@ -63,6 +57,15 @@ function AddVacation(): JSX.Element {
       });
   };
 
+  const startMin = useWatch({ name: "startDate", control })?.toString();
+
+  const requiredTemplate = {
+    required: {
+      value: true,
+      message: "Required",
+    },
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -87,8 +90,9 @@ function AddVacation(): JSX.Element {
                   fullWidth
                   label="Destination"
                   variant="outlined"
-                  required
-                  {...register("destination")}
+                  {...register("destination", requiredTemplate)}
+                  error={!!errors.destination}
+                  helperText={errors.destination?.message}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -97,33 +101,44 @@ function AddVacation(): JSX.Element {
                   id="outlined-multiline-static"
                   multiline
                   label="Description"
-                  required
-                  {...register("description")}
+                  {...register("description", requiredTemplate)}
+                  error={!!errors.description}
+                  helperText={errors.description?.message}
                 />
-              </Grid>{" "}
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   sx={{ width: 190 }}
                   InputLabelProps={{ shrink: true }}
-                  required
                   label="Start Date"
                   type="date"
-                  {...register("startDate")}
+                  {...register("startDate", {
+                    ...requiredTemplate,
+                    min: { value: today, message: "Invalid date" },
+                  })}
+                  error={!!errors.startDate}
+                  helperText={errors.startDate?.message}
                   inputProps={{ min: today }}
-                  onChange={onChangeStartDate}
                 />
-              </Grid>{" "}
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   sx={{ width: 190 }}
                   InputLabelProps={{ shrink: true }}
-                  inputProps={{ min: minStartDate }}
-                  required
+                  inputProps={{ min: startMin }}
                   label="End Date"
                   type="date"
-                  {...register("endDate")}
+                  {...register("endDate", {
+                    ...requiredTemplate,
+                    min: {
+                      value: startMin,
+                      message: "Must be after start date",
+                    },
+                  })}
+                  error={!!errors.endDate}
+                  helperText={errors.endDate?.message}
                 />
-              </Grid>{" "}
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   fullWidth
@@ -132,16 +147,22 @@ function AddVacation(): JSX.Element {
                   placeholder="$"
                   required
                   {...register("price", {
+                    ...requiredTemplate,
                     valueAsNumber: true,
-                    min: 0,
-                    max: 10000,
+                    min: {
+                      value: 0,
+                      message: "Price must be positive",
+                    },
+                    max: {
+                      value: 10000,
+                      message: "Price must be below 10,000",
+                    },
                   })}
+                  error={!!errors.price}
+                  helperText={errors.price?.message}
                 />
               </Grid>
-              {errors.price && (
-                <div style={{ color: "red" }}>Limit Price is $10,000</div>
-              )}
-              <UploadImage register={register} />
+              <UploadImage register={register} errors={errors} />
               <Grid item xs={12}>
                 <Button fullWidth type="submit" variant="contained">
                   Add Vacation

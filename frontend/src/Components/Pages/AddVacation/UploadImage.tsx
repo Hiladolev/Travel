@@ -1,15 +1,16 @@
-import { Button, Grid } from "@mui/material";
+import { Button } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 import Vacation from "../../Models/Vacation";
 import { useEffect, useState } from "react";
 
 interface UploadImageProps {
   register: UseFormRegister<Vacation>;
+  errors: FieldErrors<Vacation>;
 }
 const defaultImage =
   "https://www.lifewire.com/thmb/TRGYpWa4KzxUt1Fkgr3FqjOd6VQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg";
-function UploadImage({ register }: UploadImageProps): JSX.Element {
+function UploadImage({ register, errors }: UploadImageProps): JSX.Element {
   const [preview, setPreview] = useState<string>(defaultImage);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ function UploadImage({ register }: UploadImageProps): JSX.Element {
   }, []);
 
   const onSelectFile = (e: any): void => {
+    console.log(e);
     if (!e.target.files || e.target.files.length === 0) {
       return;
     }
@@ -37,12 +39,18 @@ function UploadImage({ register }: UploadImageProps): JSX.Element {
       }}
     >
       <Button
+        component="label"
         style={{
           position: "absolute",
           backgroundColor: "rgba(79, 79, 79, 0.7)",
         }}
         variant="contained"
-        {...register("image", { required: true })}
+        {...register("image", {
+          required: {
+            value: true,
+            message: "Required",
+          },
+        })}
         sx={{ mt: "55px", ml: "37px" }}
       >
         Cover Image
