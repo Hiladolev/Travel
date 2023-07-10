@@ -4,7 +4,7 @@ import { useForm, useWatch } from "react-hook-form";
 import Vacation from "./VacationValues";
 
 interface VacationFormProps {
-  addNewVacation: any;
+  vacationActionFunction: any;
   minStartDate: string;
   defaultValues?: {
     destination: string;
@@ -17,7 +17,7 @@ interface VacationFormProps {
 }
 
 function VacationForm({
-  addNewVacation,
+  vacationActionFunction,
   defaultValues,
   minStartDate,
 }: VacationFormProps): JSX.Element {
@@ -46,7 +46,7 @@ function VacationForm({
     <Box
       component="form"
       noValidate
-      onSubmit={handleSubmit(addNewVacation)}
+      onSubmit={handleSubmit(vacationActionFunction)}
       sx={{ mt: 1 }}
     >
       <Grid container spacing={2}>

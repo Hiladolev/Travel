@@ -49,7 +49,10 @@ function AddVacation(): JSX.Element {
         <Typography component="h1" variant="h5">
           Add Vacation
         </Typography>
-        <VacationForm addNewVacation={addNewVacation} minStartDate={today} />
+        <VacationForm
+          vacationActionFunction={addNewVacation}
+          minStartDate={today}
+        />
       </Box>
     </Container>
   );
