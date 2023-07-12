@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import "./AllVacations.css";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Pagination from "../../Models/Pagination";
 import { RootState, travel } from "../../Redux/TravelApp";
 import Vacation from "../../Models/Vacation";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
-import VacationCard from "./VacationCard/VacationCard";
 import { sortBy } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { downloadVacationsAction } from "../../Redux/VacationReducer";
 import axios from "axios";
 import { downloadFollowers } from "../../Redux/FollowerReducer";
 import Follower from "../../Models/Follower";
+import { VacationFeed } from "./VacationFeed";
 
 enum ActiveFilterType {
   all = "all",
@@ -184,20 +183,7 @@ function AllVacations(): JSX.Element {
             </Button>
           </ButtonGroup>
         )}
-        <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {currentVacations.map((item) => (
-            <VacationCard
-              key={item.id}
-              destination={item.destination}
-              description={item.description}
-              startDate={item.startDate}
-              endDate={item.endDate}
-              price={item.price}
-              image={item.image}
-              id={item.id}
-            />
-          ))}
-        </Grid>
+        <VacationFeed currentVacations={currentVacations} />
       </Box>
       <Pagination
         vacationsPerPage={vacationsPerPage}
