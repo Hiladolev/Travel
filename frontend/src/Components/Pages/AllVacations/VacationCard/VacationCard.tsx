@@ -4,7 +4,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import FollowButton from "../FollowButton";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/TravelApp";
 import { AdminCardControls } from "./AdminCardControls";
