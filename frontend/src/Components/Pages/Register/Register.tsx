@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import Account from "../../Models/Account";
 import { useNavigate } from "react-router-dom";
 
-function SignUp(): JSX.Element {
+function Register(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //Email Validation
@@ -180,4 +180,4 @@ function SignUp(): JSX.Element {
     </Container>
   );
 }
-export default SignUp;
+export default Register;

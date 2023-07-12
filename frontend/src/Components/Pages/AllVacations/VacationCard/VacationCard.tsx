@@ -27,7 +27,7 @@ const formatDate = (date: Date): string => {
   return `${myNewDate[2]}/${myNewDate[1]}/${myNewDate[0]}`;
 };
 
-function SingleVac(props: vacProps): JSX.Element {
+function VacationCard(props: vacProps): JSX.Element {
   const currentUserRole = useSelector(
     (state: RootState) => state.users.currentUser.role
   );
@@ -101,4 +101,4 @@ function SingleVac(props: vacProps): JSX.Element {
     </Grid>
   );
 }
-export default SingleVac;
+export default VacationCard;

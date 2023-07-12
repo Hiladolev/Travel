@@ -6,11 +6,11 @@ import {
 } from "react-router-dom";
 import Add from "../../Pages/AddVacation/AddVacation";
 import Page404 from "../../Pages/Page404/Page404";
-import Edit from "../../Pages/Edit/Edit";
+import EditVacation from "../../Pages/EditVacation/EditVacation";
 import VacationsPage from "../../Pages/VacationsPage/VacationsPage";
-import SignIn from "../../Pages/Login/SignIn";
+import Login from "../../Pages/Login/Login";
 import TinyBarChart from "../../Pages/Reports/TinyBarChart";
-import SignUp from "../../Pages/Register/SignUp";
+import Register from "../../Pages/Register/Register";
 import MainLayout from "../../Layout/MainLayout/MainLayout";
 import axios from "axios";
 import { AdminProtectedRoutes } from "../AdminProtectedRoutes";
@@ -19,7 +19,7 @@ import { UserProtectedRoutes } from "../UserProtectedRoutes";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<MainLayout />}>
-      <Route path="/login" element={<SignIn />} />
+      <Route path="/login" element={<Login />} />
 
       <Route element={<UserProtectedRoutes />}>
         <Route path="/" element={<VacationsPage />} />
@@ -30,7 +30,7 @@ export const router = createBrowserRouter(
         <Route path="/reports" element={<TinyBarChart />} />
         <Route
           path="/edit/:id"
-          element={<Edit />}
+          element={<EditVacation />}
           loader={async ({ params }) => {
             const result = await axios
               .get(
@@ -40,13 +40,13 @@ export const router = createBrowserRouter(
             if (result.length === 0) {
               return redirect("/page404");
             }
-            return null;
+            return result[0];
           }}
         />
       </Route>
 
-      <Route path="/login" element={<SignIn />} />
-      <Route path="/register" element={<SignUp />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="*" element={<Page404 />} />
     </Route>
   )
