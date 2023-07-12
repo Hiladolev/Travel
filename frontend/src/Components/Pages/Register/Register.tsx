@@ -97,13 +97,13 @@ function Register(): JSX.Element {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Register
         </Typography>
         <Box
           component="form"
           noValidate
           onSubmit={handleSubmit(addNewUser)}
-          sx={{ mt: 3 }}
+          sx={{ mt: 3, textAlign: "center" }}
         >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
