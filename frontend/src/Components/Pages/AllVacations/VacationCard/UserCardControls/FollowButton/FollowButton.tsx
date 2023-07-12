@@ -1,9 +1,10 @@
 import { ToggleButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../Redux/TravelApp";
+import { RootState } from "../../../../../Redux/TravelApp";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
-import { addFollow, unFollow } from "../../Redux/FollowerReducer";
+import { addFollow, unFollow } from "../../../../../Redux/FollowerReducer";
+import { pink } from "@mui/material/colors";
 
 interface FollowProps {
   vacationId: number;
@@ -22,7 +23,9 @@ function FollowButton(props: FollowProps): JSX.Element {
       follower.userId === currentUser.id &&
       follower.vacationId === props.vacationId
   );
-
+  const buttonBackground = selected ? "pink" : "white";
+  const iconBackground = selected && pink[500];
+  const textColor = selected && "black";
   const count = followers.filter(
     (follower) => follower.vacationId === props.vacationId
   ).length;
@@ -64,15 +67,18 @@ function FollowButton(props: FollowProps): JSX.Element {
         position: "absolute",
         top: 8,
         left: 7,
-        background: "white",
+        background: buttonBackground,
+        textTransform: "none",
+        color: textColor,
       }}
       color="primary"
       value="check"
       selected={selected}
       onChange={followClicked}
     >
-      <FavoriteIcon />
-      {count}
+      <FavoriteIcon sx={{ color: iconBackground }} />
+
+      <div style={{ marginLeft: "7%" }}>{count}</div>
     </ToggleButton>
   );
 }

@@ -132,9 +132,13 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Log in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit(login)} sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(login)}
+          sx={{ mt: 1, textAlign: "center" }}
+        >
           <TextField
             margin="normal"
             label="Email Address"
@@ -168,12 +172,7 @@ export default function Login() {
           />
           <br />
           <br />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ mb: 2 }}>
             Sign In
           </Button>
           <Link
@@ -181,7 +180,7 @@ export default function Login() {
             onClick={() => navigate("/register")}
             variant="body2"
           >
-            {"Don't have an account? Sign Up"}
+            {"Don't have an account? Register"}
           </Link>
         </Box>
       </Box>

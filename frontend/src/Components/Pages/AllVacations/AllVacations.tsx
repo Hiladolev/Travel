@@ -14,7 +14,6 @@ import { downloadVacationsAction } from "../../Redux/VacationReducer";
 import axios from "axios";
 import { downloadFollowers } from "../../Redux/FollowerReducer";
 import Follower from "../../Models/Follower";
-import { useNavigate } from "react-router-dom";
 
 enum ActiveFilterType {
   all = "all",
@@ -25,7 +24,6 @@ enum ActiveFilterType {
 
 function AllVacations(): JSX.Element {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
@@ -64,13 +62,11 @@ function AllVacations(): JSX.Element {
   useEffect(() => {
     if (allVacations.length < 1) {
       fetchVacations();
-    }
-  }, []);
-  useEffect(() => {
-    if (allFollowers.length < 1) {
       getFollowers();
     }
+    // eslint-disable-next-line
   }, []);
+
   useEffect(() => {
     switch (activeFilter) {
       case ActiveFilterType.all:
@@ -133,9 +129,6 @@ function AllVacations(): JSX.Element {
   // Change page ---------currentVacations(array)
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const editVacation = (id: number) => {
-    navigate(`/edit/${id}`);
-  };
   return (
     <div className="AllVacations">
       <Box sx={{ width: "100%" }}>
@@ -202,7 +195,6 @@ function AllVacations(): JSX.Element {
               price={item.price}
               image={item.image}
               id={item.id}
-              edit={() => editVacation(item.id)}
             />
           ))}
         </Grid>

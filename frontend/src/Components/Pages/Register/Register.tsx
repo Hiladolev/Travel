@@ -97,13 +97,13 @@ function Register(): JSX.Element {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Register
         </Typography>
         <Box
           component="form"
           noValidate
           onSubmit={handleSubmit(addNewUser)}
-          sx={{ mt: 3 }}
+          sx={{ mt: 3, textAlign: "center" }}
         >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -172,8 +172,12 @@ function Register(): JSX.Element {
             Sign Up
           </Button>
 
-          <Link href="/login" variant="body2">
-            Already have an account? Sign in
+          <Link
+            style={{ cursor: "pointer" }}
+            variant="body2"
+            onClick={() => navigate("/login")}
+          >
+            Already have an account? Log in
           </Link>
         </Box>
       </Box>

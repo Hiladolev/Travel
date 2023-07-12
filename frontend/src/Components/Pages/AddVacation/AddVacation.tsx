@@ -46,7 +46,7 @@ function AddVacation(): JSX.Element {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" className="textAlignCenter">
           Add Vacation
         </Typography>
         <VacationForm
