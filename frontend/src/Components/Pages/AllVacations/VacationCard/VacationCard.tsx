@@ -8,6 +8,7 @@ import FollowButton from "../FollowButton";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/TravelApp";
 import { AdminCardControls } from "./AdminCardControls";
+import { UserCardControls } from "./UserCardControls";
 
 interface vacProps {
   id: number;
@@ -39,7 +40,7 @@ function VacationCard(props: vacProps): JSX.Element {
         sx={{ width: 300, height: 370, maxHeight: 370, maxWidth: 300 }}
       >
         {currentUserRole === "user" ? (
-          <FollowButton vacationId={props.id} />
+          <UserCardControls id={props.id} />
         ) : (
           <AdminCardControls id={props.id} edit={props.edit} />
         )}
