@@ -5,7 +5,7 @@ import Vacation from "./VacationValues";
 
 interface VacationFormProps {
   vacationActionFunction: any;
-  minStartDate: string;
+  minStartDate?: string;
   defaultValues?: {
     destination: string;
     description: string;
@@ -29,12 +29,20 @@ function VacationForm({
   } = useForm<Vacation>({
     defaultValues,
   });
-
+  let buttonAction = "Add";
+  if (!!defaultValues) {
+    buttonAction = "update";
+  }
   const startMin = useWatch({
     name: "startDate",
     control,
     defaultValue: minStartDate,
   })?.toString();
+  const imageValue = useWatch({
+    name: "image",
+    control,
+  });
+  console.log("imageValue", imageValue);
 
   const requiredTemplate = {
     required: {
@@ -134,7 +142,7 @@ function VacationForm({
         />
         <Grid item xs={12}>
           <Button fullWidth type="submit" variant="contained">
-            Add Vacation
+            {buttonAction} Vacation
           </Button>
         </Grid>
         <Grid item xs={12}>
