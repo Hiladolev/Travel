@@ -14,7 +14,6 @@ import { downloadVacationsAction } from "../../Redux/VacationReducer";
 import axios from "axios";
 import { downloadFollowers } from "../../Redux/FollowerReducer";
 import Follower from "../../Models/Follower";
-import { useNavigate } from "react-router-dom";
 
 enum ActiveFilterType {
   all = "all",
@@ -25,7 +24,6 @@ enum ActiveFilterType {
 
 function AllVacations(): JSX.Element {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
@@ -65,11 +63,13 @@ function AllVacations(): JSX.Element {
     if (allVacations.length < 1) {
       fetchVacations();
     }
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
     if (allFollowers.length < 1) {
       getFollowers();
     }
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
     switch (activeFilter) {
