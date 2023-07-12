@@ -20,6 +20,8 @@ function UploadImage({
     defaultValue ? defaultValue : defaultImage
   );
 
+  const requiredTemplate = !defaultValue && { required: "Required" };
+  const borderColor = errors.image ? "red" : "black";
   useEffect(() => {
     // free memory when ever this component is unmounted
     // return () => URL.revokeObjectURL(objectUrl);
@@ -35,50 +37,47 @@ function UploadImage({
     setPreview(objectUrl);
   };
   return (
-    <div
-      style={{
-        width: 240,
-        height: 160,
-        border: "1px solid black",
-        borderRadius: "10px",
-        marginTop: "11px",
-        marginLeft: "90px",
-      }}
-    >
-      <Button
-        component="label"
+    <div>
+      <div
         style={{
-          position: "absolute",
-          backgroundColor: "rgba(79, 79, 79, 0.7)",
-        }}
-        variant="contained"
-        {...register("image", {
-          required: {
-            value: true,
-            message: "Required",
-          },
-        })}
-        sx={{ mt: "55px", ml: "37px" }}
-      >
-        Cover Image
-        <AddAPhotoIcon />
-        <input
-          hidden
-          accept="image/*"
-          type="file"
-          name="image"
-          onChange={onSelectFile}
-        />
-      </Button>
-      <img
-        src={preview}
-        style={{
-          height: "100%",
-          width: "100%",
+          width: 240,
+          height: 160,
+          border: `1px solid ${borderColor}`,
           borderRadius: "10px",
+          marginTop: "11px",
+          marginLeft: "90px",
         }}
-        alt="vacation"
-      />
+      >
+        <Button
+          component="label"
+          style={{
+            position: "absolute",
+            backgroundColor: "rgba(79, 79, 79, 0.7)",
+          }}
+          variant="contained"
+          {...register("image", requiredTemplate)}
+          sx={{ mt: "55px", ml: "37px" }}
+        >
+          Cover Image
+          <AddAPhotoIcon />
+          <input
+            hidden
+            accept="image/*"
+            type="file"
+            name="image"
+            onChange={onSelectFile}
+          />
+        </Button>
+        <img
+          src={preview}
+          style={{
+            height: "100%",
+            width: "100%",
+            borderRadius: "10px",
+          }}
+          alt="vacation"
+        />
+      </div>
       {errors.image && (
         <p
           style={{
