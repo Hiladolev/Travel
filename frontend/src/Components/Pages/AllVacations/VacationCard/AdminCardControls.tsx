@@ -1,5 +1,5 @@
 import { Box, Fab } from "@mui/material";
-import AlertDialog from "../AlertDialog";
+import DeleteButton from "../DeleteButton";
 import EditIcon from "@mui/icons-material/Edit";
 
 interface AdminCardControlsProps {
@@ -27,7 +27,7 @@ export function AdminCardControls({
       >
         <EditIcon />
       </Fab>
-      <AlertDialog id={id} />
+      <DeleteButton id={id} />
     </Box>
   );
 }

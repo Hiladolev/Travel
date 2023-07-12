@@ -9,10 +9,10 @@ import { deleteVacationAction } from "../../Redux/VacationReducer";
 import { useState } from "react";
 import { Fab } from "@mui/material";
 
-export interface AlertProps {
+export interface DeleteButtonProps {
   id: number;
 }
-export default function AlertDialog(props: AlertProps) {
+export default function DeleteButton(props: DeleteButtonProps) {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
