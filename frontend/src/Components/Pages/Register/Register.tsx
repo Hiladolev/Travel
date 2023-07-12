@@ -172,8 +172,12 @@ function Register(): JSX.Element {
             Sign Up
           </Button>
 
-          <Link href="/login" variant="body2">
-            Already have an account? Sign in
+          <Link
+            style={{ cursor: "pointer" }}
+            variant="body2"
+            onClick={() => navigate("/login")}
+          >
+            Already have an account? Log in
           </Link>
         </Box>
       </Box>

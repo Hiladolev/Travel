@@ -168,12 +168,7 @@ export default function Login() {
           />
           <br />
           <br />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ mb: 2 }}>
             Sign In
           </Button>
           <Link
