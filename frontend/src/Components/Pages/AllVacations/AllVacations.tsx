@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./AllVacations.css";
-import Box from "@mui/material/Box";
 import Pagination from "../../Models/Pagination";
 import { RootState, travel } from "../../Redux/TravelApp";
 import Vacation from "../../Models/Vacation";
@@ -129,68 +128,67 @@ function AllVacations(): JSX.Element {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="AllVacations">
-      <Box sx={{ width: "100%" }}>
-        {currentUser.role === "user" && (
-          <ButtonGroup>
-            <Button
-              size="small"
-              variant="contained"
-              style={{
-                position: "absolute",
-                top: 350,
-                left: 10,
-              }}
-              onClick={handleFutureVacations}
-            >
-              Future Vacations
-            </Button>
-            <Button
-              size="small"
-              variant="contained"
-              style={{
-                position: "absolute",
-                top: 350,
-                left: 180,
-              }}
-              onClick={handleActiveVacations}
-            >
-              Active
-            </Button>
-            <Button
-              size="small"
-              variant="contained"
-              style={{
-                position: "absolute",
-                top: 350,
-                left: 260,
-              }}
-              onClick={handleAllVacations}
-            >
-              All Vacations
-            </Button>
-            <Button
-              size="small"
-              variant="contained"
-              style={{
-                position: "absolute",
-                top: 350,
-                left: 400,
-              }}
-              onClick={handleFollowedVacations}
-            >
-              Followed
-            </Button>
-          </ButtonGroup>
-        )}
-        <VacationFeed currentVacations={currentVacations} />
-      </Box>
+    <>
+      {currentUser.role === "user" && (
+        <ButtonGroup>
+          <Button
+            size="small"
+            variant="contained"
+            style={{
+              position: "absolute",
+              top: 350,
+              left: 10,
+            }}
+            onClick={handleFutureVacations}
+          >
+            Future Vacations
+          </Button>
+          <Button
+            size="small"
+            variant="contained"
+            style={{
+              position: "absolute",
+              top: 350,
+              left: 180,
+            }}
+            onClick={handleActiveVacations}
+          >
+            Active
+          </Button>
+          <Button
+            size="small"
+            variant="contained"
+            style={{
+              position: "absolute",
+              top: 350,
+              left: 260,
+            }}
+            onClick={handleAllVacations}
+          >
+            All Vacations
+          </Button>
+          <Button
+            size="small"
+            variant="contained"
+            style={{
+              position: "absolute",
+              top: 350,
+              left: 400,
+            }}
+            onClick={handleFollowedVacations}
+          >
+            Followed
+          </Button>
+        </ButtonGroup>
+      )}
+      <VacationFeed currentVacations={currentVacations} />
+
       <Pagination
         vacationsPerPage={vacationsPerPage}
         totalVacations={travel.getState().vacations.allVacations.length}
         paginate={paginate}
       />
-    </div>
+    </>
   );
 }
 

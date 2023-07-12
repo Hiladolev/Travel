@@ -1,4 +1,3 @@
-import { Grid } from "@mui/material";
 import VacationCard from "./VacationCard/VacationCard";
 import Vacation from "../../Models/Vacation";
 
@@ -9,7 +8,7 @@ export function VacationFeed({
   currentVacations,
 }: VacationFeedProps): JSX.Element {
   return (
-    <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+    <div className="container">
       {currentVacations.map((item) => (
         <VacationCard
           key={item.id}
@@ -22,6 +21,6 @@ export function VacationFeed({
           id={item.id}
         />
       ))}
-    </Grid>
+    </div>
   );
 }

@@ -1,5 +1,6 @@
-.AllVacations {
-    /* height: 100%;
-    overflow: auto; */
-    margin-top: 10px;
-}
+
+.container {
+    display: flex;
+flex-wrap: wrap;
+  gap: 15px;
+  }
