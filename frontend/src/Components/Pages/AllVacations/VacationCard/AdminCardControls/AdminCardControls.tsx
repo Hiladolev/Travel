@@ -1,4 +1,4 @@
-import { Box, Fab } from "@mui/material";
+import { Box } from "@mui/material";
 import DeleteButton from "../../DeleteButton";
 import { EditButton } from "./EditButton/EditButton";
 
