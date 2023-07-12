@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import DeleteButton from "../../DeleteButton";
+import DeleteButton from "./DeleteButton/DeleteButton";
 import { EditButton } from "./EditButton/EditButton";
 
 interface AdminCardControlsProps {

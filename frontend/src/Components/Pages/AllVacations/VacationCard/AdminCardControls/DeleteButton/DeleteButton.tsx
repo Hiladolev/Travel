@@ -5,7 +5,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { deleteVacationAction } from "../../Redux/VacationReducer";
+import { deleteVacationAction } from "../../../../../Redux/VacationReducer";
 import { useState } from "react";
 import { Fab } from "@mui/material";
 
