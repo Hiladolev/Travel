@@ -85,6 +85,7 @@ function AllVacations(): JSX.Element {
       case ActiveFilterType.followed:
         setVacationsArray(followedVacations);
     }
+    // eslint-disable-next-line
   }, [allVacations.length, activeFilter]);
 
   //Future Vacations
