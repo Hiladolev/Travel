@@ -2,13 +2,12 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box, Button, Fab } from "@mui/material";
+import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import FollowButton from "../FollowButton";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/TravelApp";
-import AlertDialog from "../AlertDialog";
-import EditIcon from "@mui/icons-material/Edit";
+import { AdminCardControls } from "./AdminCardControls";
 
 interface vacProps {
   id: number;
@@ -31,9 +30,7 @@ function VacationCard(props: vacProps): JSX.Element {
   const currentUserRole = useSelector(
     (state: RootState) => state.users.currentUser.role
   );
-  const editVacation = () => {
-    props.edit(props.id);
-  };
+
   return (
     <Grid item xs={3}>
       <Card
@@ -44,21 +41,7 @@ function VacationCard(props: vacProps): JSX.Element {
         {currentUserRole === "user" ? (
           <FollowButton vacationId={props.id} />
         ) : (
-          <Box>
-            <Fab
-              variant="extended"
-              size="small"
-              style={{
-                position: "absolute",
-                top: 8,
-                left: 4,
-              }}
-              onClick={editVacation}
-            >
-              <EditIcon />
-            </Fab>
-            <AlertDialog id={props.id} />
-          </Box>
+          <AdminCardControls id={props.id} edit={props.edit} />
         )}
 
         <CardMedia
