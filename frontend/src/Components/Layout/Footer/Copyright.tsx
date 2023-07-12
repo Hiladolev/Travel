@@ -9,6 +9,7 @@ export default function Copyright() {
       variant="body2"
       color="primary.contrastText"
       fontFamily={["Roboto", "Helvetica", "Arial", "sans-serif"]}
+      className="textAlignCenter"
     >
       Made with <FavoriteIcon sx={{ color: pink[500] }} /> By &nbsp;
       <Link color="primary.contrastText" href="https://github.com/Hiladolev">

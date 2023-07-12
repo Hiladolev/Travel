@@ -1,16 +1,9 @@
-html,
-body,
-#root {
-  /* 
-  margin: 0;
-  padding: 0;
-  height: 100%; */
-  text-align: center;
-/* font-family: "Roboto","Helvetica","Arial",sans-serif; */
 
-}
 @import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&family=Permanent+Marker&display=swap');
 
+.textAlignCenter{
+text-align: center;
+}
 .Box {
   display: inline-block;
   text-align: center;
