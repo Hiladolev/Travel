@@ -44,7 +44,7 @@ export default function TinyBarChart() {
   });
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", textAlign: "center" }}>
       <BarChart
         width={1400}
         height={600}

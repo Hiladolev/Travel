@@ -9,7 +9,7 @@ import Page404 from "../../Pages/Page404/Page404";
 import EditVacation from "../../Pages/EditVacation/EditVacation";
 import VacationsPage from "../../Pages/VacationsPage/VacationsPage";
 import Login from "../../Pages/Login/Login";
-import TinyBarChart from "../../Pages/Reports/TinyBarChart";
+import Chart from "../../Pages/Reports/Chart";
 import Register from "../../Pages/Register/Register";
 import MainLayout from "../../Layout/MainLayout/MainLayout";
 import axios from "axios";
@@ -27,7 +27,7 @@ export const router = createBrowserRouter(
       </Route>
       <Route element={<AdminProtectedRoutes />}>
         <Route path="/add" element={<Add />} />
-        <Route path="/reports" element={<TinyBarChart />} />
+        <Route path="/reports" element={<Chart />} />
         <Route
           path="/edit/:id"
           element={<EditVacation />}
