@@ -6,8 +6,8 @@ import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/TravelApp";
-import { AdminCardControls } from "./AdminCardControls";
-import { UserCardControls } from "./UserCardControls";
+import { AdminCardControls } from "./AdminCardControls/AdminCardControls";
+import { UserCardControls } from "./UserCardControls/UserCardControls";
 
 interface vacProps {
   id: number;
@@ -17,7 +17,6 @@ interface vacProps {
   endDate: Date;
   price: number;
   image: string;
-  edit?: (id: number) => void;
 }
 
 const formatDate = (date: Date): string => {
@@ -41,7 +40,7 @@ function VacationCard(props: vacProps): JSX.Element {
         {currentUserRole === "user" ? (
           <UserCardControls id={props.id} />
         ) : (
-          <AdminCardControls id={props.id} edit={props.edit} />
+          <AdminCardControls id={props.id} />
         )}
 
         <CardMedia

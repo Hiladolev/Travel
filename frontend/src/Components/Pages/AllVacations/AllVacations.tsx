@@ -133,9 +133,6 @@ function AllVacations(): JSX.Element {
   // Change page ---------currentVacations(array)
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const editVacation = (id: number) => {
-    navigate(`/edit/${id}`);
-  };
   return (
     <div className="AllVacations">
       <Box sx={{ width: "100%" }}>
@@ -202,7 +199,6 @@ function AllVacations(): JSX.Element {
               price={item.price}
               image={item.image}
               id={item.id}
-              edit={() => editVacation(item.id)}
             />
           ))}
         </Grid>

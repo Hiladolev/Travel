@@ -1,4 +1,4 @@
-import FollowButton from "../FollowButton";
+import FollowButton from "../../FollowButton";
 
 interface UserCardControlsProps {
   id: number;
