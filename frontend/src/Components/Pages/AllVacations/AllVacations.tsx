@@ -62,15 +62,11 @@ function AllVacations(): JSX.Element {
   useEffect(() => {
     if (allVacations.length < 1) {
       fetchVacations();
-    }
-    // eslint-disable-next-line
-  }, []);
-  useEffect(() => {
-    if (allFollowers.length < 1) {
       getFollowers();
     }
     // eslint-disable-next-line
   }, []);
+
   useEffect(() => {
     switch (activeFilter) {
       case ActiveFilterType.all:
