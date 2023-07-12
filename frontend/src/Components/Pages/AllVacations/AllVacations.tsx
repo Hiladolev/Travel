@@ -72,7 +72,6 @@ function AllVacations(): JSX.Element {
     }
   }, []);
   useEffect(() => {
-    // setVacationsArray(sorted);
     switch (activeFilter) {
       case ActiveFilterType.all:
         setVacationsArray(sorted);
