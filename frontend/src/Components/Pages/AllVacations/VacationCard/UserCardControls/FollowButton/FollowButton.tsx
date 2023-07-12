@@ -1,9 +1,9 @@
 import { ToggleButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../Redux/TravelApp";
+import { RootState } from "../../../../../Redux/TravelApp";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
-import { addFollow, unFollow } from "../../Redux/FollowerReducer";
+import { addFollow, unFollow } from "../../../../../Redux/FollowerReducer";
 
 interface FollowProps {
   vacationId: number;
