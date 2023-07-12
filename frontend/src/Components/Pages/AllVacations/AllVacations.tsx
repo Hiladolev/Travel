@@ -7,7 +7,7 @@ import { RootState, travel } from "../../Redux/TravelApp";
 import Vacation from "../../Models/Vacation";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
-import SingleVac from "./SingleItem/SingleVac";
+import VacationCard from "./VacationCard/VacationCard";
 import { sortBy } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { downloadVacationsAction } from "../../Redux/VacationReducer";
@@ -193,7 +193,7 @@ function AllVacations(): JSX.Element {
         )}
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {currentVacations.map((item) => (
-            <SingleVac
+            <VacationCard
               key={item.id}
               destination={item.destination}
               description={item.description}
