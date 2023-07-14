@@ -31,9 +31,8 @@ function VacationCard(props: vacProps): JSX.Element {
 
   return (
     <Card
-      variant="outlined"
       className="card"
-      sx={{ width: 300, height: 370, maxHeight: 370, maxWidth: 300 }}
+      sx={{ height: 370, display: "flex", flexDirection: "column" }}
     >
       {currentUserRole === "user" ? (
         <UserCardControls id={props.id} />
@@ -66,15 +65,7 @@ function VacationCard(props: vacProps): JSX.Element {
           {props.description}
         </Typography>
       </CardContent>
-      <Button
-        style={{
-          position: "absolute",
-          bottom: 10,
-          left: 10,
-        }}
-        color="primary"
-        variant="contained"
-      >
+      <Button fullWidth color="primary" variant="contained">
         ${props.price}
       </Button>
     </Card>
