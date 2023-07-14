@@ -4,7 +4,6 @@ import Pagination from "../../Models/Pagination";
 import { RootState, travel } from "../../Redux/TravelApp";
 import Vacation from "../../Models/Vacation";
 import moment from "moment";
-import { Button, ButtonGroup } from "@mui/material";
 import { sortBy } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { downloadVacationsAction } from "../../Redux/VacationReducer";
@@ -12,6 +11,7 @@ import axios from "axios";
 import { downloadFollowers } from "../../Redux/FollowerReducer";
 import Follower from "../../Models/Follower";
 import { VacationFeed } from "./VacationFeed";
+import { VacationFilters } from "./VacationFilters/VacationFilters";
 
 enum ActiveFilterType {
   all = "all",
@@ -130,56 +130,12 @@ function AllVacations(): JSX.Element {
   return (
     <>
       {currentUser.role === "user" && (
-        <ButtonGroup>
-          <Button
-            size="small"
-            variant="contained"
-            style={{
-              position: "absolute",
-              top: 350,
-              left: 10,
-            }}
-            onClick={handleFutureVacations}
-          >
-            Future Vacations
-          </Button>
-          <Button
-            size="small"
-            variant="contained"
-            style={{
-              position: "absolute",
-              top: 350,
-              left: 180,
-            }}
-            onClick={handleActiveVacations}
-          >
-            Active
-          </Button>
-          <Button
-            size="small"
-            variant="contained"
-            style={{
-              position: "absolute",
-              top: 350,
-              left: 260,
-            }}
-            onClick={handleAllVacations}
-          >
-            All Vacations
-          </Button>
-          <Button
-            size="small"
-            variant="contained"
-            style={{
-              position: "absolute",
-              top: 350,
-              left: 400,
-            }}
-            onClick={handleFollowedVacations}
-          >
-            Followed
-          </Button>
-        </ButtonGroup>
+        <VacationFilters
+          handleAllVacations={handleAllVacations}
+          handleFutureVacations={handleFutureVacations}
+          handleActiveVacations={handleActiveVacations}
+          handleFollowedVacations={handleFollowedVacations}
+        />
       )}
       <VacationFeed currentVacations={currentVacations} />
 
