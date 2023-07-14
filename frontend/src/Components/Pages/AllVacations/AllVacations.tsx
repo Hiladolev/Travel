@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./AllVacations.css";
 import Pagination from "../../Models/Pagination";
 import { RootState, travel } from "../../Redux/TravelApp";
 import Vacation from "../../Models/Vacation";
