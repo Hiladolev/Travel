@@ -1,4 +1,4 @@
-import { ButtonGroup, Button } from "@mui/material";
+import { ButtonGroup, Button, Box } from "@mui/material";
 
 interface VacationFiltersProps {
   handleFutureVacations: () => void;
@@ -15,8 +15,9 @@ export function VacationFilters({
   return (
     <ButtonGroup
       variant="contained"
-      size="small"
-      aria-label="small button group"
+      size="medium"
+      aria-label="medium  button group"
+      sx={{ mb: 2 }}
     >
       <Button onClick={handleFutureVacations}>Future Vacations</Button>
       <Button onClick={handleActiveVacations}>Active</Button>
