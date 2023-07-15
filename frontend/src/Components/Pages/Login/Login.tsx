@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Account from "../../Models/Account";
-import { useState } from "react";
 import { adminLoginAction, userLoginAction } from "../../Redux/UserReducer";
 import { useDispatch } from "react-redux";
 
@@ -18,54 +17,19 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [password, setPassword] = useState({
-    value: "",
-    hasError: false,
-    text: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<Account>();
 
-  const [email, setEmail] = useState({
-    value: "",
-    hasError: false,
-    text: "",
-  });
-
-  const changeHandler = (e: any) => {
-    const inputValue = e.target.value.trim().toLowerCase();
-    let hasError = false;
-    let text = "";
-    if (
-      !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
-        inputValue
-      )
-    ) {
-      hasError = true;
-      text = "Please enter a valid email";
-    }
-    setEmail((currentValue) => ({
-      ...currentValue,
-      value: e.target.value,
-      hasError,
-      text,
-    }));
+  const requiredTemplate = {
+    required: {
+      value: true,
+      message: "Required",
+    },
   };
-  const passwordChangeHandler = (e: any) => {
-    const inputValue = e.target.value;
-    let hasError = false;
-    let text = "";
-    if (inputValue.length < 4) {
-      hasError = true;
-      text = "please enter at least 4 characters";
-    }
-    setPassword((currentValue) => ({
-      ...currentValue,
-      value: e.target.value,
-      hasError,
-      text,
-    }));
-  };
-  const { register, handleSubmit } = useForm<Account>();
-
   const login = async (existingAccount: Account) => {
     try {
       //check if email exist in the system
@@ -79,8 +43,6 @@ export default function Login() {
           existingAccount
         );
         if (userMatched.data) {
-          setEmail({ ...email, hasError: false, text: "" });
-          setPassword({ ...password, hasError: false, text: "" });
           const userInfo = userMatched.data;
           const admin: boolean = userInfo.role === "admin";
           if (admin) {
@@ -104,14 +66,16 @@ export default function Login() {
             navigate("/");
           }
         } else {
-          setPassword({
-            ...password,
-            hasError: true,
-            text: "Wrong password😢",
+          setError("password", {
+            type: "incorrect",
+            message: "Wrong password😢",
           });
         }
       } else {
-        setEmail({ ...email, hasError: true, text: "Email doesn't exist😢" });
+        setError("email", {
+          type: "notExist",
+          message: "Email doesn't exist😢",
+        });
       }
     } catch (err) {
       console.log(err);
@@ -136,28 +100,35 @@ export default function Login() {
         </Typography>
         <Box
           component="form"
+          noValidate
           onSubmit={handleSubmit(login)}
           sx={{ mt: 1, textAlign: "center" }}
         >
           <TextField
             margin="normal"
             label="Email Address"
-            required
-            {...register("email")}
+            {...register("email", {
+              ...requiredTemplate,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address",
+              },
+            })}
             fullWidth
             id="email"
             name="email"
             autoComplete="email"
-            value={email.value}
-            onChange={changeHandler}
-            helperText={email.hasError && email.text}
-            error={email.hasError}
+            helperText={errors.email?.message}
+            error={!!errors.email}
           />
           <TextField
             margin="normal"
-            required
             {...register("password", {
-              minLength: 4,
+              ...requiredTemplate,
+              minLength: {
+                value: 4,
+                message: "please enter at least 4 characters",
+              },
             })}
             fullWidth
             name="password"
@@ -165,10 +136,8 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="new-password"
-            value={password.value}
-            onChange={passwordChangeHandler}
-            helperText={password.hasError && password.text}
-            error={password.hasError}
+            helperText={errors.password?.message}
+            error={!!errors.password}
           />
           <br />
           <br />
