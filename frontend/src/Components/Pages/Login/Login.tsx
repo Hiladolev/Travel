@@ -64,8 +64,18 @@ export default function Login() {
       text,
     }));
   };
-  const { register, handleSubmit } = useForm<Account>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Account>();
 
+  const requiredTemplate = {
+    required: {
+      value: true,
+      message: "Required",
+    },
+  };
   const login = async (existingAccount: Account) => {
     try {
       //check if email exist in the system
@@ -136,28 +146,28 @@ export default function Login() {
         </Typography>
         <Box
           component="form"
+          noValidate
           onSubmit={handleSubmit(login)}
           sx={{ mt: 1, textAlign: "center" }}
         >
           <TextField
             margin="normal"
             label="Email Address"
-            required
-            {...register("email")}
+            {...register("email", requiredTemplate)}
             fullWidth
             id="email"
             name="email"
             autoComplete="email"
             value={email.value}
             onChange={changeHandler}
-            helperText={email.hasError && email.text}
-            error={email.hasError}
+            helperText={errors.email?.message}
+            error={!!errors.email}
           />
           <TextField
             margin="normal"
-            required
             {...register("password", {
-              minLength: 4,
+              ...requiredTemplate,
+              min: { value: 4, message: "please enter at least 4 characters" },
             })}
             fullWidth
             name="password"
@@ -165,10 +175,10 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="new-password"
-            value={password.value}
-            onChange={passwordChangeHandler}
-            helperText={password.hasError && password.text}
-            error={password.hasError}
+            // value={password.value}
+            // onChange={passwordChangeHandler}
+            helperText={errors.password?.message}
+            error={!!errors.password}
           />
           <br />
           <br />
