@@ -153,13 +153,17 @@ export default function Login() {
           <TextField
             margin="normal"
             label="Email Address"
-            {...register("email", requiredTemplate)}
+            {...register("email", {
+              ...requiredTemplate,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address",
+              },
+            })}
             fullWidth
             id="email"
             name="email"
             autoComplete="email"
-            value={email.value}
-            onChange={changeHandler}
             helperText={errors.email?.message}
             error={!!errors.email}
           />
@@ -175,8 +179,6 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="new-password"
-            // value={password.value}
-            // onChange={passwordChangeHandler}
             helperText={errors.password?.message}
             error={!!errors.password}
           />
