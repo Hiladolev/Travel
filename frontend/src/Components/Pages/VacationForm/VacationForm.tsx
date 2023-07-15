@@ -38,10 +38,6 @@ function VacationForm({
     control,
     defaultValue: minStartDate,
   })?.toString();
-  const imageValue = useWatch({
-    name: "image",
-    control,
-  });
 
   const requiredTemplate = {
     required: {

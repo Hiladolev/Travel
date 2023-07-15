@@ -1,4 +1,4 @@
-import { ButtonGroup, Button, Box } from "@mui/material";
+import { ButtonGroup, Button } from "@mui/material";
 
 interface VacationFiltersProps {
   handleFutureVacations: () => void;
