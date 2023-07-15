@@ -171,7 +171,10 @@ export default function Login() {
             margin="normal"
             {...register("password", {
               ...requiredTemplate,
-              min: { value: 4, message: "please enter at least 4 characters" },
+              minLength: {
+                value: 4,
+                message: "please enter at least 4 characters",
+              },
             })}
             fullWidth
             name="password"
