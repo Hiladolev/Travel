@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { RouterProvider } from "react-router-dom";
 import { PersistGate } from "redux-persist/es/integration/react";
 import { persistor, travel } from "./Components/Redux/TravelApp";
 import { Provider } from "react-redux";
