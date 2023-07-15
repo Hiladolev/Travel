@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useState } from "react";
 import axios from "axios";
 import { userLoginAction } from "../../Redux/UserReducer";
 import { useDispatch } from "react-redux";
@@ -19,38 +18,21 @@ function Register(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //Email Validation
-  const [email, setEmail] = useState({
-    value: "",
-    hasError: false,
-    text: "",
-  });
-  const changeHandler = (e: any) => {
-    const inputValue: any = e.target.value.trim().toLowerCase();
-    let hasError = false;
 
-    let text = "";
-    if (
-      !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
-        inputValue
-      )
-    ) {
-      hasError = true;
-      text = "Please enter a valid email";
-    }
-    setEmail((currentValue) => ({
-      ...currentValue,
-      value: e.target.value,
-      hasError,
-      text,
-    }));
-  };
   //Use Form
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<Account>();
 
+  const requiredTemplate = {
+    required: {
+      value: true,
+      message: "Required",
+    },
+  };
   const addNewUser = async (newAccount: Account) => {
     console.log(newAccount);
     try {
@@ -59,9 +41,11 @@ function Register(): JSX.Element {
         { email: newAccount.email }
       );
       if (response.data) {
-        setEmail({ ...email, text: "Already exist😢" });
+        setError("email", {
+          type: "alreadyExist",
+          message: "Email Already exist😢",
+        });
       } else {
-        setEmail({ ...email, hasError: false, text: "" });
         await axios
           .post(
             `${process.env.REACT_APP_API_URL}/api/v1/users/register`,
@@ -110,45 +94,53 @@ function Register(): JSX.Element {
               <TextField
                 autoComplete="given-name"
                 name="firstName"
-                required
                 fullWidth
                 id="firstName"
                 label="First Name"
                 autoFocus
-                {...register("firstName")}
+                {...register("firstName", requiredTemplate)}
+                helperText={errors.firstName?.message}
+                error={!!errors.firstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                required
                 fullWidth
                 id="lastName"
                 label="Last Name"
                 name="lastName"
                 autoComplete="family-name"
-                {...register("lastName")}
+                {...register("lastName", requiredTemplate)}
+                helperText={errors.lastName?.message}
+                error={!!errors.lastName}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 label="Email Address"
-                required
-                {...register("email")}
+                {...register("email", {
+                  ...requiredTemplate,
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email address",
+                  },
+                })}
                 fullWidth
                 id="email"
                 name="email"
                 autoComplete="email"
-                value={email.value}
-                onChange={changeHandler}
-                helperText={email.hasError && email.text}
-                error={email.hasError}
+                helperText={errors.email?.message}
+                error={!!errors.email}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
                 {...register("password", {
-                  minLength: 4,
+                  ...requiredTemplate,
+                  minLength: {
+                    value: 4,
+                    message: "please enter at least 4 characters",
+                  },
                 })}
                 fullWidth
                 name="password"
@@ -156,10 +148,8 @@ function Register(): JSX.Element {
                 type="password"
                 id="password"
                 autoComplete="new-password"
-                helperText={
-                  errors.password && "please enter at least 4 characters"
-                }
-                error={errors.password && true}
+                helperText={errors.password?.message}
+                error={!!errors.password}
               />
             </Grid>
           </Grid>
