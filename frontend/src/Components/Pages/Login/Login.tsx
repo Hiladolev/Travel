@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Account from "../../Models/Account";
-import { useState } from "react";
 import { adminLoginAction, userLoginAction } from "../../Redux/UserReducer";
 import { useDispatch } from "react-redux";
 
@@ -18,55 +17,10 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [password, setPassword] = useState({
-    value: "",
-    hasError: false,
-    text: "",
-  });
-
-  const [email, setEmail] = useState({
-    value: "",
-    hasError: false,
-    text: "",
-  });
-
-  const changeHandler = (e: any) => {
-    const inputValue = e.target.value.trim().toLowerCase();
-    let hasError = false;
-    let text = "";
-    if (
-      !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
-        inputValue
-      )
-    ) {
-      hasError = true;
-      text = "Please enter a valid email";
-    }
-    setEmail((currentValue) => ({
-      ...currentValue,
-      value: e.target.value,
-      hasError,
-      text,
-    }));
-  };
-  const passwordChangeHandler = (e: any) => {
-    const inputValue = e.target.value;
-    let hasError = false;
-    let text = "";
-    if (inputValue.length < 4) {
-      hasError = true;
-      text = "please enter at least 4 characters";
-    }
-    setPassword((currentValue) => ({
-      ...currentValue,
-      value: e.target.value,
-      hasError,
-      text,
-    }));
-  };
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<Account>();
 
@@ -89,8 +43,6 @@ export default function Login() {
           existingAccount
         );
         if (userMatched.data) {
-          setEmail({ ...email, hasError: false, text: "" });
-          setPassword({ ...password, hasError: false, text: "" });
           const userInfo = userMatched.data;
           const admin: boolean = userInfo.role === "admin";
           if (admin) {
@@ -114,14 +66,16 @@ export default function Login() {
             navigate("/");
           }
         } else {
-          setPassword({
-            ...password,
-            hasError: true,
-            text: "Wrong password😢",
+          setError("password", {
+            type: "incorrect",
+            message: "Wrong password😢",
           });
         }
       } else {
-        setEmail({ ...email, hasError: true, text: "Email doesn't exist😢" });
+        setError("email", {
+          type: "notExist",
+          message: "Email doesn't exist😢",
+        });
       }
     } catch (err) {
       console.log(err);
