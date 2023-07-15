@@ -65,7 +65,7 @@ function VacationCard(props: vacProps): JSX.Element {
           {props.description}
         </Typography>
       </CardContent>
-      <Button fullWidth color="primary" variant="contained">
+      <Button fullWidth color="primary" variant="contained" sx={{ mt: "auto" }}>
         ${props.price}
       </Button>
     </Card>
