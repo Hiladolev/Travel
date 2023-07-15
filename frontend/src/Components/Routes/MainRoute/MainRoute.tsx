@@ -39,6 +39,19 @@ export function MainRouterProvider(): JSX.Element {
             return null;
           }}
         />
+        <Route
+          path="/register"
+          element={<Register />}
+          loader={() => {
+            const loggedIn = currentUser;
+
+            if (loggedIn) {
+              return redirect("/");
+            }
+
+            return null;
+          }}
+        />
 
         <Route element={<UserProtectedRoutes />}>
           <Route
@@ -76,7 +89,6 @@ export function MainRouterProvider(): JSX.Element {
           />
         </Route>
 
-        <Route path="/register" element={<Register />} />
         <Route path="*" element={<Page404 />} />
       </Route>
     )
