@@ -42,7 +42,6 @@ function VacationForm({
     name: "image",
     control,
   });
-  console.log("imageValue", imageValue);
 
   const requiredTemplate = {
     required: {
@@ -135,11 +134,14 @@ function VacationForm({
             helperText={errors.price?.message}
           />
         </Grid>
-        <UploadImage
-          register={register}
-          errors={errors}
-          defaultValue={defaultValues?.image}
-        />
+        <Grid item xs={12}>
+          <UploadImage
+            register={register}
+            errors={errors}
+            defaultValue={defaultValues?.image}
+          />
+        </Grid>
+
         <Grid item xs={12}>
           <Button fullWidth type="submit" variant="contained">
             {buttonAction} Vacation
