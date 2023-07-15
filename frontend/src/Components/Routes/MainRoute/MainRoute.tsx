@@ -76,7 +76,6 @@ export function MainRouterProvider(): JSX.Element {
           />
         </Route>
 
-        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Page404 />} />
       </Route>
