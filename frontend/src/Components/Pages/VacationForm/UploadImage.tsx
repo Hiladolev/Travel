@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import Vacation from "./VacationValues";
 import { useEffect, useState } from "react";
@@ -21,14 +20,13 @@ function UploadImage({
   );
 
   const requiredTemplate = !defaultValue && { required: "Required" };
-  const borderColor = errors.image ? "red" : "black";
+  const borderColor = errors.image ? "red" : "#9fa6b2";
   useEffect(() => {
     // free memory when ever this component is unmounted
     // return () => URL.revokeObjectURL(objectUrl);
   }, []);
 
   const onSelectFile = (e: any): void => {
-    console.log(e);
     if (!e.target.files || e.target.files.length === 0) {
       return;
     }
@@ -37,29 +35,30 @@ function UploadImage({
     setPreview(objectUrl);
   };
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
       <div
         style={{
-          width: 240,
+          width: 260,
           height: 160,
           border: `1px solid ${borderColor}`,
           borderRadius: "10px",
-          marginTop: "11px",
-          marginLeft: "90px",
+          display: "inline-block",
+          position: "relative",
         }}
       >
         <Button
           component="label"
           style={{
             position: "absolute",
-            backgroundColor: "rgba(79, 79, 79, 0.7)",
+            backgroundColor: "rgba(79, 79, 79, 0.59)",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
           variant="contained"
           {...register("image", requiredTemplate)}
-          sx={{ mt: "55px", ml: "37px" }}
         >
-          Cover Image
-          <AddAPhotoIcon />
+          Select Image
           <input
             hidden
             accept="image/*"

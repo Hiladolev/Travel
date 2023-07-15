@@ -1,11 +1,10 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { RouterProvider } from "react-router-dom";
 import { PersistGate } from "redux-persist/es/integration/react";
 import { persistor, travel } from "./Components/Redux/TravelApp";
 import { Provider } from "react-redux";
-import { router } from "./Components/Routes/MainRoute/MainRoute";
+import { MainRouterProvider } from "./Components/Routes/MainRoute/MainRoute";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={travel}>
     <PersistGate loading={null} persistor={persistor}>
-      <RouterProvider router={router} />
+      <MainRouterProvider />
     </PersistGate>
   </Provider>
 );

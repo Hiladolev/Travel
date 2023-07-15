@@ -1,5 +1,6 @@
 import {
   Route,
+  RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
   redirect,
@@ -15,39 +16,71 @@ import MainLayout from "../../Layout/MainLayout/MainLayout";
 import axios from "axios";
 import { AdminProtectedRoutes } from "../AdminProtectedRoutes";
 import { UserProtectedRoutes } from "../UserProtectedRoutes";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/TravelApp";
 
-export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route element={<MainLayout />}>
-      <Route path="/login" element={<Login />} />
-
-      <Route element={<UserProtectedRoutes />}>
-        <Route path="/" element={<VacationsPage />} />
-        <Route path="*" element={<Page404 />} />
-      </Route>
-      <Route element={<AdminProtectedRoutes />}>
-        <Route path="/add" element={<Add />} />
-        <Route path="/reports" element={<Chart />} />
+export function MainRouterProvider(): JSX.Element {
+  const currentUser = useSelector(
+    (state: RootState) => state.users.currentUser
+  );
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route element={<MainLayout />}>
         <Route
-          path="/edit/:id"
-          element={<EditVacation />}
-          loader={async ({ params }) => {
-            const result = await axios
-              .get(
-                `${process.env.REACT_APP_API_URL}/api/v1/vacations/getVacationById/${params.id}`
-              )
-              .then((response) => response.data);
-            if (result.length === 0) {
-              return redirect("/page404");
+          path="/login"
+          element={<Login />}
+          loader={() => {
+            const loggedIn = currentUser;
+
+            if (loggedIn) {
+              return redirect("/");
             }
-            return result[0];
+
+            return null;
           }}
         />
-      </Route>
 
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="*" element={<Page404 />} />
-    </Route>
-  )
-);
+        <Route element={<UserProtectedRoutes />}>
+          <Route
+            path="/"
+            element={<VacationsPage />}
+            loader={() => {
+              const loggedIn = currentUser;
+
+              if (!loggedIn) {
+                return redirect("/login");
+              }
+
+              return null;
+            }}
+          />
+          <Route path="*" element={<Page404 />} />
+        </Route>
+        <Route element={<AdminProtectedRoutes />}>
+          <Route path="/add" element={<Add />} />
+          <Route path="/reports" element={<Chart />} />
+          <Route
+            path="/edit/:id"
+            element={<EditVacation />}
+            loader={async ({ params }) => {
+              const result = await axios
+                .get(
+                  `${process.env.REACT_APP_API_URL}/api/v1/vacations/getVacationById/${params.id}`
+                )
+                .then((response) => response.data);
+              if (result.length === 0) {
+                return redirect("/page404");
+              }
+              return result[0];
+            }}
+          />
+        </Route>
+
+        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<Page404 />} />
+      </Route>
+    )
+  );
+  return <RouterProvider router={router} />;
+}
