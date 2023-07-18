@@ -1,3 +1,8 @@
+CREATE DATABASE IF NOT EXISTS `travel`
+/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */
+/*!80016 DEFAULT ENCRYPTION='N' */
+;
+USE `travel`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: localhost    Database: travel
@@ -51,11 +56,11 @@ LOCK TABLES `followers` WRITE;
 ;
 INSERT INTO `followers`
 VALUES (5, 64, 50),
-(33, 63, 50),
-(37, 63, 51),
-(38, 67, 75),
-(39, 67, 74),
-(40, 67, 51);
+    (33, 63, 50),
+    (37, 63, 51),
+    (38, 67, 75),
+    (39, 67, 74),
+    (40, 67, 51);
 /*!40000 ALTER TABLE `followers` ENABLE KEYS */
 ;
 UNLOCK TABLES;
@@ -93,7 +98,7 @@ VALUES (
         '12345678',
         'admin'
     ),
-(
+    (
         63,
         'Ofir',
         'Magnezi',
@@ -101,7 +106,7 @@ VALUES (
         '1234',
         'user'
     ),
-(
+    (
         64,
         'Lior',
         'Dolev',
@@ -109,7 +114,7 @@ VALUES (
         '33442',
         'user'
     ),
-(
+    (
         65,
         'gaya',
         'levy',
@@ -117,7 +122,7 @@ VALUES (
         '8977',
         'user'
     ),
-(
+    (
         66,
         'hila',
         'dolev',
@@ -125,7 +130,7 @@ VALUES (
         '8999',
         'user'
     ),
-(
+    (
         67,
         'lady',
         'gaga',
@@ -133,7 +138,7 @@ VALUES (
         '559989',
         'user'
     ),
-(
+    (
         70,
         'miss',
         'meow meow',
@@ -180,7 +185,7 @@ VALUES (
         71,
         '1687529879805_304386221.jpg'
     ),
-(
+    (
         50,
         'Ayia Napa',
         'Located in Ayia Napa, 200 metres from Latchi Adams beach, Atlantica Callisto provides accommodation with a seasonal outdoor swimming pool, free private parking, a garden and a shared lounge. ',
@@ -189,7 +194,7 @@ VALUES (
         1829,
         '1687530021037_470662963.jpg'
     ),
-(
+    (
         51,
         'Long Melford',
         'Welcome to our 15th Century inn where our modern twist on the traditional creates a wonderful setting to enjoy our food, sample our local ales, explore our wine list and rest a weary head',
@@ -198,7 +203,7 @@ VALUES (
         531,
         '1687530224249_397536100.jpg'
     ),
-(
+    (
         52,
         'Amsterdam',
         'Situated in the heart of the city centre, Eden Hotel Amsterdam offers warm-coloured rooms and free WiFi. The famous Rembrandt Square is right around the corner. The central station is 10 minutes away by tram',
@@ -207,7 +212,7 @@ VALUES (
         295,
         '1687531004468_177954582.jpg'
     ),
-(
+    (
         61,
         'New York',
         'Featuring Danny Meyer’s MARTA restaurant and Maialino Restaurant, The Redbury New York is located in the NoMad neighbourhood in New York, 280 metres from Madison Square Park. Free WiFi access is available.',
@@ -216,7 +221,7 @@ VALUES (
         1058,
         '1687530866681_80577635.jpg'
     ),
-(
+    (
         62,
         'Badung',
         'Featuring mountain views, The Ume in Badung features accommodation, an outdoor swimming pool, a garden, a terrace, a bar and a private beach area. The aparthotel features both WiFi and private parking free of charge.',
@@ -225,7 +230,7 @@ VALUES (
         890,
         '1687530355427_276742237.jpg'
     ),
-(
+    (
         63,
         'Uroa',
         'Facing the beachfront, Sunny Palms Beach Bungalows offers 4-star accommodation in Uroa and features a fitness centre, garden and shared lounge. This 4-star hotel offers a kids club, room service and free WiFi.',
@@ -234,7 +239,7 @@ VALUES (
         1126,
         '1687530702894_321471164.jpg'
     ),
-(
+    (
         73,
         'Ein Gedi Glamping',
         'Dead Sea Camping is set in Ein Gedi, within 1 km of The Botanical Garden in Kibbutz Ein Gedi, and offers both Bungalow and empty lots.',
@@ -243,7 +248,7 @@ VALUES (
         80,
         '1687524333676_ein.jpg'
     ),
-(
+    (
         74,
         'Fes',
         'Built in the 17th century and recently restored with patience, passion and talent, the riads design respects typical Moroccan architecture.',
@@ -252,7 +257,7 @@ VALUES (
         721,
         '1687531174524_86097927.jpg'
     ),
-(
+    (
         75,
         'Dubai',
         'The First Collection Business Bay is a modern, stylish hotel located in the Business Bay district and is 1.6 km away from Dubai Mall and the Burj Khalif',
@@ -261,7 +266,7 @@ VALUES (
         652,
         '1687531285115_372059078.jpg'
     ),
-(
+    (
         76,
         'Buenos Aires',
         'Tango de Mayo Hotel is located in the heart of the well-known Mayo Avenue, only 300 metres from 9 de Julio Avenue and 800 metres from The Obelisk of Buenos Aires',
@@ -270,7 +275,7 @@ VALUES (
         750,
         '1687531412730_41436821.jpg'
     ),
-(
+    (
         77,
         'Tel Aviv',
         'Ideally situated in Tel Aviv, Villa Brown Tel-Aviv, a member of Brown Hotels features air-conditioned rooms, free bikes, free WiFi and a garden.',
