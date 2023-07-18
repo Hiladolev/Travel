@@ -25,7 +25,7 @@ services:
      
 
     #On crash - restart container, unless manually stopped:
-    restart: unless-stopped
+    # restart: unless-stopped
 
     #Database volumes:
     volumes:
@@ -52,13 +52,13 @@ services:
     #Environment variables needed by this service:
     environment:
       PORT: 8080
-      MYSQL_HOST:  travel-database-service #Above database service name is the host name
+      MYSQL_HOST: travel-database-service #Above database service name is the host name
       MYSQL_DATABASE: travel
       MYSQL_USER: root
       MYSQL_PASSWORD: 12345678
 
     #On crash - restart container, unless manually stopped:
-    restart: unless-stopped
+    # restart: unless-stopped
 
     #Host bolume for mounting backend development files to backend container
     volumes:
@@ -67,37 +67,37 @@ services:
     # On which service we are depending on (starting/stopping order):
     depends_on:
       - travel-database-service
-#---------------------------------------------------------------
+# #---------------------------------------------------------------
 
-# NorthWind frontend service
-  travel-frontend-service:
-    #Image name to create  from dockerfile:
-    image: hiladolev/travel-frontend-image:1.0
+# # NorthWind frontend service
+#   travel-frontend-service:
+#     #Image name to create  from dockerfile:
+#     image: hiladolev/travel-frontend-image:1.0
 
-    #Build the image (if not exists) from specified Dockerfile location:
-    build: ./frontend
+#     #Build the image (if not exists) from specified Dockerfile location:
+#     build: ./frontend
 
-    #Container name:
-    container_name: travel-frontend-container
+#     #Container name:
+#     container_name: travel-frontend-container
 
-    #Port binding (host:container):
-    ports:
-      - 80:80
+#     #Port binding (host:container):
+#     ports:
+#       - 80:80
 
-    environment:
-      PORT: 80
-      REACT_APP_API_URL: http://localhost:8080
+#     environment:
+#       PORT: 80
+#       REACT_APP_API_URL: http://localhost:8080
 
-    #On crash - restart container, unless manually stopped:
-    restart: unless-stopped
+#     #On crash - restart container, unless manually stopped:
+#     restart: unless-stopped
 
-    #Host volume for mounting Frontend development files to Frontend container
-    # volumes:
-      # - ./Frontend:/app
+#     #Host volume for mounting Frontend development files to Frontend container
+#     # volumes:
+#       # - ./Frontend:/app
 
-    #On which service we are depending on (start/stopping order):
-    depends_on:
-      - travel-backend-service
+#     #On which service we are depending on (start/stopping order):
+#     depends_on:
+#       - travel-backend-service
 
 #---------------------------------------------------------------
 
