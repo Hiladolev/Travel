@@ -7,6 +7,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 import { RootState } from "../../Redux/TravelApp";
 import Vacation from "../../Models/Vacation";
@@ -44,27 +45,33 @@ export default function TinyBarChart() {
   });
 
   return (
-    <div style={{ width: "100%", textAlign: "center" }}>
-      <BarChart
-        width={1400}
-        height={600}
-        data={data}
-        margin={{
-          top: 10,
-          right: 0,
-          left: 80,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="destination" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="followers" fill="#8884d8" />
-      </BarChart>
+    <div
+      style={{
+        WebkitBoxSizing: "border-box",
+        MozBoxSizing: "border-box",
+        boxSizing: "border-box",
+        padding: "10px",
+        width: "100%",
+        height: "400px",
+        textAlign: "center",
+        marginTop: "5%",
+      }}
+    >
+      <ResponsiveContainer>
+        <BarChart
+          data={data}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="destination" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="followers" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
 
-      <Button variant="contained">
+      <Button variant="contained" sx={{ marginTop: "2%" }}>
         <CSVLink
           data={data}
           style={{ color: "white" }}
