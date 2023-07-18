@@ -69,7 +69,8 @@ services:
       - travel-database-service
 # #---------------------------------------------------------------
 
-#   travel-frontend-service:
+# # Travel frontend service
+  travel-frontend-service:
     #Image name to create  from dockerfile:
     image: hiladolev/travel-frontend-image:1.0
 
