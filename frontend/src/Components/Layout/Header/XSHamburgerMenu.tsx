@@ -78,6 +78,7 @@ function XSHamburgerMenu(): JSX.Element {
           </Menu>
         </Box>
       )}
+      <Logo xs={displaySettings.xs} md={displaySettings.md} />
     </>
   );
 }
