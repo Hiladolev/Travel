@@ -25,7 +25,7 @@ services:
      
 
     #On crash - restart container, unless manually stopped:
-    # restart: unless-stopped
+    restart: unless-stopped
 
     #Database volumes:
     volumes:
@@ -58,7 +58,7 @@ services:
       MYSQL_PASSWORD: 12345678
 
     #On crash - restart container, unless manually stopped:
-    # restart: unless-stopped
+    restart: unless-stopped
 
     #Host bolume for mounting backend development files to backend container
     volumes:
@@ -67,9 +67,9 @@ services:
     # On which service we are depending on (starting/stopping order):
     depends_on:
       - travel-database-service
-# #---------------------------------------------------------------
+# # #---------------------------------------------------------------
 
-# # Travel frontend service
+# # # Travel frontend service
   travel-frontend-service:
     #Image name to create  from dockerfile:
     image: hiladolev/travel-frontend-image:1.0
