@@ -57,7 +57,7 @@ function Register(): JSX.Element {
                 newAccount.firstName,
                 newAccount.lastName,
                 "user",
-                response.data.insertId
+                response.data
               )
             );
           });
