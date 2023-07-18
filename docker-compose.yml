@@ -7,6 +7,8 @@ services:
     #Image name to create from DockerFile
     image: hiladolev/travel-database-image:1.0
 
+    command: --default-authentication-plugin=mysql_native_password
+
     # Build the image (if not exists) from specified Dockerfile location:
     build: ./database
 
@@ -52,7 +54,7 @@ services:
     #Environment variables needed by this service:
     environment:
       PORT: 8080
-      MYSQL_HOST:  travel-database-service #Above database service name is the host name
+      MYSQL_HOST: travel-database-service #Above database service name is the host name
       MYSQL_DATABASE: travel
       MYSQL_USER: root
       MYSQL_PASSWORD: 12345678
@@ -67,9 +69,9 @@ services:
     # On which service we are depending on (starting/stopping order):
     depends_on:
       - travel-database-service
-#---------------------------------------------------------------
+# # #---------------------------------------------------------------
 
-# NorthWind frontend service
+# # # Travel frontend service
   travel-frontend-service:
     #Image name to create  from dockerfile:
     image: hiladolev/travel-frontend-image:1.0
