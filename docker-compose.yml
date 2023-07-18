@@ -7,6 +7,8 @@ services:
     #Image name to create from DockerFile
     image: hiladolev/travel-database-image:1.0
 
+    command: --default-authentication-plugin=mysql_native_password
+
     # Build the image (if not exists) from specified Dockerfile location:
     build: ./database
 
