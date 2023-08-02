@@ -1,4 +1,9 @@
 ### Prerequisites
 
-- [![React][React.js]][React-url]
-- [![JQuery][JQuery.com]][JQuery-url]
+<ul>
+<li>React</li>
+<li>Typescript</li>
+<li>Node.js</li>
+<li>Express</li>
+<li>Docker</li>
+</ul>
