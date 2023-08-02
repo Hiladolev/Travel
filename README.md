@@ -10,6 +10,7 @@
 
 ## Installation
 
+```python
 # Clone repository
 
 git clone <Travel>
@@ -33,3 +34,4 @@ npm start
 
 cd frontend
 npm start
+```
