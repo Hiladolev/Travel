@@ -13,7 +13,7 @@
 ```python
 # Clone repository
 
-git clone <Travel>
+git clone https://github.com/Hiladolev/Travel
 
 # Install NPM packages - backend
 
