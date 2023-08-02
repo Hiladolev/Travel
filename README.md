@@ -10,7 +10,7 @@
 
 ## Installation
 
-```python
+```
 # Clone repository
 
 git clone https://github.com/Hiladolev/Travel
