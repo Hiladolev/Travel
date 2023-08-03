@@ -35,3 +35,5 @@ npm start
 cd frontend
 npm start
 ```
+
+Copyright © 2023 by <a href="https://github.com/Hiladolev" target="_blank">Hila Dolev</a>
