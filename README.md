@@ -11,18 +11,8 @@ The website is a vacation management platform with guest, user, and admin roles.
 ### Prerequisites
 
 <p align="center">
-  <a href="https://react.dev/">
-    <img src="https://skillicons.dev/icons?i=react" />
-  </a>
+    <img src="https://skillicons.dev/icons?i=react,js,nodejs,docker,express,ts" />
 </p>
-
-<ul>
-<li>React</li>
-<li>Typescript</li>
-<li>Node.js</li>
-<li>Express</li>
-<li>Docker</li>
-</ul>
 
 ## Installation
 
