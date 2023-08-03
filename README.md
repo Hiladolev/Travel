@@ -6,6 +6,8 @@ The website is a vacation management system with user roles, offering functional
 
 The website is a vacation management platform with guest, user, and admin roles. Users can browse vacations in the feed, follow, and filter them. Admins have additional options to edit and remove vacations and access reports. Navigation varies by role, creating an intuitive and comprehensive user experience.
 
+## Getting Started
+
 ### Prerequisites
 
 <ul>
