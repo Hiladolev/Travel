@@ -1,4 +1,4 @@
-# Vacations website
+# Vacations website:earth_africa:
 
 The website is a vacation management system with user roles, offering functionality to manage and view vacations.
 
@@ -9,6 +9,12 @@ The website is a vacation management platform with guest, user, and admin roles.
 ## Getting Started
 
 ### Prerequisites
+
+<p align="center">
+  <a href="https://react.dev/">
+    <img src="https://skillicons.dev/icons?i=react" />
+  </a>
+</p>
 
 <ul>
 <li>React</li>
