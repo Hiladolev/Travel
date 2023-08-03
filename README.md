@@ -1,4 +1,4 @@
-# Vacations website:earth_africa:
+# :globe_with_meridians: Vacations website
 
 The website is a vacation management system with user roles, offering functionality to manage and view vacations.
 
