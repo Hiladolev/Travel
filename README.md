@@ -3,7 +3,7 @@
 The website is a vacation management system with user roles, offering functionality to manage and view vacations.
 
 <p align="center">
-  <img src="./frontend/images/vacations-feed.png" alt="Size Limit CLI" width="738">
+  <img src="./frontend/images/vacations-feed.png" alt="Size Limit CLI" width="497">
 </p>
 
 ## Description
