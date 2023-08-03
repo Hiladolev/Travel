@@ -1,6 +1,10 @@
 # Vacations website
 
-Vacation management system with user and admin roles, enabling users to browse and follow vacations, and admins to add, edit, and monitor vacation listings.
+The website is a vacation management system with user roles, offering functionality to manage and view vacations.
+
+## Description
+
+The website is a vacation management platform with guest, user, and admin roles. Users can browse vacations in the feed, follow, and filter them. Admins have additional options to edit and remove vacations and access reports. Navigation varies by role, creating an intuitive and comprehensive user experience.
 
 ### Prerequisites
 
