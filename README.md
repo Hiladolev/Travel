@@ -10,7 +10,7 @@ The website is a vacation management platform with guest, user, and admin roles.
 
 ### Prerequisites
 
-<p align="center">
+<p>
     <img src="https://skillicons.dev/icons?i=react,js,nodejs,docker,express,ts" />
 </p>
 
