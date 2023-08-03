@@ -14,6 +14,10 @@ The website is a vacation management platform with guest, user, and admin roles.
     <img src="https://skillicons.dev/icons?i=react,js,nodejs,docker,express,ts" />
 </p>
 
+## License
+
+MIT License.
+
 ## Installation
 
 ```python
@@ -41,9 +45,5 @@ npm start
 cd frontend
 npm start
 ```
-
-## License
-
-MIT License.
 
 Copyright © 2023 by <a href="https://github.com/Hiladolev" target="_blank">Hila Dolev</a>
