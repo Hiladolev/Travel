@@ -1,3 +1,7 @@
+# Vacations website
+
+Vacation management system with user and admin roles, enabling users to browse and follow vacations, and admins to add, edit, and monitor vacation listings.
+
 ### Prerequisites
 
 <ul>
