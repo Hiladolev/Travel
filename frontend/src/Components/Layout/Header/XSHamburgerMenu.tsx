@@ -4,7 +4,7 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
-import Logo from "./Logo";
+import Logo from "./LogoButton";
 
 const adminPages = ["add", "reports"];
 const displaySettings = {

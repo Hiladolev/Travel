@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import "mdb-ui-kit/css/mdb.min.css";
 import AdminNavLinks from "./AdminNavLinks/AdminNavLinks";
 import UserMenu from "./UserMenu";
-import Logo from "./Logo";
+import Logo from "./LogoButton";
 import WelcomeMessage from "./WelcomeMessage";
 import XSHamburgerMenu from "./XSHamburgerMenu";
 
