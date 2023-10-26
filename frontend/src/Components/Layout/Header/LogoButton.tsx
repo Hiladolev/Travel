@@ -2,7 +2,6 @@ import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
-import LuggageIcon from "@mui/icons-material/Luggage";
 
 interface DisplaySettingsProps {
   xs: string;
