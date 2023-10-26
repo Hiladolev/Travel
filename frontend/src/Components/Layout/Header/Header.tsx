@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import { RootState } from "../../Redux/TravelApp";
 import { useSelector } from "react-redux";
 import "mdb-ui-kit/css/mdb.min.css";
-import AdminNavLinks from "./AdminNavLinks";
+import AdminNavLinks from "./AdminNavLinks/AdminNavLinks";
 import UserMenu from "./UserMenu";
 import Logo from "./Logo";
 import WelcomeMessage from "./WelcomeMessage";

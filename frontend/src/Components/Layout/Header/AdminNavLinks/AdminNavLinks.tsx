@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import SingleNavLink from "./SingleNavLink";
+import SingleNavLink from "./SingleNavLink/SingleNavLink";
 
 const adminPages = ["Add", "Reports"];
 
