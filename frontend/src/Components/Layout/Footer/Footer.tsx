@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Copyright from "./Copyright";
+import Copyright from "./Copyright/Copyright";
 
 export default function Footer() {
   return (
