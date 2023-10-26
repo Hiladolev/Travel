@@ -13,17 +13,8 @@ function Logo(props: DisplaySettingsProps): JSX.Element {
     (state: RootState) => state.users.currentUser
   );
   const status = currentUser?.role;
-  let homePage = "";
-  switch (status) {
-    case "admin":
-      homePage = "/";
-      break;
-    case "user":
-      homePage = "/";
-      break;
-    default:
-      homePage = "/login";
-  }
+  let homePage = "/login";
+  homePage = !!status && "/";
   return (
     <>
       <LuggageIcon sx={{ display: { xs: props.xs, md: props.md }, mr: 1 }} />
