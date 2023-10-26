@@ -8,7 +8,7 @@ import AdminNavLinks from "./AdminNavLinks/AdminNavLinks";
 import LogoutAvatar from "./LogoutAvatar";
 import Logo from "./LogoButton";
 import WelcomeMessage from "./WelcomeMessage";
-import XSHamburgerMenu from "./XSHamburgerMenu";
+import HamburgerMenu from "./HamburgerMenu";
 
 const displaySettings = {
   xs: "none",
@@ -26,7 +26,7 @@ function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo xs={displaySettings.xs} md={displaySettings.md} />
-          <XSHamburgerMenu />
+          <HamburgerMenu />
           {status === "admin" && <AdminNavLinks />}
           {currentUser && (
             <>

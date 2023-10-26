@@ -11,7 +11,7 @@ const displaySettings = {
   xs: "flex",
   md: "none",
 };
-function XSHamburgerMenu(): JSX.Element {
+function HamburgerMenu(): JSX.Element {
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
@@ -83,4 +83,4 @@ function XSHamburgerMenu(): JSX.Element {
   );
 }
 
-export default XSHamburgerMenu;
+export default HamburgerMenu;
