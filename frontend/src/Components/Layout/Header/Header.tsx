@@ -5,7 +5,7 @@ import { RootState } from "../../Redux/TravelApp";
 import { useSelector } from "react-redux";
 import "mdb-ui-kit/css/mdb.min.css";
 import AdminNavLinks from "./AdminNavLinks/AdminNavLinks";
-import UserMenu from "./UserMenu";
+import LogoutAvatar from "./LogoutAvatar";
 import Logo from "./LogoButton";
 import WelcomeMessage from "./WelcomeMessage";
 import XSHamburgerMenu from "./XSHamburgerMenu";
@@ -31,7 +31,7 @@ function Header() {
           {currentUser && (
             <>
               <WelcomeMessage />
-              <UserMenu />
+              <LogoutAvatar />
             </>
           )}
         </Toolbar>

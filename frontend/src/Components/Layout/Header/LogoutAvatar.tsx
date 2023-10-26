@@ -13,7 +13,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../Redux/TravelApp";
 
-function UserMenu(): JSX.Element {
+function LogoutAvatar(): JSX.Element {
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
@@ -70,4 +70,4 @@ function UserMenu(): JSX.Element {
   );
 }
 
-export default UserMenu;
+export default LogoutAvatar;
