@@ -17,7 +17,6 @@ function Logo(props: DisplaySettingsProps): JSX.Element {
   homePage = !!status && "/";
   return (
     <>
-      <LuggageIcon sx={{ display: { xs: props.xs, md: props.md }, mr: 1 }} />
       <Link to={homePage} replace>
         <Typography
           variant="h6"
@@ -25,7 +24,10 @@ function Logo(props: DisplaySettingsProps): JSX.Element {
           sx={{
             mr: 2,
             display: { xs: props.xs, md: props.md },
-            fontFamily: "monospace",
+            fontFamily: ["Caveat", "cursive"],
+            border: "2px solid white",
+            borderRadius: "2px",
+            borderInline: "4.5em",
             fontWeight: 700,
             letterSpacing: ".3rem",
             color: "white",
