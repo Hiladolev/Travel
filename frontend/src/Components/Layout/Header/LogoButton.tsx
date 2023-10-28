@@ -12,8 +12,7 @@ function Logo(props: DisplaySettingsProps): JSX.Element {
     (state: RootState) => state.users.currentUser
   );
   const status = currentUser?.role;
-  let homePage = "/login";
-  homePage = !!status && "/";
+  let homePage = !!status ? "/" : "/login";
   return (
     <>
       <Link to={homePage} replace>
