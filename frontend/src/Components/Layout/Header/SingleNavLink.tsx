@@ -14,6 +14,7 @@ function SingleNavLink(props: NavLinkProps): JSX.Element {
           my: 3,
           color: "white",
           display: "block",
+          textTransform: "none",
         }}
       >
         {props.path}
