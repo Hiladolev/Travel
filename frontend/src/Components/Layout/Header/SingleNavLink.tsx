@@ -15,6 +15,9 @@ function SingleNavLink(props: NavLinkProps): JSX.Element {
           color: "white",
           display: "block",
           textTransform: "none",
+          border: "2px solid white",
+          borderRadius: "30px",
+          padding: "10px 22px",
         }}
       >
         {props.path}
