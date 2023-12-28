@@ -22,17 +22,23 @@ function Header() {
   const status = currentUser?.role;
 
   return (
-    <AppBar position="static" sx={{ paddingInlineStart: "4.5%" }}>
+    <AppBar position="static" sx={{ paddingInlineStart: "5.5%" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo xs={displaySettings.xs} md={displaySettings.md} />
           <XSHamburgerMenu />
           {status === "admin" && <AdminNavLinks />}
           {currentUser && (
-            <>
+            <aside
+              style={{
+                display: "flex",
+                marginBlock: "auto",
+                marginInlineStart: "57%",
+              }}
+            >
               <WelcomeMessage />
               <UserMenu />
-            </>
+            </aside>
           )}
         </Toolbar>
       </Container>
