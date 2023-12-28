@@ -17,7 +17,7 @@ export function VacationFilters({
       variant="contained"
       size="medium"
       aria-label="medium  button group"
-      sx={{ mb: 3, ml: 3 }}
+      sx={{ display: "flex", justifyContent: "center", boxShadow: "none" }}
     >
       <Button onClick={handleFutureVacations}>Future Vacations</Button>
       <Button onClick={handleActiveVacations}>Active</Button>
