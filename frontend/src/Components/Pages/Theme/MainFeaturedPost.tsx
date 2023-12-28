@@ -4,6 +4,9 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
+import { blue } from "@mui/material/colors";
+
+const color = blue[700];
 
 interface MainFeaturedPostProps {
   post: {
@@ -22,16 +25,15 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
     <Paper
       sx={{
         position: "relative",
-        backgroundColor: "grey.800",
+        backgroundColor: color,
         color: "#fff",
         mb: 3,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        backgroundImage: `url(${post.image})`,
+        // backgroundImage: `url(${post.image})`,
       }}
     >
-      {/* Increase the priority of the hero background image */}
       {
         <img
           style={{ display: "none" }}
@@ -46,7 +48,6 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
           bottom: 0,
           right: 0,
           left: 0,
-          backgroundColor: "rgba(0,0,0,.3)",
         }}
       />
       <Grid container>
@@ -56,6 +57,7 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
               position: "relative",
               p: { xs: 3, md: 6 },
               pr: { md: 0 },
+              marginInlineStart: "45px",
             }}
           >
             <Typography
@@ -63,13 +65,22 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
               variant="h3"
               color="inherit"
               gutterBottom
+              sx={{ fontFamily: "Open Sans" }}
             >
               {post.title}
             </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
+            <Typography
+              color="inherit"
+              paragraph
+              sx={{ fontFamily: "sans-serif" }}
+            >
               {post.description}
             </Typography>
-            <Link variant="subtitle1" href="https://github.com/Hiladolev">
+            <Link
+              variant="subtitle1"
+              color="inherit"
+              href="https://github.com/Hiladolev"
+            >
               {post.linkText}
             </Link>
           </Box>

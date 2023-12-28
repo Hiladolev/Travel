@@ -2,9 +2,9 @@ import AllVacations from "../AllVacations/AllVacations";
 import MainFeaturedPost from "../Theme/MainFeaturedPost";
 
 const mainFeaturedPost = {
-  title: "Paradise Seekers",
+  title: "Explore your next offer",
   description:
-    "Escape to a world of breathtaking beauty and unforgettable adventures with our exclusive vacation experiences.",
+    "Find resorts, accommodations, and a wealth of travel options...",
   image:
     "https://cdn.pixabay.com/photo/2018/03/15/10/40/panoramic-3227796_1280.jpg",
   imageText: "main image description",
