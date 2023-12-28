@@ -2,7 +2,6 @@ import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
-import LuggageIcon from "@mui/icons-material/Luggage";
 
 interface DisplaySettingsProps {
   xs: string;
@@ -26,7 +25,6 @@ function Logo(props: DisplaySettingsProps): JSX.Element {
   }
   return (
     <>
-      <LuggageIcon sx={{ display: { xs: props.xs, md: props.md }, mr: 1 }} />
       <Link to={homePage} replace>
         <Typography
           variant="h6"
@@ -34,9 +32,8 @@ function Logo(props: DisplaySettingsProps): JSX.Element {
           sx={{
             mr: 2,
             display: { xs: props.xs, md: props.md },
-            fontFamily: "monospace",
+            fontFamily: "open sans",
             fontWeight: 700,
-            letterSpacing: ".3rem",
             color: "white",
             textDecoration: "none",
           }}
