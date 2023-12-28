@@ -10,8 +10,8 @@ function WelcomeMessage(): JSX.Element {
     <Typography
       color="inherit"
       paragraph
-      sx={{ fontFamily: "sans-serif" }}
-      marginTop={"1.3%"}
+      sx={{ fontFamily: "sans-serif", marginBlockEnd: "1%" }}
+      marginTop={"4.5%"}
     >
       Welcome,
       {` ${currentUser.firstName} ${currentUser.lastName}  `}
