@@ -24,7 +24,10 @@ function Header() {
   return (
     <AppBar position="static">
       <Container maxWidth="lg">
-        <Toolbar disableGutters>
+        <Toolbar
+          disableGutters
+          sx={{ borderBottom: 1, borderColor: "divider" }}
+        >
           <Logo xs={displaySettings.xs} md={displaySettings.md} />
           <XSHamburgerMenu />
           {status === "admin" && <AdminNavLinks />}
