@@ -22,7 +22,7 @@ interface MainFeaturedPostProps {
 export default function MainFeaturedPost(props: MainFeaturedPostProps) {
   const { post } = props;
   const theme = useTheme() as Theme;
-  const isXs = useMediaQuery(theme.breakpoints.down("md"));
+  const isXs = useMediaQuery(theme.breakpoints.down("xs"));
   const variant = isXs ? "h4" : "h3";
   const textAlignCenter = isXs ? "center" : "start";
 
@@ -56,10 +56,12 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
         }}
       />
       <Grid container>
-        <Grid>
+        <Grid sx={{ paddingInline: { xl: "11.5%" } }}>
           <Box
             sx={{
               p: { md: 1 },
+              paddingLeft: "24px",
+              paddingRight: "24px",
               paddingBlockStart: { xs: 4 },
               display: isXs ? "flex" : "block",
               flexDirection: isXs ? "column" : "initial",
