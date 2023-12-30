@@ -29,7 +29,6 @@ function Header() {
           sx={{ borderBottom: 1, borderColor: "divider" }}
         >
           <Logo xs={displaySettings.xs} md={displaySettings.md} />
-          <XSHamburgerMenu />
           {status === "admin" && <AdminNavLinks />}
           {currentUser && (
             <aside
@@ -42,6 +41,7 @@ function Header() {
               <UserMenu />
             </aside>
           )}
+          <XSHamburgerMenu />
         </Toolbar>
       </Container>
     </AppBar>
