@@ -33,7 +33,6 @@ function Header() {
               style={{
                 display: "flex",
                 marginBlock: "auto",
-                marginInlineStart: "57%",
               }}
             >
               <WelcomeMessage />
