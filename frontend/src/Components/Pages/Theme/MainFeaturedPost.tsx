@@ -65,9 +65,10 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
               paddingLeft: "24px",
               paddingRight: "24px",
               paddingBlockStart: { xs: 4 },
-              display: isXs ? "flex" : "block",
-              flexDirection: isXs ? "column" : "initial",
-              alignItems: isXs ? "center" : "normal",
+              position: "relative",
+              display: isXs && "flex",
+              flexDirection: isXs && "column",
+              alignItems: isXs && "center",
             }}
           >
             <Typography
