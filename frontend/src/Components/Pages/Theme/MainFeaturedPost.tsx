@@ -56,8 +56,6 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
             sx={{
               position: "relative",
               p: { xs: 3, md: 6 },
-              pr: { md: 0 },
-              marginInlineStart: "45px",
             }}
           >
             <Typography
