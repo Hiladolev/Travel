@@ -36,6 +36,8 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
+        borderRadius: 0,
+        boxShadow: "none",
         // backgroundImage: `url(${post.image})`,
       }}
     >
