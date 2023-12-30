@@ -1,10 +1,11 @@
-import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { blue } from "@mui/material/colors";
+import { useTheme, Theme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const color = blue[700];
 
@@ -20,6 +21,10 @@ interface MainFeaturedPostProps {
 
 export default function MainFeaturedPost(props: MainFeaturedPostProps) {
   const { post } = props;
+  const theme = useTheme() as Theme;
+  const isXs = useMediaQuery(theme.breakpoints.down("md"));
+  const variant = isXs ? "h4" : "h3";
+  const textAlignCenter = isXs ? "center" : "start";
 
   return (
     <Paper
@@ -51,16 +56,19 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
         }}
       />
       <Grid container>
-        <Grid item md={6}>
+        <Grid>
           <Box
             sx={{
-              position: "relative",
-              p: { xs: 3, md: 6 },
+              p: { md: 1 },
+              paddingBlockStart: { xs: 4 },
+              display: isXs ? "flex" : "block",
+              flexDirection: isXs ? "column" : "initial",
+              alignItems: isXs ? "center" : "normal",
             }}
           >
             <Typography
               component="h1"
-              variant="h3"
+              variant={variant}
               color="inherit"
               gutterBottom
               sx={{ fontFamily: "Open Sans" }}
@@ -70,7 +78,10 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
             <Typography
               color="inherit"
               paragraph
-              sx={{ fontFamily: "sans-serif" }}
+              sx={{
+                fontFamily: "sans-serif",
+                textAlign: textAlignCenter,
+              }}
             >
               {post.description}
             </Typography>
