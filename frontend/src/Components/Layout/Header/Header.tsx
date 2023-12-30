@@ -9,6 +9,8 @@ import UserMenu from "./UserMenu";
 import Logo from "./Logo";
 import WelcomeMessage from "./WelcomeMessage";
 import XSHamburgerMenu from "./XSHamburgerMenu";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme, Theme } from "@mui/material/styles";
 
 const displaySettings = {
   xs: "none",
@@ -20,10 +22,13 @@ function Header() {
     (state: RootState) => state.users.currentUser
   );
   const status = currentUser?.role;
+  const theme = useTheme() as Theme;
+  const isXl = useMediaQuery(theme.breakpoints.up("xl"));
+  const headerWidth = isXl ? "lg" : false;
 
   return (
     <AppBar position="static">
-      <Container maxWidth="lg">
+      <Container maxWidth={headerWidth}>
         <Toolbar
           disableGutters
           sx={{ borderBottom: 1, borderColor: "divider" }}
