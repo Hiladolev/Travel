@@ -10,7 +10,6 @@ function MainLayout(): JSX.Element {
       <main
         style={{
           flexGrow: 1,
-          overflow: "auto",
           display: "flex",
           flexDirection: "column",
         }}
