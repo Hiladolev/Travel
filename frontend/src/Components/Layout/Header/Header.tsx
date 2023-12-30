@@ -22,7 +22,7 @@ function Header() {
   const status = currentUser?.role;
 
   return (
-    <AppBar position="static" sx={{ paddingInlineStart: "5.5%" }}>
+    <AppBar position="static">
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Logo xs={displaySettings.xs} md={displaySettings.md} />
