@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
@@ -26,20 +26,22 @@ function Logo(props: DisplaySettingsProps): JSX.Element {
   return (
     <>
       <Link to={homePage} replace>
-        <Typography
-          variant="h6"
-          noWrap
-          sx={{
-            mr: 2,
-            display: { xs: props.xs, md: props.md },
-            fontFamily: "open sans",
-            fontWeight: 700,
-            color: "white",
-            textDecoration: "none",
-          }}
-        >
-          Paradise Seekers
-        </Typography>
+        <IconButton size="large" aria-label="home page">
+          <Typography
+            variant="h6"
+            noWrap
+            sx={{
+              mr: 2,
+              display: { xs: props.xs, md: props.md },
+              fontFamily: "open sans",
+              fontWeight: 700,
+              color: "white",
+              textDecoration: "none",
+            }}
+          >
+            Paradise Seekers
+          </Typography>
+        </IconButton>
       </Link>
     </>
   );
