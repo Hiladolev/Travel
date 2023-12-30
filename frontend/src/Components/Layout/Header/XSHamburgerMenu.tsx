@@ -5,6 +5,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/TravelApp";
 import Logo from "./Logo";
+import { useTheme, Theme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const adminPages = ["add", "reports"];
 const displaySettings = {
@@ -12,6 +14,9 @@ const displaySettings = {
   md: "none",
 };
 function XSHamburgerMenu(): JSX.Element {
+  const theme = useTheme() as Theme;
+  const isMd = useMediaQuery(theme.breakpoints.up("md"));
+  const displayHamburger = isMd ? "none" : "inline-block";
   const currentUser = useSelector(
     (state: RootState) => state.users.currentUser
   );
@@ -31,7 +36,7 @@ function XSHamburgerMenu(): JSX.Element {
       {status === "admin" && (
         <Box
           sx={{
-            display: displaySettings,
+            display: displayHamburger,
           }}
         >
           <IconButton
