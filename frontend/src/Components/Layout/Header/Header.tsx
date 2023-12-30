@@ -41,7 +41,7 @@ function Header() {
               <UserMenu />
             </aside>
           )}
-          <XSHamburgerMenu />
+          {status === "admin" && <XSHamburgerMenu />}
         </Toolbar>
       </Container>
     </AppBar>
