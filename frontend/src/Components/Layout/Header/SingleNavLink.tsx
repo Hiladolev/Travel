@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 interface NavLinkProps {
@@ -8,20 +8,20 @@ interface NavLinkProps {
 function SingleNavLink(props: NavLinkProps): JSX.Element {
   return (
     <Link to={`/${props.path}`} replace>
-      <Typography
-        variant="button"
-        sx={{
-          my: 3,
-          color: "white",
-          display: "block",
-          textTransform: "none",
-          border: "2px solid white",
-          borderRadius: "30px",
-          padding: "10px 22px",
-        }}
-      >
-        {props.path}
-      </Typography>
+      <IconButton edge="end" size="small" aria-label="nav link">
+        <Typography
+          variant="button"
+          sx={{
+            color: "white",
+            display: "block",
+            textTransform: "none",
+            borderRadius: "50%",
+            padding: "10px 22px",
+          }}
+        >
+          {props.path}
+        </Typography>
+      </IconButton>
     </Link>
   );
 }
