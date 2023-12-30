@@ -23,7 +23,7 @@ function Header() {
 
   return (
     <AppBar position="static" sx={{ paddingInlineStart: "5.5%" }}>
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Logo xs={displaySettings.xs} md={displaySettings.md} />
           <XSHamburgerMenu />
