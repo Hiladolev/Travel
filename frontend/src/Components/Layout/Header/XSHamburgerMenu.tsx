@@ -32,59 +32,54 @@ function XSHamburgerMenu(): JSX.Element {
   };
 
   return (
-    <>
-      {status === "admin" && (
-        <Box
-          sx={{
-            display: displayHamburger,
-          }}
-        >
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenNavMenu}
-            color="inherit"
+    <Box
+      sx={{
+        display: displayHamburger,
+      }}
+    >
+      <IconButton
+        size="large"
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
+        onClick={handleOpenNavMenu}
+        color="inherit"
+      >
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorElNav}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        open={Boolean(anchorElNav)}
+        onClose={handleCloseNavMenu}
+        sx={{
+          display: { xs: "block", md: "none" },
+        }}
+      >
+        {adminPages.map((page) => (
+          <MenuItem
+            style={{ textTransform: "capitalize" }}
+            key={page}
+            onClick={handleCloseNavMenu}
           >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
-            sx={{
-              display: { xs: "block", md: "none" },
-            }}
-          >
-            {adminPages.map((page) => (
-              <MenuItem
-                style={{ textTransform: "capitalize" }}
-                key={page}
-                onClick={handleCloseNavMenu}
-              >
-                <Link to={`/${page}`} replace>
-                  <Typography textAlign="center" color={"black"}>
-                    {page}
-                  </Typography>
-                </Link>
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
-      )}
-      <Logo xs={displaySettings.xs} md={displaySettings.md} />
-    </>
+            <Link to={`/${page}`} replace>
+              <Typography textAlign="center" color={"black"}>
+                {page}
+              </Typography>
+            </Link>
+          </MenuItem>
+        ))}
+      </Menu>
+    </Box>
   );
 }
 
