@@ -31,12 +31,12 @@ function Logo(props: DisplaySettingsProps): JSX.Element {
             variant="h6"
             noWrap
             sx={{
-              mr: 2,
               display: { xs: props.xs, md: props.md },
               fontFamily: "open sans",
               fontWeight: 700,
               color: "white",
               textDecoration: "none",
+              padding: "10px 22px",
             }}
           >
             Paradise Seekers
